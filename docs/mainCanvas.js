@@ -1,15 +1,16 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 
 const initThreeCanvas = (hands) => {
   let scene;
-  let skyMap;
   let camera;
   let renderer;
   let handLandmarks = [];
   let clock = new THREE.Clock();
-  let composer;
+  const loader = new GLTFLoader();
   let gltfObjs = [];
+  let composer;
 
   const setHandLandmarks = () => {
     if (hands.data.length > 0) {
@@ -40,14 +41,12 @@ const initThreeCanvas = (hands) => {
 
   const loadPlane = () => {
     const planeMaterial = new THREE.MeshPhysicalMaterial({
-      envMap: skyMap,
       color: 0xdddddd,
       metalness: 0,
       roughness: 0,
       opacity: 1,
       side: THREE.DoubleSide,
       transparent: false,
-      envMapIntensity: 3,
       premultipliedAlpha: true,
     });
     const geometry = new THREE.PlaneBufferGeometry(1, 1);
@@ -65,21 +64,12 @@ const initThreeCanvas = (hands) => {
   };
 
   const loadGltf = (filePath) => {
-    const loader = new GLTFLoader();
     loader.load(filePath, (gltf) => {
       const mixer = new THREE.AnimationMixer(gltf.scene);
       for (const anim of gltf.animations) {
         mixer.clipAction(anim).play();
       }
       gltfObjs.push({ gltf, mixer });
-      // gltf.scene.traverse((child) => {
-      //   if (child instanceof THREE.Mesh) {
-      //     console.log("here");
-      //     console.log(JSON.stringify(child.material.envMap));
-
-      //     child.material.envMap = skyMap;
-      //   }
-      // });
       scene.add(gltf.scene);
     });
   };
@@ -98,26 +88,25 @@ const initThreeCanvas = (hands) => {
 
   const initScene = () => {
     scene = new THREE.Scene();
-    const skyMapImages = "img/dark-s_";
-    const urls = [
-      skyMapImages + "px.jpg",
-      skyMapImages + "nx.jpg",
-      skyMapImages + "py.jpg",
-      skyMapImages + "ny.jpg",
-      skyMapImages + "pz.jpg",
-      skyMapImages + "nz.jpg",
-    ];
-    skyMap = new THREE.CubeTextureLoader().load(urls);
-    skyMap.mapping = THREE.CubeRefractionMapping;
+    let pmremGenerator = new THREE.PMREMGenerator(renderer);
+
+    new RGBELoader()
+      .setDataType(THREE.UnsignedByteType)
+      .load("img/royal_esplanade_1k.hdr", (hdrEquirect) => {
+        let hdrCubeRenderTarget = pmremGenerator.fromEquirectangular(
+          hdrEquirect
+        );
+        hdrEquirect.dispose();
+        pmremGenerator.dispose();
+
+        // scene.background = hdrCubeRenderTarget.texture;
+        scene.environment = hdrCubeRenderTarget.texture;
+      });
+
+    pmremGenerator.compileEquirectangularShader();
   };
 
   const addLights = () => {
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 10);
-    hemiLight.color.setHSL(0.6, 1, 0.6);
-    hemiLight.groundColor.setHSL(0.095, 1, 0.75);
-    hemiLight.position.set(0, 50, 0);
-    scene.add(hemiLight);
-
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
     directionalLight.position.set(0, 5, 10);
     scene.add(directionalLight);
@@ -165,8 +154,8 @@ const initThreeCanvas = (hands) => {
     });
   };
 
-  initScene();
   initAndAttachCanvas();
+  initScene();
   addCamera();
   loadPlane();
   addLights();
