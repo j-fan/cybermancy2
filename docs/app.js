@@ -5,7 +5,7 @@ import initThreeCanvas from "./mainCanvas";
 const initAll = async () => {
   let hands = { data: [] };
   await initCamera();
-  // await initHandposeDetection(hands);
+  await initHandposeDetection(hands);
   initThreeCanvas(hands);
 };
 

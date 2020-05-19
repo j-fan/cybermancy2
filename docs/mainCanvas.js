@@ -139,7 +139,7 @@ const initThreeCanvas = (hands) => {
 
   const initAndAttachCanvas = () => {
     const selfHtmlNode = document.getElementById("mainCanvas");
-    renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     selfHtmlNode.appendChild(renderer.domElement);
     renderer.setSize(selfHtmlNode.clientWidth, selfHtmlNode.clientHeight);
     renderer.shadowMap.enabled = true;
@@ -160,7 +160,7 @@ const initThreeCanvas = (hands) => {
   loadPlane();
   addLights();
   // addPostProcessing();
-  loadGltf("resources/origin.gltf");
+  loadGltf("resources/origin.glb");
 
   const animate = () => {
     renderer.render(scene, camera);
