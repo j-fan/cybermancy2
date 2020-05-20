@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import { SpriteText2D, textAlign } from "three-text2d";
 
 const initThreeCanvas = (hands) => {
   let scene;
@@ -11,6 +12,18 @@ const initThreeCanvas = (hands) => {
   const loader = new GLTFLoader();
   let gltfObjs = [];
   let composer;
+
+  const setSpriteTexts = () => {
+    const myText = new SpriteText2D("SPRITE", {
+      align: textAlign.center,
+      font: "40px Helvetica",
+      fillStyle: "#000000",
+      antialias: true,
+    });
+    myText.position.z = -5;
+    myText.scale.set(0.04, 0.04, 0.04);
+    scene.add(myText);
+  };
 
   const setHandLandmarks = () => {
     if (hands.data.length > 0) {
@@ -161,6 +174,7 @@ const initThreeCanvas = (hands) => {
   addLights();
   // addPostProcessing();
   loadGltf("resources/origin.glb");
+  setSpriteTexts();
 
   const animate = () => {
     renderer.render(scene, camera);
