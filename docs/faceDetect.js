@@ -1,5 +1,19 @@
 import * as faceApi from "face-api.js";
 
+function setIntervalCount(callback, delay, repetitions) {
+  let count = 0;
+  const intervalID = window.setInterval(function () {
+    count++;
+    callback(count);
+    if (count === repetitions) {
+      window.clearInterval(intervalID);
+    }
+  }, delay);
+}
+
+let estimatedGender = null;
+let estimatedAge = 0;
+
 const initFaceDetect = async () => {
   const videoElement = document.getElementById("webcam-video");
 
@@ -14,17 +28,28 @@ const initFaceDetect = async () => {
     scoreThreshold,
   });
 
-  console.log("load age gender");
+  console.log("tinyface loaded");
 
-  const runDetection = async () => {
+  let femaleFaceCount = 0;
+  let totalAge = 0;
+  const timesToRunDetection = 50;
+
+  const runDetection = async (count) => {
     const result = await faceApi
       .detectSingleFace(videoElement, detector)
       .withAgeAndGender();
+    if (result) {
+      if (result.gender === "female") {
+        femaleFaceCount++;
+      }
+      totalAge += result.age;
+    }
 
+    estimatedAge = totalAge / count;
+    estimatedGender = femaleFaceCount > count / 2 ? "female" : "male";
     console.log(result);
-    requestAnimationFrame(runDetection);
   };
-  runDetection();
+  setIntervalCount(runDetection, 1, timesToRunDetection);
 };
 
-export default initFaceDetect;
+export { initFaceDetect, estimatedAge, estimatedGender };

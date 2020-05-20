@@ -1,7 +1,7 @@
 import initCamera from "./webcam";
 import initHandposeDetection from "./handpose";
 import initThreeCanvas from "./mainCanvas";
-import initFaceDetect from "./faceDetect";
+import { initFaceDetect } from "./faceDetect";
 
 const initAll = async () => {
   let hands = { data: [] };
