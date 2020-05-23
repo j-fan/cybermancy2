@@ -93,13 +93,14 @@ const initThreeCanvas = (hands) => {
 
   const resizeCanvasToDisplaySize = () => {
     const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     if (canvas.width !== width || canvas.height !== height) {
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      canvas.style.width = window.innerWidth;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
   };
 
@@ -179,6 +180,7 @@ const initThreeCanvas = (hands) => {
   // addPostProcessing();
   loadGltf("resources/origin.glb");
   createText("loading...");
+  resizeCanvasToDisplaySize();
 
   let threejsLoaded = false;
 
