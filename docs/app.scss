@@ -1,0 +1,101 @@
+@keyframes antiClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes clockwise {
+  from {
+    transform: rotate(359deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+#mainCanvas {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#webcam-video {
+  background-color: #ddd;
+  width: 100%;
+  height: 100%;
+}
+
+#loadingScreen {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: #333;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .circle1,
+  .circle2a,
+  .circle2b,
+  .circle2c,
+  .circle2d,
+  .circle3 {
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .circle1 {
+    animation: antiClockwise 20s infinite linear;
+    background-image: url(img/circle1.png);
+    width: 80%;
+    height: 80%;
+  }
+  .circle2a,
+  .circle2b,
+  .circle2c,
+  .circle2d {
+    width: 60%;
+    height: 60%;
+  }
+
+  .circle2a {
+    background-image: url(img/circle2a.png);
+    animation: clockwise 40s infinite linear;
+  }
+  .circle2b {
+    background-image: url(img/circle2b.png);
+    animation: antiClockwise 30s infinite linear;
+  }
+  .circle2c {
+    background-image: url(img/circle2c.png);
+    animation: clockwise 20s infinite linear;
+  }
+  .circle2d {
+    background-image: url(img/circle2d.png);
+    animation: antiClockwise 10s infinite linear;
+  }
+  .circle3 {
+    background-image: url(img/circle3.png);
+    animation: clockwise 80s infinite linear;
+    width: 90%;
+    height: 90%;
+  }
+}
