@@ -13,27 +13,28 @@ function setIntervalCount(callback, delay, repetitions) {
 
 let estimatedGender = null;
 let estimatedAge = 0;
+let detector;
 
 const initFaceDetect = async () => {
-  const videoElement = document.getElementById("webcam-video");
-
   await faceApi.nets.tinyFaceDetector.loadFromUri("/models");
   await faceApi.nets.ageGenderNet.loadFromUri("/models");
 
   // tiny_face_detector options
   let inputSize = 512;
   let scoreThreshold = 0.5;
-  const detector = await new faceApi.TinyFaceDetectorOptions({
+  detector = await new faceApi.TinyFaceDetectorOptions({
     inputSize,
     scoreThreshold,
   });
 
   console.log("tinyface loaded");
+};
 
+const runFaceDetect = () => {
+  const videoElement = document.getElementById("webcam-video");
   let femaleFaceCount = 0;
   let totalAge = 0;
-  const timesToRunDetection = 50;
-
+  const timesToRunDetection = 20;
   const runDetection = async (count) => {
     const result = await faceApi
       .detectSingleFace(videoElement, detector)
@@ -52,4 +53,4 @@ const initFaceDetect = async () => {
   setIntervalCount(runDetection, 1, timesToRunDetection);
 };
 
-export { initFaceDetect, estimatedAge, estimatedGender };
+export { initFaceDetect, runFaceDetect, estimatedAge, estimatedGender };

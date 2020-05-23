@@ -11,10 +11,11 @@ const initThreeCanvas = (hands) => {
   let clock = new THREE.Clock();
   const loader = new GLTFLoader();
   let gltfObjs = [];
+  let texts = [];
   let composer;
 
-  const setSpriteTexts = () => {
-    const myText = new SpriteText2D("SPRITE", {
+  const createText = (text) => {
+    const myText = new SpriteText2D(text, {
       align: textAlign.center,
       font: "40px Helvetica",
       fillStyle: "#000000",
@@ -23,15 +24,18 @@ const initThreeCanvas = (hands) => {
     myText.position.z = -5;
     myText.scale.set(0.04, 0.04, 0.04);
     scene.add(myText);
+    texts.push(myText);
   };
 
   const setHandLandmarks = () => {
     if (hands.data.length > 0) {
+      texts[0].text = `hands: ${hands.data.length}`;
       hands.data[0].landmarks.forEach((landmark, index) => {
-        // console.log(landmark);
         handLandmarks[index].position.x = landmark[0] * 0.01;
         handLandmarks[index].position.y = landmark[1] * 0.01;
       });
+    } else {
+      texts[0].text = "hands: 0";
     }
   };
 
@@ -174,7 +178,9 @@ const initThreeCanvas = (hands) => {
   addLights();
   // addPostProcessing();
   loadGltf("resources/origin.glb");
-  setSpriteTexts();
+  createText("loading...");
+
+  let threejsLoaded = false;
 
   const animate = () => {
     renderer.render(scene, camera);
@@ -182,6 +188,11 @@ const initThreeCanvas = (hands) => {
     // composer.render(clock.getDelta());
     gltfObjs.forEach((obj) => {
       obj.mixer.update(clock.getDelta());
+      if (!threejsLoaded) {
+        console.log("three js loaded!");
+        threejsLoaded = true;
+        texts[0].text = "threejs loaded";
+      }
     });
     requestAnimationFrame(animate);
   };

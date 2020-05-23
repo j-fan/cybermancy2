@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel docs/index.html",
+    "start": "parcel serve docs/index.html",
+    "local": "parcel serve docs/index.html --host 192.168.20.6 --https",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
