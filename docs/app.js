@@ -13,4 +13,4 @@ const initAll = async () => {
   initThreeCanvas(hands);
 };
 
-// initAll();
+initAll();
