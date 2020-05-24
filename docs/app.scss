@@ -65,7 +65,7 @@ body {
   .circle1 {
     animation: antiClockwise 8s infinite linear;
     background-image: url(img/c1.svg);
-    filter: drop-shadow(0px 0px 10px rgb(100, 180, 245));
+    filter: drop-shadow(0px 0px 10px #00B3FE);
   }
   .circle2 {
     animation: clockwise 20s infinite linear;
@@ -80,7 +80,7 @@ body {
   .circle4 {
     animation: clockwise 30s infinite linear;
     background-image: url(img/c4.svg);
-    filter: drop-shadow(0px 0px 10px rgb(164, 51, 230));
+    filter: drop-shadow(0px 0px 10px rgb(175, 116, 243));
   }
   .circle5 {
     animation: antiClockwise 20s infinite linear;
@@ -90,6 +90,6 @@ body {
   .circle6 {
     animation: clockwise 80s infinite linear;
     background-image: url(img/c6.svg);
-    filter: drop-shadow(0px 0px 10px rgb(147, 30, 214));
+    filter: drop-shadow(0px 0px 10px rgb(120, 86, 255));
   }
 }
