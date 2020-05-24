@@ -3,7 +3,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { SpriteText2D, textAlign } from "three-text2d";
 import { hideLoadingScreen } from "./loadingScreen";
-import { hands, isHandPresent } from "./handpose";
+import { hands, isHandPresent } from "./handPose";
 import { getAgeGenderContent, getHandElement } from "./analyseUser";
 
 const initThreeCanvas = () => {

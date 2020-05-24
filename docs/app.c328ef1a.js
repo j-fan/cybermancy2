@@ -918,7 +918,6 @@ var initCamera = /*#__PURE__*/function () {
             setVideoDimensions = function setVideoDimensions() {
               width = screen.width;
               height = screen.height;
-              console.log(width, height);
 
               if (!aspectRatio) {
                 aspectRatio = videoElement.videoWidth / videoElement.videoHeight;
@@ -935,8 +934,8 @@ var initCamera = /*#__PURE__*/function () {
                 videoElement.setAttribute("width", newWidth);
               }
 
-              canvasElement.setAttribute("width", videoElement.getAttribute("width"));
-              canvasElement.setAttribute("height", videoElement.getAttribute("height"));
+              canvasElement.setAttribute("width", videoElement.videoWidth);
+              canvasElement.setAttribute("height", videoElement.videoHeight);
             };
 
             videoElement.oncanplay = setVideoDimensions;
@@ -27249,7 +27248,425 @@ class HandPose {
 }
 
 exports.HandPose = HandPose;
-},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","@tensorflow/tfjs-converter":"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js"}],"handpose.js":[function(require,module,exports) {
+},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","@tensorflow/tfjs-converter":"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js"}],"../node_modules/comlink/dist/esm/comlink.mjs":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.expose = expose;
+exports.proxy = proxy;
+exports.transfer = transfer;
+exports.windowEndpoint = windowEndpoint;
+exports.wrap = wrap;
+exports.transferHandlers = exports.releaseProxy = exports.proxyMarker = exports.createEndpoint = void 0;
+
+/**
+ * Copyright 2019 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const proxyMarker = Symbol("Comlink.proxy");
+exports.proxyMarker = proxyMarker;
+const createEndpoint = Symbol("Comlink.endpoint");
+exports.createEndpoint = createEndpoint;
+const releaseProxy = Symbol("Comlink.releaseProxy");
+exports.releaseProxy = releaseProxy;
+const throwMarker = Symbol("Comlink.thrown");
+
+const isObject = val => typeof val === "object" && val !== null || typeof val === "function";
+/**
+ * Internal transfer handle to handle objects marked to proxy.
+ */
+
+
+const proxyTransferHandler = {
+  canHandle: val => isObject(val) && val[proxyMarker],
+
+  serialize(obj) {
+    const {
+      port1,
+      port2
+    } = new MessageChannel();
+    expose(obj, port1);
+    return [port2, [port2]];
+  },
+
+  deserialize(port) {
+    port.start();
+    return wrap(port);
+  }
+
+};
+/**
+ * Internal transfer handler to handle thrown exceptions.
+ */
+
+const throwTransferHandler = {
+  canHandle: value => isObject(value) && throwMarker in value,
+
+  serialize({
+    value
+  }) {
+    let serialized;
+
+    if (value instanceof Error) {
+      serialized = {
+        isError: true,
+        value: {
+          message: value.message,
+          name: value.name,
+          stack: value.stack
+        }
+      };
+    } else {
+      serialized = {
+        isError: false,
+        value
+      };
+    }
+
+    return [serialized, []];
+  },
+
+  deserialize(serialized) {
+    if (serialized.isError) {
+      throw Object.assign(new Error(serialized.value.message), serialized.value);
+    }
+
+    throw serialized.value;
+  }
+
+};
+/**
+ * Allows customizing the serialization of certain values.
+ */
+
+const transferHandlers = new Map([["proxy", proxyTransferHandler], ["throw", throwTransferHandler]]);
+exports.transferHandlers = transferHandlers;
+
+function expose(obj, ep = self) {
+  ep.addEventListener("message", function callback(ev) {
+    if (!ev || !ev.data) {
+      return;
+    }
+
+    const {
+      id,
+      type,
+      path
+    } = Object.assign({
+      path: []
+    }, ev.data);
+    const argumentList = (ev.data.argumentList || []).map(fromWireValue);
+    let returnValue;
+
+    try {
+      const parent = path.slice(0, -1).reduce((obj, prop) => obj[prop], obj);
+      const rawValue = path.reduce((obj, prop) => obj[prop], obj);
+
+      switch (type) {
+        case 0
+        /* GET */
+        :
+          {
+            returnValue = rawValue;
+          }
+          break;
+
+        case 1
+        /* SET */
+        :
+          {
+            parent[path.slice(-1)[0]] = fromWireValue(ev.data.value);
+            returnValue = true;
+          }
+          break;
+
+        case 2
+        /* APPLY */
+        :
+          {
+            returnValue = rawValue.apply(parent, argumentList);
+          }
+          break;
+
+        case 3
+        /* CONSTRUCT */
+        :
+          {
+            const value = new rawValue(...argumentList);
+            returnValue = proxy(value);
+          }
+          break;
+
+        case 4
+        /* ENDPOINT */
+        :
+          {
+            const {
+              port1,
+              port2
+            } = new MessageChannel();
+            expose(obj, port2);
+            returnValue = transfer(port1, [port1]);
+          }
+          break;
+
+        case 5
+        /* RELEASE */
+        :
+          {
+            returnValue = undefined;
+          }
+          break;
+      }
+    } catch (value) {
+      returnValue = {
+        value,
+        [throwMarker]: 0
+      };
+    }
+
+    Promise.resolve(returnValue).catch(value => {
+      return {
+        value,
+        [throwMarker]: 0
+      };
+    }).then(returnValue => {
+      const [wireValue, transferables] = toWireValue(returnValue);
+      ep.postMessage(Object.assign(Object.assign({}, wireValue), {
+        id
+      }), transferables);
+
+      if (type === 5
+      /* RELEASE */
+      ) {
+          // detach and deactive after sending release response above.
+          ep.removeEventListener("message", callback);
+          closeEndPoint(ep);
+        }
+    });
+  });
+
+  if (ep.start) {
+    ep.start();
+  }
+}
+
+function isMessagePort(endpoint) {
+  return endpoint.constructor.name === "MessagePort";
+}
+
+function closeEndPoint(endpoint) {
+  if (isMessagePort(endpoint)) endpoint.close();
+}
+
+function wrap(ep, target) {
+  return createProxy(ep, [], target);
+}
+
+function throwIfProxyReleased(isReleased) {
+  if (isReleased) {
+    throw new Error("Proxy has been released and is not useable");
+  }
+}
+
+function createProxy(ep, path = [], target = function () {}) {
+  let isProxyReleased = false;
+  const proxy = new Proxy(target, {
+    get(_target, prop) {
+      throwIfProxyReleased(isProxyReleased);
+
+      if (prop === releaseProxy) {
+        return () => {
+          return requestResponseMessage(ep, {
+            type: 5
+            /* RELEASE */
+            ,
+            path: path.map(p => p.toString())
+          }).then(() => {
+            closeEndPoint(ep);
+            isProxyReleased = true;
+          });
+        };
+      }
+
+      if (prop === "then") {
+        if (path.length === 0) {
+          return {
+            then: () => proxy
+          };
+        }
+
+        const r = requestResponseMessage(ep, {
+          type: 0
+          /* GET */
+          ,
+          path: path.map(p => p.toString())
+        }).then(fromWireValue);
+        return r.then.bind(r);
+      }
+
+      return createProxy(ep, [...path, prop]);
+    },
+
+    set(_target, prop, rawValue) {
+      throwIfProxyReleased(isProxyReleased); // FIXME: ES6 Proxy Handler `set` methods are supposed to return a
+      // boolean. To show good will, we return true asynchronously ¯\_(ツ)_/¯
+
+      const [value, transferables] = toWireValue(rawValue);
+      return requestResponseMessage(ep, {
+        type: 1
+        /* SET */
+        ,
+        path: [...path, prop].map(p => p.toString()),
+        value
+      }, transferables).then(fromWireValue);
+    },
+
+    apply(_target, _thisArg, rawArgumentList) {
+      throwIfProxyReleased(isProxyReleased);
+      const last = path[path.length - 1];
+
+      if (last === createEndpoint) {
+        return requestResponseMessage(ep, {
+          type: 4
+          /* ENDPOINT */
+
+        }).then(fromWireValue);
+      } // We just pretend that `bind()` didn’t happen.
+
+
+      if (last === "bind") {
+        return createProxy(ep, path.slice(0, -1));
+      }
+
+      const [argumentList, transferables] = processArguments(rawArgumentList);
+      return requestResponseMessage(ep, {
+        type: 2
+        /* APPLY */
+        ,
+        path: path.map(p => p.toString()),
+        argumentList
+      }, transferables).then(fromWireValue);
+    },
+
+    construct(_target, rawArgumentList) {
+      throwIfProxyReleased(isProxyReleased);
+      const [argumentList, transferables] = processArguments(rawArgumentList);
+      return requestResponseMessage(ep, {
+        type: 3
+        /* CONSTRUCT */
+        ,
+        path: path.map(p => p.toString()),
+        argumentList
+      }, transferables).then(fromWireValue);
+    }
+
+  });
+  return proxy;
+}
+
+function myFlat(arr) {
+  return Array.prototype.concat.apply([], arr);
+}
+
+function processArguments(argumentList) {
+  const processed = argumentList.map(toWireValue);
+  return [processed.map(v => v[0]), myFlat(processed.map(v => v[1]))];
+}
+
+const transferCache = new WeakMap();
+
+function transfer(obj, transfers) {
+  transferCache.set(obj, transfers);
+  return obj;
+}
+
+function proxy(obj) {
+  return Object.assign(obj, {
+    [proxyMarker]: true
+  });
+}
+
+function windowEndpoint(w, context = self, targetOrigin = "*") {
+  return {
+    postMessage: (msg, transferables) => w.postMessage(msg, targetOrigin, transferables),
+    addEventListener: context.addEventListener.bind(context),
+    removeEventListener: context.removeEventListener.bind(context)
+  };
+}
+
+function toWireValue(value) {
+  for (const [name, handler] of transferHandlers) {
+    if (handler.canHandle(value)) {
+      const [serializedValue, transferables] = handler.serialize(value);
+      return [{
+        type: 3
+        /* HANDLER */
+        ,
+        name,
+        value: serializedValue
+      }, transferables];
+    }
+  }
+
+  return [{
+    type: 0
+    /* RAW */
+    ,
+    value
+  }, transferCache.get(value) || []];
+}
+
+function fromWireValue(value) {
+  switch (value.type) {
+    case 3
+    /* HANDLER */
+    :
+      return transferHandlers.get(value.name).deserialize(value.value);
+
+    case 0
+    /* RAW */
+    :
+      return value.value;
+  }
+}
+
+function requestResponseMessage(ep, msg, transfers) {
+  return new Promise(resolve => {
+    const id = generateUUID();
+    ep.addEventListener("message", function l(ev) {
+      if (!ev.data || !ev.data.id || ev.data.id !== id) {
+        return;
+      }
+
+      ep.removeEventListener("message", l);
+      resolve(ev.data);
+    });
+
+    if (ep.start) {
+      ep.start();
+    }
+
+    ep.postMessage(Object.assign({
+      id
+    }, msg), transfers);
+  });
+}
+
+function generateUUID() {
+  return new Array(4).fill(0).map(() => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(16)).join("-");
+}
+},{}],"handPose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -27263,12 +27680,19 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var handpose = _interopRequireWildcard(require("@tensorflow-models/handpose"));
 
+var Comlink = _interopRequireWildcard(require("comlink"));
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var isDetectionUsingWebWorker = true;
+var HandDetectorWorker = Comlink.wrap(new Worker("/handpose-worker.c7936954.js"));
+var handDetector;
+var videoElement = document.getElementById("webcam-video");
+var canvasElement = document.getElementById("webcam-canvas");
 var hands = [];
 exports.hands = hands;
 var isHandPresent = false;
@@ -27279,105 +27703,77 @@ var handChanged = true;
 var newHandAppeared = false;
 exports.newHandAppeared = newHandAppeared;
 
-var initHandposeDetection = /*#__PURE__*/function () {
-  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
-    var model, estimateHandPose, runDetection;
+var startHandDetectorNormal = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+    return _regenerator.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return handpose.load();
+
+          case 2:
+            handDetector = _context.sent;
+            console.log("handpose loaded");
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function startHandDetectorNormal() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var startHandDetectorWorker = /*#__PURE__*/function () {
+  var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+    return _regenerator.default.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return new HandDetectorWorker();
+
+          case 2:
+            handDetector = _context2.sent;
+            console.log("handpose loaded");
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function startHandDetectorWorker() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var detectHandWithWorker = /*#__PURE__*/function () {
+  var _ref3 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+    var context, data, handEstimate;
     return _regenerator.default.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _context3.next = 2;
-            return handpose.load();
+            context = canvasElement.getContext("2d");
+            context.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight);
+            data = context.getImageData(0, 0, videoElement.videoWidth, videoElement.videoHeight);
+            _context3.next = 5;
+            return handDetector.estimateHandPose(data);
 
-          case 2:
-            model = _context3.sent;
-            console.log("handpose loaded");
+          case 5:
+            handEstimate = _context3.sent;
 
-            estimateHandPose = /*#__PURE__*/function () {
-              var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-                var videoElement, handEstimate;
-                return _regenerator.default.wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        videoElement = document.getElementById("webcam-video");
-                        _context.next = 3;
-                        return model.estimateHands(videoElement);
-
-                      case 3:
-                        handEstimate = _context.sent;
-
-                        if (handEstimate) {
-                          _context.next = 6;
-                          break;
-                        }
-
-                        return _context.abrupt("return");
-
-                      case 6:
-                        exports.hands = hands = handEstimate;
-
-                        if (hands.length == 0) {
-                          exports.isHandPresent = isHandPresent = false;
-                        } else {
-                          exports.isHandPresent = isHandPresent = true;
-                        }
-
-                        exports.newHandAppeared = newHandAppeared = false;
-
-                        if (!isHandPresent) {
-                          handAbsentCount++;
-
-                          if (handAbsentCount > handChangedThreshold) {
-                            handChanged = true;
-                          }
-                        }
-
-                        if (isHandPresent && handChanged) {
-                          handChanged = false;
-                          handAbsentCount = 0;
-                          exports.newHandAppeared = newHandAppeared = true;
-                        }
-
-                      case 11:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }
-                }, _callee);
-              }));
-
-              return function estimateHandPose() {
-                return _ref2.apply(this, arguments);
-              };
-            }();
-
-            runDetection = /*#__PURE__*/function () {
-              var _ref3 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-                return _regenerator.default.wrap(function _callee2$(_context2) {
-                  while (1) {
-                    switch (_context2.prev = _context2.next) {
-                      case 0:
-                        _context2.next = 2;
-                        return estimateHandPose();
-
-                      case 2:
-                        requestAnimationFrame(runDetection);
-
-                      case 3:
-                      case "end":
-                        return _context2.stop();
-                    }
-                  }
-                }, _callee2);
-              }));
-
-              return function runDetection() {
-                return _ref3.apply(this, arguments);
-              };
-            }();
-
-            runDetection();
+            if (handEstimate) {
+              exports.hands = hands = handEstimate;
+            }
 
           case 7:
           case "end":
@@ -27387,13 +27783,168 @@ var initHandposeDetection = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
+  return function detectHandWithWorker() {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+var detectHandNormal = /*#__PURE__*/function () {
+  var _ref4 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+    var handEstimate;
+    return _regenerator.default.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return handDetector.estimateHands(videoElement);
+
+          case 2:
+            handEstimate = _context4.sent;
+            exports.hands = hands = handEstimate;
+
+          case 4:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function detectHandNormal() {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+var processHandStatus = function processHandStatus() {
+  if (hands) {
+    if (hands.length == 0) {
+      exports.isHandPresent = isHandPresent = false;
+    } else {
+      exports.isHandPresent = isHandPresent = true;
+    }
+
+    exports.newHandAppeared = newHandAppeared = false;
+
+    if (!isHandPresent) {
+      handAbsentCount++;
+
+      if (handAbsentCount > handChangedThreshold) {
+        handChanged = true;
+      }
+    }
+
+    if (isHandPresent && handChanged) {
+      handChanged = false;
+      handAbsentCount = 0;
+      exports.newHandAppeared = newHandAppeared = true;
+    }
+  }
+};
+
+var initHandposeDetection = /*#__PURE__*/function () {
+  var _ref5 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee7() {
+    var estimateHandPose, runDetection;
+    return _regenerator.default.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            if (!isDetectionUsingWebWorker) {
+              _context7.next = 5;
+              break;
+            }
+
+            _context7.next = 3;
+            return startHandDetectorWorker();
+
+          case 3:
+            _context7.next = 7;
+            break;
+
+          case 5:
+            _context7.next = 7;
+            return startHandDetectorNormal();
+
+          case 7:
+            estimateHandPose = /*#__PURE__*/function () {
+              var _ref6 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
+                return _regenerator.default.wrap(function _callee5$(_context5) {
+                  while (1) {
+                    switch (_context5.prev = _context5.next) {
+                      case 0:
+                        if (!isDetectionUsingWebWorker) {
+                          _context5.next = 5;
+                          break;
+                        }
+
+                        _context5.next = 3;
+                        return detectHandWithWorker();
+
+                      case 3:
+                        _context5.next = 7;
+                        break;
+
+                      case 5:
+                        _context5.next = 7;
+                        return detectHandNormal();
+
+                      case 7:
+                        processHandStatus();
+
+                      case 8:
+                      case "end":
+                        return _context5.stop();
+                    }
+                  }
+                }, _callee5);
+              }));
+
+              return function estimateHandPose() {
+                return _ref6.apply(this, arguments);
+              };
+            }();
+
+            runDetection = /*#__PURE__*/function () {
+              var _ref7 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
+                return _regenerator.default.wrap(function _callee6$(_context6) {
+                  while (1) {
+                    switch (_context6.prev = _context6.next) {
+                      case 0:
+                        _context6.next = 2;
+                        return estimateHandPose();
+
+                      case 2:
+                        requestAnimationFrame(runDetection);
+
+                      case 3:
+                      case "end":
+                        return _context6.stop();
+                    }
+                  }
+                }, _callee6);
+              }));
+
+              return function runDetection() {
+                return _ref7.apply(this, arguments);
+              };
+            }();
+
+            runDetection();
+
+          case 10:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
   return function initHandposeDetection() {
-    return _ref.apply(this, arguments);
+    return _ref5.apply(this, arguments);
   };
 }();
 
 exports.initHandposeDetection = initHandposeDetection;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@tensorflow-models/handpose":"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js"}],"../node_modules/three/build/three.module.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@tensorflow-models/handpose":"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js","comlink":"../node_modules/comlink/dist/esm/comlink.mjs","./handpose-worker.js":[["handpose-worker.c7936954.js","handpose-worker.js"],"handpose-worker.c7936954.js.map","handpose-worker.js"]}],"../node_modules/three/build/three.module.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -96956,13 +97507,15 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.estimatedGender = exports.estimatedAge = exports.runFaceDetect = exports.initFaceDetect = void 0;
+exports.estimatedGender = exports.estimatedAge = exports.initFaceDetect = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 var faceApi = _interopRequireWildcard(require("face-api.js"));
+
+var Comlink = _interopRequireWildcard(require("comlink"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -96980,15 +97533,21 @@ function setIntervalCount(callback, delay, stopCondition) {
       window.clearInterval(intervalID);
     }
   }, delay);
-}
+} // haven't figured a way for webworkers to work with faceAPI
+// do to issues discussed here: https://github.com/justadudewhohacks/face-api.js/issues/47
 
+
+var isDetectionUsingWebWorker = false;
 var estimatedGender = "none";
 exports.estimatedGender = estimatedGender;
 var estimatedAge = 0;
 exports.estimatedAge = estimatedAge;
 var detector;
+var FaceDetectorWorker = Comlink.wrap(new Worker("/faceDetect-worker.f69cbf30.js"));
+var videoElement = document.getElementById("webcam-video");
+var canvasElement = document.getElementById("webcam-canvas");
 
-var initFaceDetect = /*#__PURE__*/function () {
+var startFaceDetectNormal = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
     var inputSize, scoreThreshold;
     return _regenerator.default.wrap(function _callee$(_context) {
@@ -97024,68 +97583,195 @@ var initFaceDetect = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function initFaceDetect() {
+  return function startFaceDetectNormal() {
     return _ref.apply(this, arguments);
   };
 }();
 
-exports.initFaceDetect = initFaceDetect;
+var runDetectionNormal = /*#__PURE__*/function () {
+  var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+    var result;
+    return _regenerator.default.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return faceApi.detectSingleFace("webcam-video", detector).withAgeAndGender();
 
-var runFaceDetect = function runFaceDetect() {
-  var videoElement = document.getElementById("webcam-video");
-  var totalGender = 0;
-  var totalAge = 0;
-  var successfulDetections = 0;
+          case 2:
+            result = _context2.sent;
+            return _context2.abrupt("return", result);
 
-  var runDetection = /*#__PURE__*/function () {
-    var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-      var result;
-      return _regenerator.default.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return faceApi.detectSingleFace(videoElement, detector).withAgeAndGender();
-
-            case 2:
-              result = _context2.sent;
-
-              if (result) {
-                successfulDetections++;
-
-                if (result.gender === "female") {
-                  totalGender += result.genderProbability;
-                } else {
-                  totalGender -= result.genderProbability;
-                }
-
-                totalAge += result.age;
-                exports.estimatedAge = estimatedAge = totalAge / successfulDetections;
-                exports.estimatedGender = estimatedGender = totalGender == 0 ? "none" : totalGender > 0 ? "female" : "male";
-              }
-
-              console.log(result, estimatedAge, estimatedGender);
-
-            case 5:
-            case "end":
-              return _context2.stop();
-          }
+          case 4:
+          case "end":
+            return _context2.stop();
         }
-      }, _callee2);
-    }));
+      }
+    }, _callee2);
+  }));
 
-    return function runDetection() {
-      return _ref2.apply(this, arguments);
-    };
-  }();
+  return function runDetectionNormal() {
+    return _ref2.apply(this, arguments);
+  };
+}();
 
-  setIntervalCount(runDetection, 1, function () {
-    return successfulDetections > 0;
-  });
-};
+var startFaceDetectWorker = /*#__PURE__*/function () {
+  var _ref3 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+    return _regenerator.default.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return new FaceDetectorWorker();
 
-exports.runFaceDetect = runFaceDetect;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","face-api.js":"../node_modules/face-api.js/build/es6/index.js"}],"elements.json":[function(require,module,exports) {
+          case 2:
+            detector = _context3.sent;
+
+          case 3:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function startFaceDetectWorker() {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+var runDetectionWorker = /*#__PURE__*/function () {
+  var _ref4 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+    var context, data, result;
+    return _regenerator.default.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            context = canvasElement.getContext("2d");
+            data = context.getImageData(0, 0, videoElement.videoWidth, videoElement.videoHeight);
+            _context4.next = 4;
+            return detector.estimateFace(data);
+
+          case 4:
+            result = _context4.sent;
+            return _context4.abrupt("return", result);
+
+          case 6:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function runDetectionWorker() {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+var initFaceDetect = /*#__PURE__*/function () {
+  var _ref5 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
+    var totalGender, totalAge, successfulDetections, runDetection;
+    return _regenerator.default.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            if (!isDetectionUsingWebWorker) {
+              _context6.next = 5;
+              break;
+            }
+
+            _context6.next = 3;
+            return startFaceDetectWorker();
+
+          case 3:
+            _context6.next = 7;
+            break;
+
+          case 5:
+            _context6.next = 7;
+            return startFaceDetectNormal();
+
+          case 7:
+            totalGender = 0;
+            totalAge = 0;
+            successfulDetections = 0;
+
+            runDetection = /*#__PURE__*/function () {
+              var _ref6 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
+                var result;
+                return _regenerator.default.wrap(function _callee5$(_context5) {
+                  while (1) {
+                    switch (_context5.prev = _context5.next) {
+                      case 0:
+                        if (!isDetectionUsingWebWorker) {
+                          _context5.next = 6;
+                          break;
+                        }
+
+                        _context5.next = 3;
+                        return runDetectionWorker();
+
+                      case 3:
+                        result = _context5.sent;
+                        _context5.next = 9;
+                        break;
+
+                      case 6:
+                        _context5.next = 8;
+                        return runDetectionNormal();
+
+                      case 8:
+                        result = _context5.sent;
+
+                      case 9:
+                        if (result) {
+                          successfulDetections++;
+
+                          if (result.gender === "female") {
+                            totalGender += result.genderProbability;
+                          } else {
+                            totalGender -= result.genderProbability;
+                          }
+
+                          totalAge += result.age;
+                          exports.estimatedAge = estimatedAge = totalAge / successfulDetections;
+                          exports.estimatedGender = estimatedGender = totalGender == 0 ? "none" : totalGender > 0 ? "female" : "male";
+                        } // console.log(result, estimatedAge, estimatedGender);
+
+
+                      case 10:
+                      case "end":
+                        return _context5.stop();
+                    }
+                  }
+                }, _callee5);
+              }));
+
+              return function runDetection() {
+                return _ref6.apply(this, arguments);
+              };
+            }();
+
+            setIntervalCount(runDetection, 1, function () {
+              return successfulDetections > 0;
+            });
+
+          case 12:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function initFaceDetect() {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+exports.initFaceDetect = initFaceDetect;
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","face-api.js":"../node_modules/face-api.js/build/es6/index.js","comlink":"../node_modules/comlink/dist/esm/comlink.mjs","./faceDetect-worker.js":[["faceDetect-worker.f69cbf30.js","faceDetect-worker.js"],"faceDetect-worker.f69cbf30.js.map","faceDetect-worker.js"]}],"elements.json":[function(require,module,exports) {
 module.exports = {
   "fire": "You have fire hands.\nYou are known to be passionate, confident, and industrious.\nYou are driven by your desires and on a bad day they may lack tactfulness and empathy.",
   "earth": "You have earth hands.\nYou are known to be practical, logical, and grounded.\nWhile secure and reliable, you can become too consumed with your immediate realities, which can ultimately hinder long-term planning and achievement.",
@@ -97102,7 +97788,7 @@ exports.getAgeGenderContent = exports.getHandElement = void 0;
 
 var _faceDetect = require("./faceDetect");
 
-var _handpose = require("./handpose");
+var _handPose = require("./handPose");
 
 var elementContent = _interopRequireWildcard(require("./elements.json"));
 
@@ -97125,14 +97811,14 @@ var distanceWithArray = function distanceWithArray(p1, p2) {
 };
 
 var getHandElement = function getHandElement() {
-  if (_handpose.newHandAppeared) {
-    var annotations = _handpose.hands[0].annotations;
+  if (_handPose.newHandAppeared) {
+    var annotations = _handPose.hands[0].annotations;
     var palmWidth = distanceWithArray(annotations.palmBase[0], annotations.middleFinger[0]);
     var fingerLength = distanceWithArray(annotations.middleFinger[0], annotations.middleFinger[3]);
     var palmLength = distanceWithArray(annotations.indexFinger[0], annotations.pinky[0]);
     var palmRatio = palmLength / palmWidth;
     var fingerToPalmRatio = fingerLength / palmLength;
-    var isLongFingers = fingerToPalmRatio > 1.3;
+    var isLongFingers = fingerToPalmRatio > 1.4;
     var isWideHand = palmRatio > 1;
 
     if (!isWideHand && isLongFingers) {
@@ -97154,16 +97840,16 @@ var getHandElement = function getHandElement() {
 exports.getHandElement = getHandElement;
 
 var getAgeGenderContent = function getAgeGenderContent() {
-  if (_handpose.newHandAppeared) {
+  if (_handPose.newHandAppeared) {
     var key = "".concat(Math.floor(_faceDetect.estimatedAge / 10) * 10, "-").concat((Math.floor(_faceDetect.estimatedAge / 10) + 1) * 10);
-    console.log("getGenderAge", key, _handpose.newHandAppeared);
+    console.log("getGenderAge", key, _handPose.newHandAppeared);
   }
 
   return ageGenderContent;
 };
 
 exports.getAgeGenderContent = getAgeGenderContent;
-},{"./faceDetect":"faceDetect.js","./handpose":"handpose.js","./elements.json":"elements.json"}],"mainCanvas.js":[function(require,module,exports) {
+},{"./faceDetect":"faceDetect.js","./handPose":"handPose.js","./elements.json":"elements.json"}],"mainCanvas.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -97181,7 +97867,7 @@ var _threeText2d = require("three-text2d");
 
 var _loadingScreen = require("./loadingScreen");
 
-var _handpose = require("./handpose");
+var _handPose = require("./handPose");
 
 var _analyseUser = require("./analyseUser");
 
@@ -97222,10 +97908,10 @@ var initThreeCanvas = function initThreeCanvas() {
   var setHandLandmarks = function setHandLandmarks() {
     (0, _analyseUser.getAgeGenderContent)();
 
-    if (_handpose.isHandPresent) {
+    if (_handPose.isHandPresent) {
       texts[0].text = "".concat((0, _analyseUser.getHandElement)());
 
-      _handpose.hands[0].landmarks.forEach(function (landmark, index) {
+      _handPose.hands[0].landmarks.forEach(function (landmark, index) {
         handLandmarks[index].position.x = landmark[0] * 0.01;
         handLandmarks[index].position.y = landmark[1] * -0.01;
       });
@@ -97398,7 +98084,7 @@ var initThreeCanvas = function initThreeCanvas() {
 
 var _default = initThreeCanvas;
 exports.default = _default;
-},{"three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","three-text2d":"../node_modules/three-text2d/lib/index.js","./loadingScreen":"loadingScreen.js","./handpose":"handpose.js","./analyseUser":"analyseUser.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","three-text2d":"../node_modules/three-text2d/lib/index.js","./loadingScreen":"loadingScreen.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -97479,7 +98165,7 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _webcam = _interopRequireDefault(require("./webcam"));
 
-var _handpose = require("./handpose");
+var _handPose = require("./handPose");
 
 var _mainCanvas = _interopRequireDefault(require("./mainCanvas"));
 
@@ -97504,16 +98190,12 @@ var initAll = /*#__PURE__*/function () {
 
           case 4:
             _context.next = 6;
-            return (0, _faceDetect.runFaceDetect)();
+            return (0, _handPose.initHandposeDetection)();
 
           case 6:
-            _context.next = 8;
-            return (0, _handpose.initHandposeDetection)();
-
-          case 8:
             (0, _mainCanvas.default)();
 
-          case 9:
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -97527,7 +98209,7 @@ var initAll = /*#__PURE__*/function () {
 }();
 
 initAll();
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","./webcam":"webcam.js","./handpose":"handpose.js","./mainCanvas":"mainCanvas.js","./faceDetect":"faceDetect.js","./app.scss":"app.scss"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","./webcam":"webcam.js","./handPose":"handPose.js","./mainCanvas":"mainCanvas.js","./faceDetect":"faceDetect.js","./app.scss":"app.scss"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -97555,7 +98237,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "192.168.20.17" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61641" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56037" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

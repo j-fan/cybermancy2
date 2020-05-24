@@ -1,5 +1,5 @@
 import { estimatedAge, estimatedGender } from "./faceDetect";
-import { hands, newHandAppeared } from "./handpose";
+import { hands, newHandAppeared } from "./handPose";
 import * as elementContent from "./elements.json";
 
 let ageGenderContent = [];
@@ -34,7 +34,7 @@ const getHandElement = () => {
     const palmRatio = palmLength / palmWidth;
     const fingerToPalmRatio = fingerLength / palmLength;
 
-    const isLongFingers = fingerToPalmRatio > 1.3;
+    const isLongFingers = fingerToPalmRatio > 1.4;
     const isWideHand = palmRatio > 1;
 
     if (!isWideHand && isLongFingers) {

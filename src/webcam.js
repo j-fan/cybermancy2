@@ -8,7 +8,6 @@ const initCamera = async () => {
   const setVideoDimensions = () => {
     width = screen.width;
     height = screen.height;
-    console.log(width, height);
     if (!aspectRatio) {
       aspectRatio = videoElement.videoWidth / videoElement.videoHeight;
     }
@@ -22,8 +21,8 @@ const initCamera = async () => {
       const newWidth = height * aspectRatio;
       videoElement.setAttribute("width", newWidth);
     }
-    canvasElement.setAttribute("width", videoElement.getAttribute("width"));
-    canvasElement.setAttribute("height", videoElement.getAttribute("height"));
+    canvasElement.setAttribute("width", videoElement.videoWidth);
+    canvasElement.setAttribute("height", videoElement.videoHeight);
   };
   videoElement.oncanplay = setVideoDimensions;
   window.addEventListener("resize", () => {
