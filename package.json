@@ -1,25 +1,20 @@
 {
-  "name": "cybermancy2",
+  "name": "starterthreejs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel serve docs/index.html",
-    "local": "parcel serve docs/index.html --host 192.168.20.6 --https",
+    "start": "parcel serve src/index.html",
+    "local": "parcel serve src/index.html --host 192.168.20.6 --https",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.9.6",
-    "@tensorflow-models/handpose": "0.0.3",
-    "@tensorflow/tfjs-converter": "^1.7.4",
-    "@tensorflow/tfjs-core": "^1.7.4",
-    "face-api.js": "^0.22.2",
     "regenerator-runtime": "^0.13.5",
     "stats.js": "^0.17.0",
-    "three": "^0.116.1",
-    "three-text2d": "^0.6.0"
+    "three": "^0.116.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
