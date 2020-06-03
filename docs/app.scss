@@ -51,23 +51,61 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  .text {
-    z-index: 98;
+
+  .loadingText {
+    z-index: 2;
     max-width: 600px;
     margin: 10px 40px;
-    h1,
-    p {
-      background-color: #fff;
-      color: #000;
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      h2 {
+        position: relative;
+        text-align: center;
+      }
+      img {
+        width: 30px;
+      }
     }
+
+    h1, p {
+      background-color: rgba(10, 10, 10, 1);
+      color: #fff;
+      padding: 4px 8px;
+    }
+
+    p {
+      line-height: 2;
+    }
+
     h1 {
       text-transform: uppercase;
       font-size: 300%;
-    }
-    .description {
-      font-size: xx-small;
+      position: relative;
+      z-index: 1;
+      font-style: italic;
+      &::before, &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 4px;
+      }
+      &::before{
+        content: attr(data-glitch);
+        color: #f0f;
+        transform: translate(2px, 2px);
+        z-index: -1;
+      }
+      &::after{
+        content: attr(data-glitch);
+        color: #0ff;
+        transform: translate(-2px, -2px);
+        z-index: -1;
+      }
     }
   }
+
   .circle1,
   .circle2,
   .circle3,
@@ -84,31 +122,31 @@ body {
   .circle1 {
     animation: antiClockwise 8s infinite linear;
     background-image: url(img/c1.svg);
-    filter: drop-shadow(3px 3px 3px #00b3fe) brightness(1.5);
+    filter: drop-shadow(0px 0px 5px #00b3fe) brightness(1.5);
   }
   .circle2 {
     animation: clockwise 20s infinite linear;
     background-image: url(img/c2.svg);
-    filter: drop-shadow(3px 3px 3px #ce86ff) brightness(1.5);
+    filter: drop-shadow(0px 0px 5px #ce86ff) brightness(1.5);
   }
   .circle3 {
     animation: antiClockwise 50s infinite linear;
     background-image: url(img/c3.svg);
-    filter: drop-shadow(3px 3px 3px rgb(245, 100, 189)) brightness(1.5);
+    filter: drop-shadow(0px 0px 5px rgb(245, 100, 189)) brightness(1.5);
   }
   .circle4 {
     animation: clockwise 30s infinite linear;
     background-image: url(img/c4.svg);
-    filter: drop-shadow(3px 3px 3px rgb(175, 116, 243)) brightness(1.5);
+    filter: drop-shadow(0px 0px 5px rgb(175, 116, 243)) brightness(1.5);
   }
   .circle5 {
     animation: antiClockwise 20s infinite linear;
     background-image: url(img/c5.svg);
-    filter: drop-shadow(3px 3px 3px #00b3fe) brightness(1.5);
+    filter: drop-shadow(0px 0px 5px #00b3fe) brightness(1.5);
   }
   .circle6 {
     animation: clockwise 80s infinite linear;
     background-image: url(img/c6.svg);
-    filter: drop-shadow(3px 3px 3px rgb(120, 86, 255)) brightness(1.5);
+    filter: drop-shadow(0px 0px 5px rgb(120, 86, 255)) brightness(1.5);
   }
 }
