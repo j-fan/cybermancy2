@@ -22,6 +22,7 @@ body {
   height: 100%;
   // overflow: hidden;
   position: relative;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 #mainCanvas {
@@ -50,6 +51,23 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  .text {
+    z-index: 98;
+    max-width: 600px;
+    margin: 10px 40px;
+    h1,
+    p {
+      background-color: #fff;
+      color: #000;
+    }
+    h1 {
+      text-transform: uppercase;
+      font-size: 300%;
+    }
+    .description {
+      font-size: xx-small;
+    }
+  }
   .circle1,
   .circle2,
   .circle3,
