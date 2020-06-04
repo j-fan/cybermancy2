@@ -6,7 +6,7 @@ const initCamera = async () => {
 
   const setVideoDimensions = () => {
     width = window.innerWidth;
-    height = videoElement.videoHeight * (width / videoElement.videoWidth);
+    height = window.innerHeight;
 
     videoElement.setAttribute("width", width);
     videoElement.setAttribute("height", height);

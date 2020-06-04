@@ -8,8 +8,8 @@ const initAll = async () => {
   let hands = { data: [] };
   await initCamera();
   // await initFaceDetect();
-  // await runFaceDetect();
-  // await initHandposeDetection(hands);
+  await runFaceDetect();
+  await initHandposeDetection(hands);
   initThreeCanvas(hands);
 };
 

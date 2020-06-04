@@ -31,10 +31,9 @@ const initThreeCanvas = (hands) => {
   const setHandLandmarks = () => {
     if (hands.data.length > 0) {
       texts[0].text = `hands: ${hands.data.length}`;
-      console.log(hands.data[0].landmarks[0][0], hands.data[0].landmarks[0][1]);
       hands.data[0].landmarks.forEach((landmark, index) => {
-        handLandmarks[index].position.x = landmark[0] * -0.01 * 1.5;
-        handLandmarks[index].position.y = landmark[1] * -0.01 * 1.5;
+        handLandmarks[index].position.x = landmark[0] * -0.01;
+        handLandmarks[index].position.y = landmark[1] * -0.01;
       });
     } else {
       texts[0].text = "hands: 0";
@@ -95,14 +94,15 @@ const initThreeCanvas = (hands) => {
 
   const resizeCanvasToDisplaySize = () => {
     const canvas = renderer.domElement;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const videoElement = document.getElementById("webcam-video");
+    const width = videoElement.clientWidth;
+    const height = videoElement.clientHeight;
     if (canvas.width !== width || canvas.height !== height) {
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
     }
   };
 
@@ -147,18 +147,18 @@ const initThreeCanvas = (hands) => {
   };
 
   const addCamera = () => {
-    const width = window.innerWidth * 0.01;
-    const height = window.innerHeight * 0.01;
+    const videoElement = document.getElementById("webcam-video");
+    const width = videoElement.clientWidth * 0.01;
+    const height = videoElement.clientHeight * 0.01;
+    console.log("init camera", width, height);
     camera = new THREE.OrthographicCamera(
-      width / -2,
-      width / 2,
-      height / 2,
-      height / -2,
+      -width,
+      -width / 2,
+      0,
+      -height / 2,
       0.1,
       1000
     );
-    camera.position.set(width / -2, height / -2, 0);
-    // camera.position.set(0, 0, 10);
   };
 
   const initAndAttachCanvas = () => {
