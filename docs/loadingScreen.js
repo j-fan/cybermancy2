@@ -1,7 +1,7 @@
 const loadingScreen = document.getElementById("loadingScreen");
 
-const removeLoadingScreen = () => {
-  loadingScreen.classList.remove("active");
+const hideLoadingScreen = () => {
+  loadingScreen.classList.add("hidden");
 };
 
-export { removeLoadingScreen };
+export { hideLoadingScreen };

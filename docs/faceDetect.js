@@ -4,14 +4,14 @@ function setIntervalCount(callback, delay, repetitions) {
   let count = 0;
   const intervalID = window.setInterval(function () {
     count++;
-    callback(count);
+    callback();
     if (count === repetitions) {
       window.clearInterval(intervalID);
     }
   }, delay);
 }
 
-let estimatedGender = null;
+let estimatedGender = "none";
 let estimatedAge = 0;
 let detector;
 
@@ -32,24 +32,30 @@ const initFaceDetect = async () => {
 
 const runFaceDetect = () => {
   const videoElement = document.getElementById("webcam-video");
-  let femaleFaceCount = 0;
+  let totalGender = 0;
   let totalAge = 0;
-  const timesToRunDetection = 20;
-  const runDetection = async (count) => {
+  let successfulDetections = 0;
+  const timesToRunDetection = 50;
+
+  const runDetection = async () => {
     const result = await faceApi
       .detectSingleFace(videoElement, detector)
       .withAgeAndGender();
     if (result) {
+      successfulDetections++;
       if (result.gender === "female") {
-        femaleFaceCount++;
+        totalGender += result.genderProbability;
+      } else {
+        totalGender -= result.genderProbability;
       }
       totalAge += result.age;
+      estimatedAge = totalAge / successfulDetections;
+      estimatedGender =
+        totalGender == 0 ? "none" : totalGender > 0 ? "female" : "male";
+      console.log(result, estimatedAge, estimatedGender);
     }
-
-    estimatedAge = totalAge / count;
-    estimatedGender = femaleFaceCount > count / 2 ? "female" : "male";
-    console.log(result);
   };
+
   setIntervalCount(runDetection, 1, timesToRunDetection);
 };
 

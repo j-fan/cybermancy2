@@ -3,21 +3,20 @@ const initCamera = async () => {
   const videoElement = document.getElementById("webcam-video");
   let height = 0;
   let width = 640;
-  let streaming = false;
 
   const setVideoDimensions = () => {
-    if (!streaming) {
-      width = window.innerWidth;
-      height = videoElement.videoHeight / (videoElement.videoWidth / width);
+    width = window.innerWidth;
+    height = videoElement.videoHeight * (width / videoElement.videoWidth);
 
-      videoElement.setAttribute("width", width);
-      videoElement.setAttribute("height", height);
-      canvasElement.setAttribute("width", width);
-      canvasElement.setAttribute("height", height);
-      streaming = true;
-    }
+    videoElement.setAttribute("width", width);
+    videoElement.setAttribute("height", height);
+    canvasElement.setAttribute("width", width);
+    canvasElement.setAttribute("height", height);
   };
   videoElement.oncanplay = setVideoDimensions;
+  window.addEventListener("resize", () => {
+    setVideoDimensions();
+  });
 
   const getWebcam = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({

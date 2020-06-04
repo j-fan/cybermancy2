@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { SpriteText2D, textAlign } from "three-text2d";
+import { hideLoadingScreen } from "./loadingScreen";
 
 const initThreeCanvas = (hands) => {
   let scene;
@@ -22,7 +23,7 @@ const initThreeCanvas = (hands) => {
       antialias: true,
     });
     myText.position.z = -5;
-    myText.scale.set(0.04, 0.04, 0.04);
+    myText.scale.set(0.01, 0.01, 0.01);
     scene.add(myText);
     texts.push(myText);
   };
@@ -30,9 +31,10 @@ const initThreeCanvas = (hands) => {
   const setHandLandmarks = () => {
     if (hands.data.length > 0) {
       texts[0].text = `hands: ${hands.data.length}`;
+      console.log(hands.data[0].landmarks[0][0], hands.data[0].landmarks[0][1]);
       hands.data[0].landmarks.forEach((landmark, index) => {
-        handLandmarks[index].position.x = landmark[0] * 0.01;
-        handLandmarks[index].position.y = landmark[1] * 0.01;
+        handLandmarks[index].position.x = landmark[0] * -0.01 * 1.5;
+        handLandmarks[index].position.y = landmark[1] * -0.01 * 1.5;
       });
     } else {
       texts[0].text = "hands: 0";
@@ -56,7 +58,7 @@ const initThreeCanvas = (hands) => {
     composer.addPass(new EffectPass(camera, chromaticAbberationEffect));
   };
 
-  const loadPlane = () => {
+  const loadPlanes = (numPlanes) => {
     const planeMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xdddddd,
       metalness: 0,
@@ -67,13 +69,13 @@ const initThreeCanvas = (hands) => {
       premultipliedAlpha: true,
     });
     const geometry = new THREE.PlaneBufferGeometry(1, 1);
-    for (let i = 0; i < 21; i++) {
+    for (let i = 0; i < numPlanes; i++) {
       const planeMesh = new THREE.Mesh(geometry, planeMaterial);
       planeMesh.scale.x = 0.2;
       planeMesh.scale.y = 0.2;
       planeMesh.scale.z = 0.2;
       planeMesh.position.z = -1;
-      planeMesh.position.x = (i - 5) * 0.5;
+      planeMesh.position.x = (i - numPlanes / 2) * 0.5;
       planeMesh.receiveShadow = true;
       scene.add(planeMesh);
       handLandmarks.push(planeMesh);
@@ -145,14 +147,18 @@ const initThreeCanvas = (hands) => {
   };
 
   const addCamera = () => {
-    camera = new THREE.PerspectiveCamera(
-      65,
-      window.innerWidth / window.innerHeight,
+    const width = window.innerWidth * 0.01;
+    const height = window.innerHeight * 0.01;
+    camera = new THREE.OrthographicCamera(
+      width / -2,
+      width / 2,
+      height / 2,
+      height / -2,
       0.1,
       1000
     );
-    camera.position.set(0, 0, 10);
-    camera.rotation.z = Math.PI;
+    camera.position.set(width / -2, height / -2, 0);
+    // camera.position.set(0, 0, 10);
   };
 
   const initAndAttachCanvas = () => {
@@ -175,7 +181,7 @@ const initThreeCanvas = (hands) => {
   initAndAttachCanvas();
   initScene();
   addCamera();
-  loadPlane();
+  loadPlanes(21);
   addLights();
   // addPostProcessing();
   loadGltf("resources/origin.glb");
@@ -185,17 +191,21 @@ const initThreeCanvas = (hands) => {
   let threejsLoaded = false;
 
   const animate = () => {
-    renderer.render(scene, camera);
-    setHandLandmarks();
     // composer.render(clock.getDelta());
+    renderer.render(scene, camera);
+
+    setHandLandmarks();
     gltfObjs.forEach((obj) => {
       obj.mixer.update(clock.getDelta());
-      if (!threejsLoaded) {
-        console.log("three js loaded!");
-        threejsLoaded = true;
-        texts[0].text = "threejs loaded";
-      }
     });
+
+    if (!threejsLoaded) {
+      console.log("three js loaded!");
+      threejsLoaded = true;
+      texts[0].text = "threejs loaded";
+      hideLoadingScreen();
+    }
+
     requestAnimationFrame(animate);
   };
   animate();
