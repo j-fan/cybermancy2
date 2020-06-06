@@ -30,13 +30,13 @@ const initCamera = async () => {
   });
 
   const getWebcam = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-    });
-    if (stream) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
       videoElement.srcObject = stream;
-    } else {
-      alert("Could not load webcam");
+    } catch (err) {
+      alert(`Could not start webcam. ${err}`);
     }
   };
   await getWebcam();

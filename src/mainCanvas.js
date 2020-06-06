@@ -20,12 +20,12 @@ const initThreeCanvas = () => {
   const createText = (text) => {
     const newText = new SpriteText2D(text, {
       align: textAlign.topLeft,
-      font: "20px Helvetica",
+      font: "16px Helvetica",
       fillStyle: "#000000",
       antialias: true,
     });
     newText.scale.set(0.01, 0.01, 0.01);
-    newText.position.set(2, -2, -5);
+    newText.position.set(1, -2, -5);
     scene.add(newText);
     texts.push(newText);
   };
