@@ -3,8 +3,10 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { SpriteText2D, textAlign } from "three-text2d";
 import { hideLoadingScreen } from "./loadingScreen";
+import { hands, isHandPresent } from "./handpose";
+import { getAgeGenderContent } from "./analyseUser";
 
-const initThreeCanvas = (hands) => {
+const initThreeCanvas = () => {
   let scene;
   let camera;
   let renderer;
@@ -29,9 +31,10 @@ const initThreeCanvas = (hands) => {
   };
 
   const setHandLandmarks = () => {
-    if (hands.data.length > 0) {
-      texts[0].text = `hands: ${hands.data.length}`;
-      hands.data[0].landmarks.forEach((landmark, index) => {
+    getAgeGenderContent();
+    if (isHandPresent) {
+      texts[0].text = `hands: ${hands.length}`;
+      hands[0].landmarks.forEach((landmark, index) => {
         handLandmarks[index].position.x = landmark[0] * 0.01;
         handLandmarks[index].position.y = landmark[1] * -0.01;
       });

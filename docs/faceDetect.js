@@ -55,7 +55,7 @@ const runFaceDetect = () => {
     console.log(result, estimatedAge, estimatedGender);
   };
 
-  setIntervalCount(runDetection, 1, (count) => successfulDetections > 50);
+  setIntervalCount(runDetection, 1, () => successfulDetections > 0);
 };
 
 export { initFaceDetect, runFaceDetect, estimatedAge, estimatedGender };
