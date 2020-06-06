@@ -26,20 +26,62 @@ body {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-#mainCanvas {
-  overflow: hidden;
+#artwork {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 0;
-  left: 0;
+  width: 100vw;
+  height: 100vh;
+  #mainCanvas {
+    position: absolute;
+  }
+  #webcam-video {
+    position: absolute;
+    background-color: rgb(188, 197, 54);
+    object-position: left;
+  }
+  #webcam-canvas {
+    display: none;
+  }
 }
 
-#webcam-video {
-  background-color: rgb(188, 197, 54);
-  object-position: left;
+h1 {
+  text-transform: uppercase;
+  font-size: 300%;
+  position: relative;
+  z-index: 1;
+  font-style: italic;
+  &::before,
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 4px;
+  }
+  &::before {
+    content: attr(data-glitch);
+    color: #f0f;
+    transform: translate(2px, 2px);
+    z-index: -1;
+  }
+  &::after {
+    content: attr(data-glitch);
+    color: #0ff;
+    transform: translate(-2px, -2px);
+    z-index: -1;
+  }
 }
 
-#webcam-canvas {
-  display: none;
+h1,
+p {
+  background-color: rgba(10, 10, 10, 1);
+  color: #fff;
+  padding: 4px 8px;
+}
+
+p {
+  line-height: 2;
 }
 
 #loadingScreen {
@@ -80,46 +122,7 @@ body {
         width: 20px;
       }
     }
-
-    h1,
-    p {
-      background-color: rgba(10, 10, 10, 1);
-      color: #fff;
-      padding: 4px 8px;
-    }
-
-    p {
-      line-height: 2;
-    }
-
-    h1 {
-      text-transform: uppercase;
-      font-size: 300%;
-      position: relative;
-      z-index: 1;
-      font-style: italic;
-      &::before,
-      &::after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: 4px;
-      }
-      &::before {
-        content: attr(data-glitch);
-        color: #f0f;
-        transform: translate(2px, 2px);
-        z-index: -1;
-      }
-      &::after {
-        content: attr(data-glitch);
-        color: #0ff;
-        transform: translate(-2px, -2px);
-        z-index: -1;
-      }
-    }
   }
-
   .circle1,
   .circle2,
   .circle3,
