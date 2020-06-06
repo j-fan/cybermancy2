@@ -7,7 +7,7 @@ const initHandposeDetection = async (hands) => {
   const estimateHandPose = async () => {
     const videoElement = document.getElementById("webcam-video");
 
-    const handEstimate = await model.estimateHands(videoElement, true);
+    const handEstimate = await model.estimateHands(videoElement);
     if (!handEstimate) {
       return;
     }

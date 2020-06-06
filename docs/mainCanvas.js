@@ -32,7 +32,7 @@ const initThreeCanvas = (hands) => {
     if (hands.data.length > 0) {
       texts[0].text = `hands: ${hands.data.length}`;
       hands.data[0].landmarks.forEach((landmark, index) => {
-        handLandmarks[index].position.x = landmark[0] * -0.01;
+        handLandmarks[index].position.x = landmark[0] * 0.01;
         handLandmarks[index].position.y = landmark[1] * -0.01;
       });
     } else {
@@ -103,6 +103,8 @@ const initThreeCanvas = (hands) => {
       camera.updateProjectionMatrix();
       canvas.width = width;
       canvas.height = height;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
     }
   };
 
@@ -148,17 +150,10 @@ const initThreeCanvas = (hands) => {
 
   const addCamera = () => {
     const videoElement = document.getElementById("webcam-video");
-    const width = videoElement.clientWidth * 0.01;
-    const height = videoElement.clientHeight * 0.01;
+    const width = videoElement.videoWidth * 0.01;
+    const height = videoElement.videoHeight * 0.01;
     console.log("init camera", width, height);
-    camera = new THREE.OrthographicCamera(
-      -width,
-      -width / 2,
-      0,
-      -height / 2,
-      0.1,
-      1000
-    );
+    camera = new THREE.OrthographicCamera(0, width, 0, -height, 0.1, 1000);
   };
 
   const initAndAttachCanvas = () => {
@@ -169,10 +164,6 @@ const initThreeCanvas = (hands) => {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setClearColor(0x000000, 0);
-
-    const canvas = renderer.domElement;
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
     window.addEventListener("resize", () => {
       resizeCanvasToDisplaySize();
     });
