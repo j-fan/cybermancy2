@@ -152,7 +152,6 @@ const initThreeCanvas = (hands) => {
     const videoElement = document.getElementById("webcam-video");
     const width = videoElement.videoWidth * 0.01;
     const height = videoElement.videoHeight * 0.01;
-    console.log("init camera", width, height);
     camera = new THREE.OrthographicCamera(0, width, 0, -height, 0.1, 1000);
   };
 

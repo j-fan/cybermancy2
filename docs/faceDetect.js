@@ -1,11 +1,11 @@
 import * as faceApi from "face-api.js";
 
-function setIntervalCount(callback, delay, repetitions) {
+function setIntervalCount(callback, delay, stopCondition) {
   let count = 0;
   const intervalID = window.setInterval(function () {
     count++;
     callback();
-    if (count === repetitions) {
+    if (stopCondition(count) == true) {
       window.clearInterval(intervalID);
     }
   }, delay);
@@ -35,7 +35,6 @@ const runFaceDetect = () => {
   let totalGender = 0;
   let totalAge = 0;
   let successfulDetections = 0;
-  const timesToRunDetection = 50;
 
   const runDetection = async () => {
     const result = await faceApi
@@ -52,11 +51,11 @@ const runFaceDetect = () => {
       estimatedAge = totalAge / successfulDetections;
       estimatedGender =
         totalGender == 0 ? "none" : totalGender > 0 ? "female" : "male";
-      console.log(result, estimatedAge, estimatedGender);
     }
+    console.log(result, estimatedAge, estimatedGender);
   };
 
-  setIntervalCount(runDetection, 1, timesToRunDetection);
+  setIntervalCount(runDetection, 1, (count) => successfulDetections > 50);
 };
 
 export { initFaceDetect, runFaceDetect, estimatedAge, estimatedGender };
