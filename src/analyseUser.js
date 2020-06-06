@@ -38,13 +38,13 @@ const getHandElement = () => {
     const isWideHand = palmRatio > 1;
 
     if (!isWideHand && isLongFingers) {
-      handElement = "Water";
+      handElement = "water";
     } else if (!isWideHand && !isLongFingers) {
-      handElement = "Fire";
+      handElement = "fire";
     } else if (isWideHand && isLongFingers) {
-      handElement == "Air";
+      handElement == "air";
     } else {
-      handElement == "Earth";
+      handElement == "earth";
     }
     console.log(handElement);
   }
@@ -53,7 +53,6 @@ const getHandElement = () => {
 };
 
 const getAgeGenderContent = () => {
-  getHandElement();
   if (newHandAppeared) {
     const key = `${Math.floor(estimatedAge / 10) * 10}-${
       (Math.floor(estimatedAge / 10) + 1) * 10

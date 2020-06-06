@@ -4,7 +4,7 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { SpriteText2D, textAlign } from "three-text2d";
 import { hideLoadingScreen } from "./loadingScreen";
 import { hands, isHandPresent } from "./handpose";
-import { getAgeGenderContent } from "./analyseUser";
+import { getAgeGenderContent, getHandElement } from "./analyseUser";
 
 const initThreeCanvas = () => {
   let scene;
@@ -18,28 +18,28 @@ const initThreeCanvas = () => {
   let composer;
 
   const createText = (text) => {
-    const myText = new SpriteText2D(text, {
-      align: textAlign.center,
-      font: "40px Helvetica",
+    const newText = new SpriteText2D(text, {
+      align: textAlign.topLeft,
+      font: "20px Helvetica",
       fillStyle: "#000000",
       antialias: true,
     });
-    myText.position.z = -5;
-    myText.scale.set(0.01, 0.01, 0.01);
-    scene.add(myText);
-    texts.push(myText);
+    newText.scale.set(0.01, 0.01, 0.01);
+    newText.position.set(2, -2, -5);
+    scene.add(newText);
+    texts.push(newText);
   };
 
   const setHandLandmarks = () => {
     getAgeGenderContent();
     if (isHandPresent) {
-      texts[0].text = `hands: ${hands.length}`;
+      texts[0].text = `${getHandElement()}`;
       hands[0].landmarks.forEach((landmark, index) => {
         handLandmarks[index].position.x = landmark[0] * 0.01;
         handLandmarks[index].position.y = landmark[1] * -0.01;
       });
     } else {
-      texts[0].text = "hands: 0";
+      texts[0].text = "no hands found";
     }
   };
 
