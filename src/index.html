@@ -2,15 +2,15 @@
 <html>
   <head>
     <title>My app</title>
-    <meta charset="UTF-8">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width">
-    <meta name="viewport" content="width=device-width">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" type="text/css" href="/app.55bab2ff.css">
-  <script src="/app.55bab2ff.js"></script><link rel="stylesheet" href="/app.c328ef1a.css"></head>
+    <meta charset="UTF-8" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="./app.scss" />
+  </head>
 
   <body>
     <div id="loadingScreen" class="hidden">
@@ -27,7 +27,7 @@
         </p>
         <div class="loading">
           <p data-glitch="loading">loading</p>
-          <img src="/loading.16a52602.svg">
+          <img src="img/loading.svg"></img>
         </div>
       </div>
       <div class="circle1"></div>
@@ -38,26 +38,26 @@
       <div class="circle6"></div>
     </div>
     <div id="artwork">
-      <video id="webcam-video" autoplay="" muted="" playsinline=""></video>
+      <video id="webcam-video" autoplay muted playsinline></video>
       <div id="mainCanvas"></div>
       <canvas id="webcam-canvas"></canvas>
     </div>
 
-    <script>(function () {
-  var script = document.createElement("script");
-
-  script.onload = function () {
-    var stats = new Stats();
-    document.body.appendChild(stats.dom);
-    requestAnimationFrame(function loop() {
-      stats.update();
-      requestAnimationFrame(loop);
-    });
-  };
-
-  script.src = "//mrdoob.github.io/stats.js/build/stats.min.js";
-  document.head.appendChild(script);
-})();</script>
-    <script src="/app.c328ef1a.js"></script>
+    <script>
+      (function () {
+        var script = document.createElement("script");
+        script.onload = function () {
+          var stats = new Stats();
+          document.body.appendChild(stats.dom);
+          requestAnimationFrame(function loop() {
+            stats.update();
+            requestAnimationFrame(loop);
+          });
+        };
+        script.src = "//mrdoob.github.io/stats.js/build/stats.min.js";
+        document.head.appendChild(script);
+      })();
+    </script>
+    <script src="./app.js"></script>
   </body>
 </html>
