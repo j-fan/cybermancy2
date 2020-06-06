@@ -16,8 +16,8 @@ let estimatedAge = 0;
 let detector;
 
 const initFaceDetect = async () => {
-  await faceApi.nets.tinyFaceDetector.loadFromUri("/models");
-  await faceApi.nets.ageGenderNet.loadFromUri("/models");
+  await faceApi.nets.tinyFaceDetector.loadFromUri("./models");
+  await faceApi.nets.ageGenderNet.loadFromUri("./models");
 
   // tiny_face_detector options
   let inputSize = 512;
