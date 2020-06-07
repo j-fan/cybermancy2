@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel serve src/index.html --out-dir docs",
-    "local": "parcel serve src/index.html --host 192.168.20.5 --https --out-dir docs",
+    "local": "parcel serve src/index.html --host 192.168.20.17 --https --out-dir docs",
     "build": "parcel build src/index.html --out-dir docs",
     "postbuild": "ncp ./static ./docs --filter '**/*.*'",
     "gh": "npm run build -- --public-url=./",

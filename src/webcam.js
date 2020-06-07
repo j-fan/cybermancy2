@@ -6,8 +6,9 @@ const initCamera = async () => {
   let aspectRatio;
 
   const setVideoDimensions = () => {
-    width = window.innerWidth;
-    height = window.innerHeight;
+    width = screen.width;
+    height = screen.height;
+    console.log(width, height);
     if (!aspectRatio) {
       aspectRatio = videoElement.videoWidth / videoElement.videoHeight;
     }
@@ -16,7 +17,7 @@ const initCamera = async () => {
       videoElement.setAttribute("width", width);
       const newHeight = width / aspectRatio;
       videoElement.setAttribute("height", newHeight);
-    } else if (width > height) {
+    } else if (width >= height) {
       videoElement.setAttribute("height", height);
       const newWidth = height * aspectRatio;
       videoElement.setAttribute("width", newWidth);

@@ -16,6 +16,8 @@
   }
 }
 
+$phone-width: 400px;
+
 body {
   margin: 0;
   width: 100%;
@@ -47,7 +49,6 @@ body {
 
 h1 {
   text-transform: uppercase;
-  font-size: 300%;
   position: relative;
   z-index: 1;
   font-style: italic;
@@ -61,14 +62,14 @@ h1 {
   &::before {
     content: attr(data-glitch);
     color: #f0f;
-    transform: translate(2px, 2px);
     z-index: -1;
+    transform: translate(7px, 0);
   }
   &::after {
     content: attr(data-glitch);
     color: #0ff;
-    transform: translate(-2px, -2px);
     z-index: -1;
+    transform: translate(0px, 0);
   }
 }
 
@@ -81,6 +82,37 @@ p {
 
 p {
   line-height: 2;
+}
+
+@media (max-width: #{$phone-width}) {
+  h1 {
+    font-size: 200%;
+    &::before {
+      transform: translate(6px, 0);
+    }
+    &::after {
+      transform: translate(1px, 0);
+    }
+  }
+  p {
+    font-size: 90%;
+  }
+  h1,
+  p {
+    background-color: rgba(10, 10, 10, 0.7);
+  }
+}
+
+@media (min-width: #{$phone-width}) {
+  h1 {
+    font-size: 400%;
+    &::before {
+      transform: translate(8px, 0);
+    }
+    &::after {
+      transform: translate(0px, 0);
+    }
+  }
 }
 
 #loadingScreen {
@@ -116,9 +148,10 @@ p {
         text-transform: uppercase;
         font-style: italic;
         font-weight: bold;
+        padding-right: 0;
       }
       img {
-        width: 20px;
+        width: 16px;
       }
     }
   }

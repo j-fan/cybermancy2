@@ -34,7 +34,7 @@ const getHandElement = () => {
     const palmRatio = palmLength / palmWidth;
     const fingerToPalmRatio = fingerLength / palmLength;
 
-    const isLongFingers = fingerToPalmRatio > 1.1;
+    const isLongFingers = fingerToPalmRatio > 1.3;
     const isWideHand = palmRatio > 1;
 
     if (!isWideHand && isLongFingers) {
