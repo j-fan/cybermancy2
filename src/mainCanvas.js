@@ -12,34 +12,45 @@ const initThreeCanvas = () => {
   let renderer;
   let handLandmarks = [];
   let clock = new THREE.Clock();
-  const loader = new GLTFLoader();
+  const gltfLoader = new GLTFLoader();
+  const fontLoader = new THREE.FontLoader();
   let gltfObjs = [];
   let texts = [];
   let composer;
 
   const createText = (text) => {
-    const newText = new SpriteText2D(text, {
-      align: textAlign.topLeft,
-      font: "16px Helvetica",
-      fillStyle: "#000000",
-      antialias: true,
+    fontLoader.load("./fonts/helvetiker_regular.typeface.json", (font) => {
+      const textGeo = new THREE.TextGeometry("THREE.JS", {
+        font: font,
+        size: 20, // font size
+        curveSegments: 3,
+        bevelEnabled: false,
+      });
+      textGeo.computeBoundingBox();
+      var textMaterial = new THREE.MeshPhongMaterial({
+        color: 0xff0000,
+        specular: 0xffffff,
+      });
+      var mesh = new THREE.Mesh(textGeo, textMaterial);
+      mesh.position.set(1, -2, -2);
+      mesh.scale.set(0.01, 0.01, 0.01);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      scene.add(mesh);
+      texts.push(mesh);
     });
-    newText.scale.set(0.01, 0.01, 0.01);
-    newText.position.set(1, -2, -5);
-    scene.add(newText);
-    texts.push(newText);
   };
 
   const setHandLandmarks = () => {
     getAgeGenderContent();
     if (isHandPresent) {
-      texts[0].text = `${getHandElement()}`;
+      // texts[0].text = `${getHandElement()}`;
       hands[0].landmarks.forEach((landmark, index) => {
         handLandmarks[index].position.x = landmark[0] * 0.01;
         handLandmarks[index].position.y = landmark[1] * -0.01;
       });
     } else {
-      texts[0].text = "no hands found";
+      // texts[0].text = "no hands found";
     }
   };
 
@@ -85,7 +96,7 @@ const initThreeCanvas = () => {
   };
 
   const loadGltf = (filePath) => {
-    loader.load(filePath, (gltf) => {
+    gltfLoader.load(filePath, (gltf) => {
       const mixer = new THREE.AnimationMixer(gltf.scene);
       for (const anim of gltf.animations) {
         mixer.clipAction(anim).play();
@@ -195,7 +206,7 @@ const initThreeCanvas = () => {
     if (!threejsLoaded) {
       console.log("three js loaded!");
       threejsLoaded = true;
-      texts[0].text = "threejs loaded";
+      // texts[0].text = "threejs loaded";
       hideLoadingScreen();
     }
 
