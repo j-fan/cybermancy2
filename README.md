@@ -17,3 +17,9 @@ npm install -g parcel-bundler
 ```
  npm start
 ```
+
+# Build the project for github pages
+
+```
+  npm run gh
+```
