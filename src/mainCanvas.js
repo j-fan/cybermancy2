@@ -1,44 +1,26 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
-import { SpriteText2D, textAlign } from "three-text2d";
 import { hideLoadingScreen } from "./loadingScreen";
 import { hands, isHandPresent } from "./handPose";
 import { getAgeGenderContent, getHandElement } from "./analyseUser";
+import { initThreeFont, generateTextGeo, FontNames } from "./threeFontUtil";
 
-const initThreeCanvas = () => {
+const initThreeCanvas = async () => {
   let scene;
   let camera;
   let renderer;
   let handLandmarks = [];
   let clock = new THREE.Clock();
   const gltfLoader = new GLTFLoader();
-  const fontLoader = new THREE.FontLoader();
   let gltfObjs = [];
   let texts = [];
   let composer;
 
-  const createText = (text) => {
-    fontLoader.load("./fonts/helvetiker_regular.typeface.json", (font) => {
-      const textGeo = new THREE.TextGeometry("THREE.JS", {
-        font: font,
-        size: 20, // font size
-        curveSegments: 3,
-        bevelEnabled: false,
-      });
-      textGeo.computeBoundingBox();
-      var textMaterial = new THREE.MeshPhongMaterial({
-        color: 0xff0000,
-        specular: 0xffffff,
-      });
-      var mesh = new THREE.Mesh(textGeo, textMaterial);
-      mesh.position.set(1, -2, -2);
-      mesh.scale.set(0.01, 0.01, 0.01);
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-      scene.add(mesh);
-      texts.push(mesh);
-    });
+  const createText = (text, fontName, fontSize) => {
+    const newText = generateTextGeo(text, fontName, fontSize);
+    scene.add(newText);
+    texts.push(newText);
   };
 
   const setHandLandmarks = () => {
@@ -188,8 +170,10 @@ const initThreeCanvas = () => {
   loadPlanes(21);
   addLights();
   // addPostProcessing();
+  await initThreeFont();
+  createText("loading...", FontNames.Helvetiker, 20);
   loadGltf("resources/origin.glb");
-  createText("loading...");
+
   resizeCanvasToDisplaySize();
 
   let threejsLoaded = false;

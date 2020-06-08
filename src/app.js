@@ -8,7 +8,7 @@ const initAll = async () => {
   await initCamera();
   await initFaceDetect();
   await initHandposeDetection();
-  initThreeCanvas();
+  await initThreeCanvas();
 };
 
 initAll();

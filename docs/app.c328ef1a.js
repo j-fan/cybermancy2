@@ -66469,375 +66469,7 @@ RGBELoader.prototype = Object.assign(Object.create(_threeModule.DataTextureLoade
     return _threeModule.DataTextureLoader.prototype.load.call(this, url, onLoadCallback, onProgress, onError);
   }
 });
-},{"../../../build/three.module.js":"../node_modules/three/build/three.module.js"}],"../node_modules/three-text2d/lib/utils.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var three_1 = require("three");
-exports.textAlign = {
-    center: new three_1.Vector2(0, 0),
-    left: new three_1.Vector2(1, 0),
-    top: new three_1.Vector2(0, -1),
-    topLeft: new three_1.Vector2(1, -1),
-    topRight: new three_1.Vector2(-1, -1),
-    right: new three_1.Vector2(-1, 0),
-    bottom: new three_1.Vector2(0, 1),
-    bottomLeft: new three_1.Vector2(1, 1),
-    bottomRight: new three_1.Vector2(-1, 1),
-};
-var fontHeightCache = {};
-function getFontHeight(fontStyle) {
-    var result = fontHeightCache[fontStyle];
-    if (!result) {
-        var body = document.getElementsByTagName('body')[0];
-        var dummy = document.createElement('div');
-        var dummyText = document.createTextNode('MÉq');
-        dummy.appendChild(dummyText);
-        dummy.setAttribute('style', "font:" + fontStyle + ";position:absolute;top:0;left:0");
-        body.appendChild(dummy);
-        result = dummy.offsetHeight;
-        fontHeightCache[fontStyle] = result;
-        body.removeChild(dummy);
-    }
-    return result;
-}
-exports.getFontHeight = getFontHeight;
-
-},{"three":"../node_modules/three/build/three.module.js"}],"../node_modules/three-text2d/lib/CanvasText.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var THREE = require("three");
-var utils_1 = require("./utils");
-var CanvasText = /** @class */ (function () {
-    function CanvasText() {
-        this.textWidth = null;
-        this.textHeight = null;
-        this.canvas = document.createElement('canvas');
-        this.ctx = this.canvas.getContext('2d');
-    }
-    Object.defineProperty(CanvasText.prototype, "width", {
-        get: function () { return this.canvas.width; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasText.prototype, "height", {
-        get: function () { return this.canvas.height; },
-        enumerable: true,
-        configurable: true
-    });
-    CanvasText.prototype.drawText = function (text, ctxOptions) {
-        var _this = this;
-        this.ctx.font = ctxOptions.font;
-        var lineHeight = utils_1.getFontHeight(ctxOptions.font);
-        var lines = (text || "").toString().split("\n");
-        this.textWidth = Math.max.apply(null, lines.map(function (line) { return Math.ceil(_this.ctx.measureText(line).width); }));
-        this.textHeight = lineHeight + lineHeight * ctxOptions.lineHeight * (lines.length - 1);
-        // 2 = prevent canvas being 0 size when using empty / null text
-        this.canvas.width = Math.max(2, THREE.Math.ceilPowerOfTwo(this.textWidth + (2 * ctxOptions.horizontalPadding)));
-        this.canvas.height = Math.max(2, THREE.Math.ceilPowerOfTwo(this.textHeight + (2 * ctxOptions.verticalPadding)));
-        this.ctx.font = ctxOptions.font;
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        if (ctxOptions.backgroundColor) {
-            this.ctx.fillStyle = ctxOptions.backgroundColor;
-            this.ctx.fillRect(0, 0, this.textWidth + (2 * ctxOptions.horizontalPadding), this.textHeight + (2 * ctxOptions.verticalPadding));
-        }
-        this.ctx.fillStyle = ctxOptions.fillStyle;
-        if (ctxOptions.align.x === 1)
-            this.ctx.textAlign = 'left';
-        else if (ctxOptions.align.x === 0)
-            this.ctx.textAlign = 'center';
-        else
-            this.ctx.textAlign = 'right';
-        this.ctx.textBaseline = 'top';
-        this.ctx.shadowColor = ctxOptions.shadowColor;
-        this.ctx.shadowBlur = ctxOptions.shadowBlur;
-        this.ctx.shadowOffsetX = ctxOptions.shadowOffsetX;
-        this.ctx.shadowOffsetY = ctxOptions.shadowOffsetY;
-        var x = this.textWidth * (0.5 - ctxOptions.align.x * 0.5);
-        var y = 0.5 * ((lineHeight * ctxOptions.lineHeight) - lineHeight);
-        for (var i = 0; i < lines.length; i++) {
-            this.ctx.fillText(lines[i], x + ctxOptions.horizontalPadding, (lineHeight * ctxOptions.lineHeight * i) + ctxOptions.verticalPadding + y);
-        }
-        return this.canvas;
-    };
-    return CanvasText;
-}());
-exports.CanvasText = CanvasText;
-
-},{"three":"../node_modules/three/build/three.module.js","./utils":"../node_modules/three-text2d/lib/utils.js"}],"../node_modules/three-text2d/lib/Text2D.js":[function(require,module,exports) {
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var THREE = require("three");
-var utils_1 = require("./utils");
-var CanvasText_1 = require("./CanvasText");
-var Text2D = /** @class */ (function (_super) {
-    __extends(Text2D, _super);
-    function Text2D(text, options) {
-        if (text === void 0) { text = ''; }
-        if (options === void 0) { options = {}; }
-        var _this = _super.call(this) || this;
-        _this._align = new THREE.Vector2();
-        _this._font = options.font || '30px Arial';
-        _this._fillStyle = options.fillStyle || '#FFFFFF';
-        _this._shadowColor = options.shadowColor || 'rgba(0, 0, 0, 0)';
-        _this._shadowBlur = options.shadowBlur || 0;
-        _this._shadowOffsetX = options.shadowOffsetX || 0;
-        _this._shadowOffsetY = options.shadowOffsetY || 0;
-        _this._lineHeight = options.lineHeight || 1.2;
-        _this._backgroundColor = options.backgroundColor || 'transparent';
-        _this._horizontalPadding = options.horizontalPadding || 0;
-        _this._verticalPadding = options.verticalPadding || 0;
-        _this.canvas = new CanvasText_1.CanvasText();
-        _this.align = options.align || utils_1.textAlign.center;
-        _this.side = options.side || THREE.DoubleSide;
-        // this.anchor = Label.fontAlignAnchor[ this._textAlign ]
-        _this.antialias = (typeof options.antialias === "undefined") ? true : options.antialias;
-        _this.text = text;
-        return _this;
-    }
-    Object.defineProperty(Text2D.prototype, "width", {
-        get: function () { return this.canvas.textWidth; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Text2D.prototype, "height", {
-        get: function () { return this.canvas.textHeight; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Text2D.prototype, "text", {
-        get: function () { return this._text; },
-        set: function (value) {
-            if (this._text !== value) {
-                this._text = value;
-                this.updateText();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Text2D.prototype, "font", {
-        get: function () { return this._font; },
-        set: function (value) {
-            if (this._font !== value) {
-                this._font = value;
-                this.updateText();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Text2D.prototype, "fillStyle", {
-        get: function () {
-            return this._fillStyle;
-        },
-        set: function (value) {
-            if (this._fillStyle !== value) {
-                this._fillStyle = value;
-                this.updateText();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Text2D.prototype, "align", {
-        get: function () {
-            return this._align;
-        },
-        set: function (value) {
-            this._align.copy(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Text2D.prototype.cleanUp = function () {
-        if (this.texture) {
-            this.texture.dispose();
-        }
-    };
-    Text2D.prototype.applyAntiAlias = function () {
-        if (this.antialias === false) {
-            this.texture.magFilter = THREE.NearestFilter;
-            this.texture.minFilter = THREE.LinearMipMapLinearFilter;
-        }
-    };
-    return Text2D;
-}(THREE.Object3D));
-exports.Text2D = Text2D;
-
-},{"three":"../node_modules/three/build/three.module.js","./utils":"../node_modules/three-text2d/lib/utils.js","./CanvasText":"../node_modules/three-text2d/lib/CanvasText.js"}],"../node_modules/three-text2d/lib/SpriteText2D.js":[function(require,module,exports) {
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var THREE = require("three");
-var Text2D_1 = require("./Text2D");
-var SpriteText2D = /** @class */ (function (_super) {
-    __extends(SpriteText2D, _super);
-    function SpriteText2D() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SpriteText2D.prototype.raycast = function () {
-        return this.sprite.raycast.apply(this.sprite, arguments);
-    };
-    SpriteText2D.prototype.updateText = function () {
-        this.canvas.drawText(this._text, {
-            font: this._font,
-            fillStyle: this._fillStyle,
-            shadowBlur: this._shadowBlur,
-            shadowColor: this._shadowColor,
-            shadowOffsetX: this._shadowOffsetX,
-            shadowOffsetY: this._shadowOffsetY,
-            lineHeight: this._lineHeight,
-            align: this.align,
-            backgroundColor: this._backgroundColor,
-            horizontalPadding: this._horizontalPadding,
-            verticalPadding: this._verticalPadding
-        });
-        // cleanup previous texture
-        this.cleanUp();
-        this.texture = new THREE.Texture(this.canvas.canvas);
-        this.texture.needsUpdate = true;
-        this.applyAntiAlias();
-        if (!this.material) {
-            this.material = new THREE.SpriteMaterial({ map: this.texture });
-        }
-        else {
-            this.material.map = this.texture;
-        }
-        if (!this.sprite) {
-            this.sprite = new THREE.Sprite(this.material);
-            this.add(this.sprite);
-        }
-        this.sprite.scale.set(this.canvas.width, this.canvas.height, 1);
-        this.updateAlign();
-    };
-    SpriteText2D.prototype.updateAlign = function () {
-        if (this.sprite) {
-            this.sprite.center.x = (0.5 - this._align.x * 0.5) * this.canvas.textWidth / this.canvas.width;
-            this.sprite.center.y = 1 - (this._align.y * 0.5 + 0.5) * this.canvas.textHeight / this.canvas.height;
-        }
-    };
-    Object.defineProperty(SpriteText2D.prototype, "align", {
-        get: function () {
-            return this._align;
-        },
-        set: function (value) {
-            this._align.copy(value);
-            this.updateAlign();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return SpriteText2D;
-}(Text2D_1.Text2D));
-exports.SpriteText2D = SpriteText2D;
-
-},{"three":"../node_modules/three/build/three.module.js","./Text2D":"../node_modules/three-text2d/lib/Text2D.js"}],"../node_modules/three-text2d/lib/MeshText2D.js":[function(require,module,exports) {
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var THREE = require("three");
-var Text2D_1 = require("./Text2D");
-var MeshText2D = /** @class */ (function (_super) {
-    __extends(MeshText2D, _super);
-    function MeshText2D(text, options) {
-        if (text === void 0) { text = ''; }
-        if (options === void 0) { options = {}; }
-        return _super.call(this, text, options) || this;
-    }
-    MeshText2D.prototype.raycast = function () {
-        this.mesh.raycast.apply(this.mesh, arguments);
-    };
-    MeshText2D.prototype.updateText = function () {
-        this.cleanUp(); // cleanup previous texture
-        this.canvas.drawText(this._text, {
-            font: this._font,
-            fillStyle: this._fillStyle,
-            shadowBlur: this._shadowBlur,
-            shadowColor: this._shadowColor,
-            shadowOffsetX: this._shadowOffsetX,
-            shadowOffsetY: this._shadowOffsetY,
-            lineHeight: this._lineHeight,
-            align: this.align,
-            backgroundColor: this._backgroundColor,
-            horizontalPadding: this._horizontalPadding,
-            verticalPadding: this._verticalPadding
-        });
-        this.texture = new THREE.Texture(this.canvas.canvas);
-        this.texture.needsUpdate = true;
-        this.applyAntiAlias();
-        if (!this.material) {
-            this.material = new THREE.MeshBasicMaterial({ map: this.texture, side: this.side });
-            this.material.transparent = true;
-        }
-        else {
-            this.material.map = this.texture;
-        }
-        if (!this.mesh) {
-            this.geometry = new THREE.PlaneGeometry(this.canvas.width, this.canvas.height);
-            this.mesh = new THREE.Mesh(this.geometry, this.material);
-            this.add(this.mesh);
-        }
-        this.mesh.position.x = ((this.canvas.width / 2) - (this.canvas.textWidth / 2)) + ((this.canvas.textWidth / 2) * this.align.x);
-        this.mesh.position.y = (-this.canvas.height / 2) + ((this.canvas.textHeight / 2) * this.align.y);
-        // manually update geometry vertices
-        this.geometry.vertices[0].x = this.geometry.vertices[2].x = -this.canvas.width / 2;
-        this.geometry.vertices[1].x = this.geometry.vertices[3].x = this.canvas.width / 2;
-        this.geometry.vertices[0].y = this.geometry.vertices[1].y = this.canvas.height / 2;
-        this.geometry.vertices[2].y = this.geometry.vertices[3].y = -this.canvas.height / 2;
-        this.geometry.verticesNeedUpdate = true;
-    };
-    return MeshText2D;
-}(Text2D_1.Text2D));
-exports.MeshText2D = MeshText2D;
-
-},{"three":"../node_modules/three/build/three.module.js","./Text2D":"../node_modules/three-text2d/lib/Text2D.js"}],"../node_modules/three-text2d/lib/index.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var SpriteText2D_1 = require("./SpriteText2D");
-exports.SpriteText2D = SpriteText2D_1.SpriteText2D;
-var MeshText2D_1 = require("./MeshText2D");
-exports.MeshText2D = MeshText2D_1.MeshText2D;
-var utils_1 = require("./utils");
-exports.textAlign = utils_1.textAlign;
-
-},{"./SpriteText2D":"../node_modules/three-text2d/lib/SpriteText2D.js","./MeshText2D":"../node_modules/three-text2d/lib/MeshText2D.js","./utils":"../node_modules/three-text2d/lib/utils.js"}],"loadingScreen.js":[function(require,module,exports) {
+},{"../../../build/three.module.js":"../node_modules/three/build/three.module.js"}],"loadingScreen.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -97849,7 +97481,106 @@ var getAgeGenderContent = function getAgeGenderContent() {
 };
 
 exports.getAgeGenderContent = getAgeGenderContent;
-},{"./faceDetect":"faceDetect.js","./handPose":"handPose.js","./elements.json":"elements.json"}],"mainCanvas.js":[function(require,module,exports) {
+},{"./faceDetect":"faceDetect.js","./handPose":"handPose.js","./elements.json":"elements.json"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+},{}],"threeFontUtil.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initThreeFont = exports.generateTextGeo = exports.FontNames = void 0;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var THREE = _interopRequireWildcard(require("three"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var fontLoader = new THREE.FontLoader();
+var FontNames = {
+  Helvetiker: "Helvetika"
+};
+exports.FontNames = FontNames;
+var fontFiles = (0, _defineProperty2.default)({}, FontNames.Helvetiker, "./fonts/helvetiker_regular.typeface.json");
+var fonts = (0, _defineProperty2.default)({}, FontNames.Helvetiker, null);
+
+var initThreeFont = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+    var newFont;
+    return _regenerator.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fontLoader.loadAsync(fontFiles[FontNames.Helvetiker]);
+
+          case 2:
+            newFont = _context.sent;
+            fonts[FontNames.Helvetiker] = newFont;
+            console.log("fonts loaded", newFont);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function initThreeFont() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.initThreeFont = initThreeFont;
+
+var generateTextGeo = function generateTextGeo(text, fontName, fontSize) {
+  console.log("generate text", fonts[fontName]);
+  var textGeo = new THREE.TextGeometry(text, {
+    font: fonts[fontName],
+    size: fontSize,
+    curveSegments: 3,
+    bevelEnabled: false
+  });
+  textGeo.computeBoundingBox();
+  var textMaterial = new THREE.MeshPhongMaterial({
+    color: 0xff0000,
+    specular: 0xffffff
+  });
+  var mesh = new THREE.Mesh(textGeo, textMaterial);
+  mesh.position.set(1, -2, -2);
+  mesh.scale.set(0.01, 0.01, 0.01);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  return mesh;
+};
+
+exports.generateTextGeo = generateTextGeo;
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","three":"../node_modules/three/build/three.module.js"}],"mainCanvas.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -97857,13 +97588,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
 var THREE = _interopRequireWildcard(require("three"));
 
 var _GLTFLoader = require("three/examples/jsm/loaders/GLTFLoader");
 
 var _RGBELoader = require("three/examples/jsm/loaders/RGBELoader.js");
-
-var _threeText2d = require("three-text2d");
 
 var _loadingScreen = require("./loadingScreen");
 
@@ -97871,9 +97604,13 @@ var _handPose = require("./handPose");
 
 var _analyseUser = require("./analyseUser");
 
+var _threeFontUtil = require("./threeFontUtil");
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -97881,210 +97618,219 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-var initThreeCanvas = function initThreeCanvas() {
-  var scene;
-  var camera;
-  var renderer;
-  var handLandmarks = [];
-  var clock = new THREE.Clock();
-  var loader = new _GLTFLoader.GLTFLoader();
-  var gltfObjs = [];
-  var texts = [];
-  var composer;
+var initThreeCanvas = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+    var scene, camera, renderer, handLandmarks, clock, gltfLoader, gltfObjs, texts, composer, createText, setHandLandmarks, addPostProcessing, loadPlanes, loadGltf, resizeCanvasToDisplaySize, initScene, addLights, addCamera, initAndAttachCanvas, threejsLoaded, animate;
+    return _regenerator.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            handLandmarks = [];
+            clock = new THREE.Clock();
+            gltfLoader = new _GLTFLoader.GLTFLoader();
+            gltfObjs = [];
+            texts = [];
 
-  var createText = function createText(text) {
-    var newText = new _threeText2d.SpriteText2D(text, {
-      align: _threeText2d.textAlign.topLeft,
-      font: "16px Helvetica",
-      fillStyle: "#000000",
-      antialias: true
-    });
-    newText.scale.set(0.01, 0.01, 0.01);
-    newText.position.set(1, -2, -5);
-    scene.add(newText);
-    texts.push(newText);
-  };
+            createText = function createText(text, fontName, fontSize) {
+              var newText = (0, _threeFontUtil.generateTextGeo)(text, fontName, fontSize);
+              scene.add(newText);
+              texts.push(newText);
+            };
 
-  var setHandLandmarks = function setHandLandmarks() {
-    (0, _analyseUser.getAgeGenderContent)();
+            setHandLandmarks = function setHandLandmarks() {
+              (0, _analyseUser.getAgeGenderContent)();
 
-    if (_handPose.isHandPresent) {
-      texts[0].text = "".concat((0, _analyseUser.getHandElement)());
+              if (_handPose.isHandPresent) {
+                // texts[0].text = `${getHandElement()}`;
+                _handPose.hands[0].landmarks.forEach(function (landmark, index) {
+                  handLandmarks[index].position.x = landmark[0] * 0.01;
+                  handLandmarks[index].position.y = landmark[1] * -0.01;
+                });
+              } else {// texts[0].text = "no hands found";
+              }
+            };
 
-      _handPose.hands[0].landmarks.forEach(function (landmark, index) {
-        handLandmarks[index].position.x = landmark[0] * 0.01;
-        handLandmarks[index].position.y = landmark[1] * -0.01;
-      });
-    } else {
-      texts[0].text = "no hands found";
-    }
-  };
+            addPostProcessing = function addPostProcessing() {
+              composer = new EffectComposer(renderer);
+              var noiseEffect = new NoiseEffect({
+                blendFunction: BlendFunction.COLOR_DODGE
+              });
+              noiseEffect.blendMode.opacity.value = 0.05;
+              var chromaticAbberationEffect = new ChromaticAberrationEffect({
+                offset: new THREE.Vector2(0.001, 0.003)
+              });
+              composer.addPass(new RenderPass(scene, camera));
+              composer.addPass(new EffectPass(camera, noiseEffect));
+              composer.addPass(new EffectPass(camera, chromaticAbberationEffect));
+            };
 
-  var addPostProcessing = function addPostProcessing() {
-    composer = new EffectComposer(renderer);
-    var noiseEffect = new NoiseEffect({
-      blendFunction: BlendFunction.COLOR_DODGE
-    });
-    noiseEffect.blendMode.opacity.value = 0.05;
-    var chromaticAbberationEffect = new ChromaticAberrationEffect({
-      offset: new THREE.Vector2(0.001, 0.003)
-    });
-    composer.addPass(new RenderPass(scene, camera));
-    composer.addPass(new EffectPass(camera, noiseEffect));
-    composer.addPass(new EffectPass(camera, chromaticAbberationEffect));
-  };
+            loadPlanes = function loadPlanes(numPlanes) {
+              var planeMaterial = new THREE.MeshPhysicalMaterial({
+                color: 0xdddddd,
+                metalness: 0,
+                roughness: 0,
+                opacity: 1,
+                side: THREE.DoubleSide,
+                transparent: false,
+                premultipliedAlpha: true
+              });
+              var geometry = new THREE.PlaneBufferGeometry(1, 1);
 
-  var loadPlanes = function loadPlanes(numPlanes) {
-    var planeMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xdddddd,
-      metalness: 0,
-      roughness: 0,
-      opacity: 1,
-      side: THREE.DoubleSide,
-      transparent: false,
-      premultipliedAlpha: true
-    });
-    var geometry = new THREE.PlaneBufferGeometry(1, 1);
+              for (var i = 0; i < numPlanes; i++) {
+                var planeMesh = new THREE.Mesh(geometry, planeMaterial);
+                planeMesh.scale.x = 0.2;
+                planeMesh.scale.y = 0.2;
+                planeMesh.scale.z = 0.2;
+                planeMesh.position.z = -1;
+                planeMesh.position.x = (i - numPlanes / 2) * 0.5;
+                planeMesh.receiveShadow = true;
+                scene.add(planeMesh);
+                handLandmarks.push(planeMesh);
+              }
+            };
 
-    for (var i = 0; i < numPlanes; i++) {
-      var planeMesh = new THREE.Mesh(geometry, planeMaterial);
-      planeMesh.scale.x = 0.2;
-      planeMesh.scale.y = 0.2;
-      planeMesh.scale.z = 0.2;
-      planeMesh.position.z = -1;
-      planeMesh.position.x = (i - numPlanes / 2) * 0.5;
-      planeMesh.receiveShadow = true;
-      scene.add(planeMesh);
-      handLandmarks.push(planeMesh);
-    }
-  };
+            loadGltf = function loadGltf(filePath) {
+              gltfLoader.load(filePath, function (gltf) {
+                var mixer = new THREE.AnimationMixer(gltf.scene);
 
-  var loadGltf = function loadGltf(filePath) {
-    loader.load(filePath, function (gltf) {
-      var mixer = new THREE.AnimationMixer(gltf.scene);
+                var _iterator = _createForOfIteratorHelper(gltf.animations),
+                    _step;
 
-      var _iterator = _createForOfIteratorHelper(gltf.animations),
-          _step;
+                try {
+                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                    var anim = _step.value;
+                    mixer.clipAction(anim).play();
+                  }
+                } catch (err) {
+                  _iterator.e(err);
+                } finally {
+                  _iterator.f();
+                }
 
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var anim = _step.value;
-          mixer.clipAction(anim).play();
+                gltfObjs.push({
+                  gltf: gltf,
+                  mixer: mixer
+                });
+                scene.add(gltf.scene);
+              });
+            };
+
+            resizeCanvasToDisplaySize = function resizeCanvasToDisplaySize() {
+              var canvas = renderer.domElement;
+              var videoElement = document.getElementById("webcam-video");
+              var width = videoElement.clientWidth;
+              var height = videoElement.clientHeight;
+
+              if (canvas.width !== width || canvas.height !== height) {
+                renderer.setSize(width, height, false);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                canvas.width = width;
+                canvas.height = height;
+                canvas.style.width = "".concat(width, "px");
+                canvas.style.height = "".concat(height, "px");
+              }
+            };
+
+            initScene = function initScene() {
+              scene = new THREE.Scene();
+              var pmremGenerator = new THREE.PMREMGenerator(renderer);
+              new _RGBELoader.RGBELoader().setDataType(THREE.UnsignedByteType).load("img/royal_esplanade_1k.hdr", function (hdrEquirect) {
+                var hdrCubeRenderTarget = pmremGenerator.fromEquirectangular(hdrEquirect);
+                hdrEquirect.dispose();
+                pmremGenerator.dispose(); // scene.background = hdrCubeRenderTarget.texture;
+
+                scene.environment = hdrCubeRenderTarget.texture;
+              });
+              pmremGenerator.compileEquirectangularShader();
+            };
+
+            addLights = function addLights() {
+              var directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
+              directionalLight.position.set(0, 5, 10);
+              scene.add(directionalLight);
+              directionalLight.castShadow = true;
+              directionalLight.castShadow = true;
+              directionalLight.shadow.mapSize.height = 256;
+              directionalLight.shadow.mapSize.width = 256;
+              directionalLight.shadow.camera = new THREE.OrthographicCamera(-6, 6, 6, -6, 8, 20); // const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
+              // scene.add(cameraHelper);
+            };
+
+            addCamera = function addCamera() {
+              var videoElement = document.getElementById("webcam-video");
+              var width = videoElement.videoWidth * 0.01;
+              var height = videoElement.videoHeight * 0.01;
+              camera = new THREE.OrthographicCamera(0, width, 0, -height, 0.1, 1000);
+            };
+
+            initAndAttachCanvas = function initAndAttachCanvas() {
+              var selfHtmlNode = document.getElementById("mainCanvas");
+              renderer = new THREE.WebGLRenderer({
+                alpha: true,
+                antialias: true
+              });
+              selfHtmlNode.appendChild(renderer.domElement);
+              renderer.setSize(selfHtmlNode.clientWidth, selfHtmlNode.clientHeight);
+              renderer.shadowMap.enabled = true;
+              renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+              renderer.setClearColor(0x000000, 0);
+              window.addEventListener("resize", function () {
+                resizeCanvasToDisplaySize();
+              });
+            };
+
+            initAndAttachCanvas();
+            initScene();
+            addCamera();
+            loadPlanes(21);
+            addLights(); // addPostProcessing();
+
+            _context.next = 22;
+            return (0, _threeFontUtil.initThreeFont)();
+
+          case 22:
+            createText("loading...", _threeFontUtil.FontNames.Helvetiker, 20);
+            loadGltf("resources/origin.glb");
+            resizeCanvasToDisplaySize();
+            threejsLoaded = false;
+
+            animate = function animate() {
+              // composer.render(clock.getDelta());
+              renderer.render(scene, camera);
+              setHandLandmarks();
+              gltfObjs.forEach(function (obj) {
+                obj.mixer.update(clock.getDelta());
+              });
+
+              if (!threejsLoaded) {
+                console.log("three js loaded!");
+                threejsLoaded = true; // texts[0].text = "threejs loaded";
+
+                (0, _loadingScreen.hideLoadingScreen)();
+              }
+
+              requestAnimationFrame(animate);
+            };
+
+            animate();
+
+          case 28:
+          case "end":
+            return _context.stop();
         }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
       }
+    }, _callee);
+  }));
 
-      gltfObjs.push({
-        gltf: gltf,
-        mixer: mixer
-      });
-      scene.add(gltf.scene);
-    });
+  return function initThreeCanvas() {
+    return _ref.apply(this, arguments);
   };
-
-  var resizeCanvasToDisplaySize = function resizeCanvasToDisplaySize() {
-    var canvas = renderer.domElement;
-    var videoElement = document.getElementById("webcam-video");
-    var width = videoElement.clientWidth;
-    var height = videoElement.clientHeight;
-
-    if (canvas.width !== width || canvas.height !== height) {
-      renderer.setSize(width, height, false);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      canvas.width = width;
-      canvas.height = height;
-      canvas.style.width = "".concat(width, "px");
-      canvas.style.height = "".concat(height, "px");
-    }
-  };
-
-  var initScene = function initScene() {
-    scene = new THREE.Scene();
-    var pmremGenerator = new THREE.PMREMGenerator(renderer);
-    new _RGBELoader.RGBELoader().setDataType(THREE.UnsignedByteType).load("img/royal_esplanade_1k.hdr", function (hdrEquirect) {
-      var hdrCubeRenderTarget = pmremGenerator.fromEquirectangular(hdrEquirect);
-      hdrEquirect.dispose();
-      pmremGenerator.dispose(); // scene.background = hdrCubeRenderTarget.texture;
-
-      scene.environment = hdrCubeRenderTarget.texture;
-    });
-    pmremGenerator.compileEquirectangularShader();
-  };
-
-  var addLights = function addLights() {
-    var directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
-    directionalLight.position.set(0, 5, 10);
-    scene.add(directionalLight);
-    directionalLight.castShadow = true;
-    directionalLight.castShadow = true;
-    directionalLight.shadow.mapSize.height = 256;
-    directionalLight.shadow.mapSize.width = 256;
-    directionalLight.shadow.camera = new THREE.OrthographicCamera(-6, 6, 6, -6, 8, 20); // const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
-    // scene.add(cameraHelper);
-  };
-
-  var addCamera = function addCamera() {
-    var videoElement = document.getElementById("webcam-video");
-    var width = videoElement.videoWidth * 0.01;
-    var height = videoElement.videoHeight * 0.01;
-    camera = new THREE.OrthographicCamera(0, width, 0, -height, 0.1, 1000);
-  };
-
-  var initAndAttachCanvas = function initAndAttachCanvas() {
-    var selfHtmlNode = document.getElementById("mainCanvas");
-    renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: true
-    });
-    selfHtmlNode.appendChild(renderer.domElement);
-    renderer.setSize(selfHtmlNode.clientWidth, selfHtmlNode.clientHeight);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.setClearColor(0x000000, 0);
-    window.addEventListener("resize", function () {
-      resizeCanvasToDisplaySize();
-    });
-  };
-
-  initAndAttachCanvas();
-  initScene();
-  addCamera();
-  loadPlanes(21);
-  addLights(); // addPostProcessing();
-
-  loadGltf("resources/origin.glb");
-  createText("loading...");
-  resizeCanvasToDisplaySize();
-  var threejsLoaded = false;
-
-  var animate = function animate() {
-    // composer.render(clock.getDelta());
-    renderer.render(scene, camera);
-    setHandLandmarks();
-    gltfObjs.forEach(function (obj) {
-      obj.mixer.update(clock.getDelta());
-    });
-
-    if (!threejsLoaded) {
-      console.log("three js loaded!");
-      threejsLoaded = true;
-      texts[0].text = "threejs loaded";
-      (0, _loadingScreen.hideLoadingScreen)();
-    }
-
-    requestAnimationFrame(animate);
-  };
-
-  animate();
-};
+}();
 
 var _default = initThreeCanvas;
 exports.default = _default;
-},{"three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","three-text2d":"../node_modules/three-text2d/lib/index.js","./loadingScreen":"loadingScreen.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./loadingScreen":"loadingScreen.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js","./threeFontUtil":"threeFontUtil.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -98193,9 +97939,10 @@ var initAll = /*#__PURE__*/function () {
             return (0, _handPose.initHandposeDetection)();
 
           case 6:
-            (0, _mainCanvas.default)();
+            _context.next = 8;
+            return (0, _mainCanvas.default)();
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -98235,9 +97982,9 @@ var checkedAssets, assetsToAccept;
 var parent = module.bundle.parent;
 
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "192.168.20.17" || location.hostname;
+  var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56037" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63621" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
