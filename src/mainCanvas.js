@@ -184,9 +184,9 @@ const initThreeCanvas = async () => {
 
   loadPlanes(NUM_HAND_LANDMARKS);
   await initThreeFont();
-  loadedStatus = createText("Loading...", FontNames.Helvetiker, 20, 0xff00ff);
+  loadedStatus = createText("Loading", FontNames.NeonNanoborg, 20, 0xff00ff);
   handElement = createText(
-    "Detecting hand. Please wait.",
+    "Detecting. hand Please wait.",
     FontNames.Helvetiker,
     20,
     0x00ffff

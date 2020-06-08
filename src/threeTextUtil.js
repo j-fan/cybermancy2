@@ -5,21 +5,28 @@ const fontLoader = new THREE.FontLoader();
 
 const FontNames = {
   Helvetiker: "Helvetika",
+  BurgerJoint: "BurgerJoint",
+  NeonAbsolute: "NeonAbsolute",
+  NeonNanoborg: "NeonNanoborg",
 };
 
 let fontFiles = {
   [FontNames.Helvetiker]: "./fonts/helvetiker_regular.typeface.json",
+  [FontNames.BurgerJoint]: "./fonts/Burger_Joint.json",
+  [FontNames.NeonAbsolute]: "./fonts/Neon_Absolute.json",
+  [FontNames.NeonNanoborg]: "./fonts/Neon_Nanoborg.json",
 };
 
-let fonts = {
-  [FontNames.Helvetiker]: null,
-};
+let fonts = {};
 
 let textObjsWithConfig = {};
 
 const initThreeFont = async () => {
-  let newFont = await fontLoader.loadAsync(fontFiles[FontNames.Helvetiker]);
-  fonts[FontNames.Helvetiker] = newFont;
+  for await (let fontName of Object.keys(fontFiles)) {
+    const fileName = fontFiles[fontName];
+    const loadedFont = await fontLoader.loadAsync(fileName);
+    fonts[fontName] = loadedFont;
+  }
 };
 
 const createTextObj = (
@@ -47,7 +54,14 @@ const createTextObj = (
   });
   var mesh = new THREE.Mesh(textGeo, textMaterial);
   mesh.position.set(position.x, position.y, position.z);
-  mesh.scale.set(0.01, 0.01, 0.01);
+  if (
+    fontName === FontNames.NeonAbsolute ||
+    fontName === FontNames.Helvetiker
+  ) {
+    mesh.scale.set(0.005, 0.005, 0.005);
+  } else {
+    mesh.scale.set(0.01, 0.01, 0.01);
+  }
   mesh.name = textObjName;
 
   scene.add(mesh);
