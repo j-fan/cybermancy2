@@ -27672,7 +27672,7 @@ function generateUUID() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.newHandAppeared = exports.isHandPresent = exports.hands = exports.initHandposeDetection = void 0;
+exports.NUM_HAND_LANDMARKS = exports.newHandAppeared = exports.isHandPresent = exports.hands = exports.initHandposeDetection = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -27688,7 +27688,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var isDetectionUsingWebWorker = true;
+// use webworker on chrome only; other browsers have bad performance with it
+var isDetectionUsingWebWorker = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
 var HandDetectorWorker = Comlink.wrap(new Worker("/handpose-worker.c7936954.js"));
 var handDetector;
 var videoElement = document.getElementById("webcam-video");
@@ -27702,6 +27703,8 @@ var handAbsentCount = 0;
 var handChanged = true;
 var newHandAppeared = false;
 exports.newHandAppeared = newHandAppeared;
+var NUM_HAND_LANDMARKS = 21;
+exports.NUM_HAND_LANDMARKS = NUM_HAND_LANDMARKS;
 
 var startHandDetectorNormal = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
@@ -27849,22 +27852,23 @@ var initHandposeDetection = /*#__PURE__*/function () {
         switch (_context7.prev = _context7.next) {
           case 0:
             if (!isDetectionUsingWebWorker) {
-              _context7.next = 5;
+              _context7.next = 6;
               break;
             }
 
-            _context7.next = 3;
+            console.log("using web workers");
+            _context7.next = 4;
             return startHandDetectorWorker();
 
-          case 3:
-            _context7.next = 7;
+          case 4:
+            _context7.next = 8;
             break;
 
-          case 5:
-            _context7.next = 7;
+          case 6:
+            _context7.next = 8;
             return startHandDetectorNormal();
 
-          case 7:
+          case 8:
             estimateHandPose = /*#__PURE__*/function () {
               var _ref6 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
                 return _regenerator.default.wrap(function _callee5$(_context5) {
@@ -27930,7 +27934,7 @@ var initHandposeDetection = /*#__PURE__*/function () {
 
             runDetection();
 
-          case 10:
+          case 11:
           case "end":
             return _context7.stop();
         }
@@ -97498,13 +97502,691 @@ function _defineProperty(obj, key, value) {
 }
 
 module.exports = _defineProperty;
-},{}],"threeFontUtil.js":[function(require,module,exports) {
+},{}],"../node_modules/uuid/dist/esm-browser/rng.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.initThreeFont = exports.generateTextGeo = exports.FontNames = void 0;
+exports.default = rng;
+// Unique ID creation requires a high quality random # generator. In the browser we therefore
+// require the crypto API and do not support built-in fallback to lower quality random number
+// generators (like Math.random()).
+// getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
+// find the complete implementation of crypto (msCrypto) on IE11.
+var getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
+var rnds8 = new Uint8Array(16);
+
+function rng() {
+  if (!getRandomValues) {
+    throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
+  }
+
+  return getRandomValues(rnds8);
+}
+},{}],"../node_modules/uuid/dist/esm-browser/bytesToUuid.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+
+for (var i = 0; i < 256; ++i) {
+  byteToHex.push((i + 0x100).toString(16).substr(1));
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex; // Note: Be careful editing this code!  It's been tuned for performance
+  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
+
+  return (bth[buf[i + 0]] + bth[buf[i + 1]] + bth[buf[i + 2]] + bth[buf[i + 3]] + '-' + bth[buf[i + 4]] + bth[buf[i + 5]] + '-' + bth[buf[i + 6]] + bth[buf[i + 7]] + '-' + bth[buf[i + 8]] + bth[buf[i + 9]] + '-' + bth[buf[i + 10]] + bth[buf[i + 11]] + bth[buf[i + 12]] + bth[buf[i + 13]] + bth[buf[i + 14]] + bth[buf[i + 15]]).toLowerCase();
+}
+
+var _default = bytesToUuid;
+exports.default = _default;
+},{}],"../node_modules/uuid/dist/esm-browser/v1.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _rng = _interopRequireDefault(require("./rng.js"));
+
+var _bytesToUuid = _interopRequireDefault(require("./bytesToUuid.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// **`v1()` - Generate time-based UUID**
+//
+// Inspired by https://github.com/LiosK/UUID.js
+// and http://docs.python.org/library/uuid.html
+var _nodeId;
+
+var _clockseq; // Previous uuid creation time
+
+
+var _lastMSecs = 0;
+var _lastNSecs = 0; // See https://github.com/uuidjs/uuid for API details
+
+function v1(options, buf, offset) {
+  var i = buf && offset || 0;
+  var b = buf || [];
+  options = options || {};
+  var node = options.node || _nodeId;
+  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq; // node and clockseq need to be initialized to random values if they're not
+  // specified.  We do this lazily to minimize issues related to insufficient
+  // system entropy.  See #189
+
+  if (node == null || clockseq == null) {
+    var seedBytes = options.random || (options.rng || _rng.default)();
+
+    if (node == null) {
+      // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+      node = _nodeId = [seedBytes[0] | 0x01, seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]];
+    }
+
+    if (clockseq == null) {
+      // Per 4.2.2, randomize (14 bit) clockseq
+      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
+    }
+  } // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+
+
+  var msecs = options.msecs !== undefined ? options.msecs : Date.now(); // Per 4.2.1.2, use count of uuid's generated during the current clock
+  // cycle to simulate higher resolution clock
+
+  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1; // Time since last uuid creation (in msecs)
+
+  var dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000; // Per 4.2.1.2, Bump clockseq on clock regression
+
+  if (dt < 0 && options.clockseq === undefined) {
+    clockseq = clockseq + 1 & 0x3fff;
+  } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+  // time interval
+
+
+  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+    nsecs = 0;
+  } // Per 4.2.1.2 Throw error if too many uuids are requested
+
+
+  if (nsecs >= 10000) {
+    throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
+  }
+
+  _lastMSecs = msecs;
+  _lastNSecs = nsecs;
+  _clockseq = clockseq; // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+
+  msecs += 12219292800000; // `time_low`
+
+  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+  b[i++] = tl >>> 24 & 0xff;
+  b[i++] = tl >>> 16 & 0xff;
+  b[i++] = tl >>> 8 & 0xff;
+  b[i++] = tl & 0xff; // `time_mid`
+
+  var tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
+  b[i++] = tmh >>> 8 & 0xff;
+  b[i++] = tmh & 0xff; // `time_high_and_version`
+
+  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+
+  b[i++] = tmh >>> 16 & 0xff; // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+
+  b[i++] = clockseq >>> 8 | 0x80; // `clock_seq_low`
+
+  b[i++] = clockseq & 0xff; // `node`
+
+  for (var n = 0; n < 6; ++n) {
+    b[i + n] = node[n];
+  }
+
+  return buf || (0, _bytesToUuid.default)(b);
+}
+
+var _default = v1;
+exports.default = _default;
+},{"./rng.js":"../node_modules/uuid/dist/esm-browser/rng.js","./bytesToUuid.js":"../node_modules/uuid/dist/esm-browser/bytesToUuid.js"}],"../node_modules/uuid/dist/esm-browser/v35.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+exports.URL = exports.DNS = void 0;
+
+var _bytesToUuid = _interopRequireDefault(require("./bytesToUuid.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function uuidToBytes(uuid) {
+  // Note: We assume we're being passed a valid uuid string
+  var bytes = [];
+  uuid.replace(/[a-fA-F0-9]{2}/g, function (hex) {
+    bytes.push(parseInt(hex, 16));
+  });
+  return bytes;
+}
+
+function stringToBytes(str) {
+  str = unescape(encodeURIComponent(str)); // UTF8 escape
+
+  var bytes = [];
+
+  for (var i = 0; i < str.length; ++i) {
+    bytes.push(str.charCodeAt(i));
+  }
+
+  return bytes;
+}
+
+var DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
+exports.DNS = DNS;
+var URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
+exports.URL = URL;
+
+function _default(name, version, hashfunc) {
+  function generateUUID(value, namespace, buf, offset) {
+    var off = buf && offset || 0;
+    if (typeof value === 'string') value = stringToBytes(value);
+    if (typeof namespace === 'string') namespace = uuidToBytes(namespace);
+
+    if (!Array.isArray(value)) {
+      throw TypeError('value must be an array of bytes');
+    }
+
+    if (!Array.isArray(namespace) || namespace.length !== 16) {
+      throw TypeError('namespace must be uuid string or an Array of 16 byte values');
+    } // Per 4.3
+
+
+    var bytes = hashfunc(namespace.concat(value));
+    bytes[6] = bytes[6] & 0x0f | version;
+    bytes[8] = bytes[8] & 0x3f | 0x80;
+
+    if (buf) {
+      for (var idx = 0; idx < 16; ++idx) {
+        buf[off + idx] = bytes[idx];
+      }
+    }
+
+    return buf || (0, _bytesToUuid.default)(bytes);
+  } // Function#name is not settable on some platforms (#270)
+
+
+  try {
+    generateUUID.name = name; // eslint-disable-next-line no-empty
+  } catch (err) {} // For CommonJS default export support
+
+
+  generateUUID.DNS = DNS;
+  generateUUID.URL = URL;
+  return generateUUID;
+}
+},{"./bytesToUuid.js":"../node_modules/uuid/dist/esm-browser/bytesToUuid.js"}],"../node_modules/uuid/dist/esm-browser/md5.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/*
+ * Browser-compatible JavaScript MD5
+ *
+ * Modification of JavaScript MD5
+ * https://github.com/blueimp/JavaScript-MD5
+ *
+ * Copyright 2011, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * https://opensource.org/licenses/MIT
+ *
+ * Based on
+ * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
+ * Digest Algorithm, as defined in RFC 1321.
+ * Version 2.2 Copyright (C) Paul Johnston 1999 - 2009
+ * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
+ * Distributed under the BSD License
+ * See http://pajhome.org.uk/crypt/md5 for more info.
+ */
+function md5(bytes) {
+  if (typeof bytes === 'string') {
+    var msg = unescape(encodeURIComponent(bytes)); // UTF8 escape
+
+    bytes = new Uint8Array(msg.length);
+
+    for (var i = 0; i < msg.length; ++i) {
+      bytes[i] = msg.charCodeAt(i);
+    }
+  }
+
+  return md5ToHexEncodedArray(wordsToMd5(bytesToWords(bytes), bytes.length * 8));
+}
+/*
+ * Convert an array of little-endian words to an array of bytes
+ */
+
+
+function md5ToHexEncodedArray(input) {
+  var output = [];
+  var length32 = input.length * 32;
+  var hexTab = '0123456789abcdef';
+
+  for (var i = 0; i < length32; i += 8) {
+    var x = input[i >> 5] >>> i % 32 & 0xff;
+    var hex = parseInt(hexTab.charAt(x >>> 4 & 0x0f) + hexTab.charAt(x & 0x0f), 16);
+    output.push(hex);
+  }
+
+  return output;
+}
+/**
+ * Calculate output length with padding and bit length
+ */
+
+
+function getOutputLength(inputLength8) {
+  return (inputLength8 + 64 >>> 9 << 4) + 14 + 1;
+}
+/*
+ * Calculate the MD5 of an array of little-endian words, and a bit length.
+ */
+
+
+function wordsToMd5(x, len) {
+  /* append padding */
+  x[len >> 5] |= 0x80 << len % 32;
+  x[getOutputLength(len) - 1] = len;
+  var a = 1732584193;
+  var b = -271733879;
+  var c = -1732584194;
+  var d = 271733878;
+
+  for (var i = 0; i < x.length; i += 16) {
+    var olda = a;
+    var oldb = b;
+    var oldc = c;
+    var oldd = d;
+    a = md5ff(a, b, c, d, x[i], 7, -680876936);
+    d = md5ff(d, a, b, c, x[i + 1], 12, -389564586);
+    c = md5ff(c, d, a, b, x[i + 2], 17, 606105819);
+    b = md5ff(b, c, d, a, x[i + 3], 22, -1044525330);
+    a = md5ff(a, b, c, d, x[i + 4], 7, -176418897);
+    d = md5ff(d, a, b, c, x[i + 5], 12, 1200080426);
+    c = md5ff(c, d, a, b, x[i + 6], 17, -1473231341);
+    b = md5ff(b, c, d, a, x[i + 7], 22, -45705983);
+    a = md5ff(a, b, c, d, x[i + 8], 7, 1770035416);
+    d = md5ff(d, a, b, c, x[i + 9], 12, -1958414417);
+    c = md5ff(c, d, a, b, x[i + 10], 17, -42063);
+    b = md5ff(b, c, d, a, x[i + 11], 22, -1990404162);
+    a = md5ff(a, b, c, d, x[i + 12], 7, 1804603682);
+    d = md5ff(d, a, b, c, x[i + 13], 12, -40341101);
+    c = md5ff(c, d, a, b, x[i + 14], 17, -1502002290);
+    b = md5ff(b, c, d, a, x[i + 15], 22, 1236535329);
+    a = md5gg(a, b, c, d, x[i + 1], 5, -165796510);
+    d = md5gg(d, a, b, c, x[i + 6], 9, -1069501632);
+    c = md5gg(c, d, a, b, x[i + 11], 14, 643717713);
+    b = md5gg(b, c, d, a, x[i], 20, -373897302);
+    a = md5gg(a, b, c, d, x[i + 5], 5, -701558691);
+    d = md5gg(d, a, b, c, x[i + 10], 9, 38016083);
+    c = md5gg(c, d, a, b, x[i + 15], 14, -660478335);
+    b = md5gg(b, c, d, a, x[i + 4], 20, -405537848);
+    a = md5gg(a, b, c, d, x[i + 9], 5, 568446438);
+    d = md5gg(d, a, b, c, x[i + 14], 9, -1019803690);
+    c = md5gg(c, d, a, b, x[i + 3], 14, -187363961);
+    b = md5gg(b, c, d, a, x[i + 8], 20, 1163531501);
+    a = md5gg(a, b, c, d, x[i + 13], 5, -1444681467);
+    d = md5gg(d, a, b, c, x[i + 2], 9, -51403784);
+    c = md5gg(c, d, a, b, x[i + 7], 14, 1735328473);
+    b = md5gg(b, c, d, a, x[i + 12], 20, -1926607734);
+    a = md5hh(a, b, c, d, x[i + 5], 4, -378558);
+    d = md5hh(d, a, b, c, x[i + 8], 11, -2022574463);
+    c = md5hh(c, d, a, b, x[i + 11], 16, 1839030562);
+    b = md5hh(b, c, d, a, x[i + 14], 23, -35309556);
+    a = md5hh(a, b, c, d, x[i + 1], 4, -1530992060);
+    d = md5hh(d, a, b, c, x[i + 4], 11, 1272893353);
+    c = md5hh(c, d, a, b, x[i + 7], 16, -155497632);
+    b = md5hh(b, c, d, a, x[i + 10], 23, -1094730640);
+    a = md5hh(a, b, c, d, x[i + 13], 4, 681279174);
+    d = md5hh(d, a, b, c, x[i], 11, -358537222);
+    c = md5hh(c, d, a, b, x[i + 3], 16, -722521979);
+    b = md5hh(b, c, d, a, x[i + 6], 23, 76029189);
+    a = md5hh(a, b, c, d, x[i + 9], 4, -640364487);
+    d = md5hh(d, a, b, c, x[i + 12], 11, -421815835);
+    c = md5hh(c, d, a, b, x[i + 15], 16, 530742520);
+    b = md5hh(b, c, d, a, x[i + 2], 23, -995338651);
+    a = md5ii(a, b, c, d, x[i], 6, -198630844);
+    d = md5ii(d, a, b, c, x[i + 7], 10, 1126891415);
+    c = md5ii(c, d, a, b, x[i + 14], 15, -1416354905);
+    b = md5ii(b, c, d, a, x[i + 5], 21, -57434055);
+    a = md5ii(a, b, c, d, x[i + 12], 6, 1700485571);
+    d = md5ii(d, a, b, c, x[i + 3], 10, -1894986606);
+    c = md5ii(c, d, a, b, x[i + 10], 15, -1051523);
+    b = md5ii(b, c, d, a, x[i + 1], 21, -2054922799);
+    a = md5ii(a, b, c, d, x[i + 8], 6, 1873313359);
+    d = md5ii(d, a, b, c, x[i + 15], 10, -30611744);
+    c = md5ii(c, d, a, b, x[i + 6], 15, -1560198380);
+    b = md5ii(b, c, d, a, x[i + 13], 21, 1309151649);
+    a = md5ii(a, b, c, d, x[i + 4], 6, -145523070);
+    d = md5ii(d, a, b, c, x[i + 11], 10, -1120210379);
+    c = md5ii(c, d, a, b, x[i + 2], 15, 718787259);
+    b = md5ii(b, c, d, a, x[i + 9], 21, -343485551);
+    a = safeAdd(a, olda);
+    b = safeAdd(b, oldb);
+    c = safeAdd(c, oldc);
+    d = safeAdd(d, oldd);
+  }
+
+  return [a, b, c, d];
+}
+/*
+ * Convert an array bytes to an array of little-endian words
+ * Characters >255 have their high-byte silently ignored.
+ */
+
+
+function bytesToWords(input) {
+  if (input.length === 0) {
+    return [];
+  }
+
+  var length8 = input.length * 8;
+  var output = new Uint32Array(getOutputLength(length8));
+
+  for (var i = 0; i < length8; i += 8) {
+    output[i >> 5] |= (input[i / 8] & 0xff) << i % 32;
+  }
+
+  return output;
+}
+/*
+ * Add integers, wrapping at 2^32. This uses 16-bit operations internally
+ * to work around bugs in some JS interpreters.
+ */
+
+
+function safeAdd(x, y) {
+  var lsw = (x & 0xffff) + (y & 0xffff);
+  var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+  return msw << 16 | lsw & 0xffff;
+}
+/*
+ * Bitwise rotate a 32-bit number to the left.
+ */
+
+
+function bitRotateLeft(num, cnt) {
+  return num << cnt | num >>> 32 - cnt;
+}
+/*
+ * These functions implement the four basic operations the algorithm uses.
+ */
+
+
+function md5cmn(q, a, b, x, s, t) {
+  return safeAdd(bitRotateLeft(safeAdd(safeAdd(a, q), safeAdd(x, t)), s), b);
+}
+
+function md5ff(a, b, c, d, x, s, t) {
+  return md5cmn(b & c | ~b & d, a, b, x, s, t);
+}
+
+function md5gg(a, b, c, d, x, s, t) {
+  return md5cmn(b & d | c & ~d, a, b, x, s, t);
+}
+
+function md5hh(a, b, c, d, x, s, t) {
+  return md5cmn(b ^ c ^ d, a, b, x, s, t);
+}
+
+function md5ii(a, b, c, d, x, s, t) {
+  return md5cmn(c ^ (b | ~d), a, b, x, s, t);
+}
+
+var _default = md5;
+exports.default = _default;
+},{}],"../node_modules/uuid/dist/esm-browser/v3.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _v = _interopRequireDefault(require("./v35.js"));
+
+var _md = _interopRequireDefault(require("./md5.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var v3 = (0, _v.default)('v3', 0x30, _md.default);
+var _default = v3;
+exports.default = _default;
+},{"./v35.js":"../node_modules/uuid/dist/esm-browser/v35.js","./md5.js":"../node_modules/uuid/dist/esm-browser/md5.js"}],"../node_modules/uuid/dist/esm-browser/v4.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _rng = _interopRequireDefault(require("./rng.js"));
+
+var _bytesToUuid = _interopRequireDefault(require("./bytesToUuid.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function v4(options, buf, offset) {
+  if (typeof options === 'string') {
+    buf = options === 'binary' ? new Uint8Array(16) : null;
+    options = null;
+  }
+
+  options = options || {};
+
+  var rnds = options.random || (options.rng || _rng.default)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+
+
+  rnds[6] = rnds[6] & 0x0f | 0x40;
+  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
+
+  if (buf) {
+    var start = offset || 0;
+
+    for (var i = 0; i < 16; ++i) {
+      buf[start + i] = rnds[i];
+    }
+
+    return buf;
+  }
+
+  return (0, _bytesToUuid.default)(rnds);
+}
+
+var _default = v4;
+exports.default = _default;
+},{"./rng.js":"../node_modules/uuid/dist/esm-browser/rng.js","./bytesToUuid.js":"../node_modules/uuid/dist/esm-browser/bytesToUuid.js"}],"../node_modules/uuid/dist/esm-browser/sha1.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+// Adapted from Chris Veness' SHA1 code at
+// http://www.movable-type.co.uk/scripts/sha1.html
+function f(s, x, y, z) {
+  switch (s) {
+    case 0:
+      return x & y ^ ~x & z;
+
+    case 1:
+      return x ^ y ^ z;
+
+    case 2:
+      return x & y ^ x & z ^ y & z;
+
+    case 3:
+      return x ^ y ^ z;
+  }
+}
+
+function ROTL(x, n) {
+  return x << n | x >>> 32 - n;
+}
+
+function sha1(bytes) {
+  var K = [0x5a827999, 0x6ed9eba1, 0x8f1bbcdc, 0xca62c1d6];
+  var H = [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0];
+
+  if (typeof bytes === 'string') {
+    var msg = unescape(encodeURIComponent(bytes)); // UTF8 escape
+
+    bytes = [];
+
+    for (var i = 0; i < msg.length; ++i) {
+      bytes.push(msg.charCodeAt(i));
+    }
+  }
+
+  bytes.push(0x80);
+  var l = bytes.length / 4 + 2;
+  var N = Math.ceil(l / 16);
+  var M = new Array(N);
+
+  for (var _i = 0; _i < N; ++_i) {
+    var arr = new Uint32Array(16);
+
+    for (var j = 0; j < 16; ++j) {
+      arr[j] = bytes[_i * 64 + j * 4] << 24 | bytes[_i * 64 + j * 4 + 1] << 16 | bytes[_i * 64 + j * 4 + 2] << 8 | bytes[_i * 64 + j * 4 + 3];
+    }
+
+    M[_i] = arr;
+  }
+
+  M[N - 1][14] = (bytes.length - 1) * 8 / Math.pow(2, 32);
+  M[N - 1][14] = Math.floor(M[N - 1][14]);
+  M[N - 1][15] = (bytes.length - 1) * 8 & 0xffffffff;
+
+  for (var _i2 = 0; _i2 < N; ++_i2) {
+    var W = new Uint32Array(80);
+
+    for (var t = 0; t < 16; ++t) {
+      W[t] = M[_i2][t];
+    }
+
+    for (var _t = 16; _t < 80; ++_t) {
+      W[_t] = ROTL(W[_t - 3] ^ W[_t - 8] ^ W[_t - 14] ^ W[_t - 16], 1);
+    }
+
+    var a = H[0];
+    var b = H[1];
+    var c = H[2];
+    var d = H[3];
+    var e = H[4];
+
+    for (var _t2 = 0; _t2 < 80; ++_t2) {
+      var s = Math.floor(_t2 / 20);
+      var T = ROTL(a, 5) + f(s, b, c, d) + e + K[s] + W[_t2] >>> 0;
+      e = d;
+      d = c;
+      c = ROTL(b, 30) >>> 0;
+      b = a;
+      a = T;
+    }
+
+    H[0] = H[0] + a >>> 0;
+    H[1] = H[1] + b >>> 0;
+    H[2] = H[2] + c >>> 0;
+    H[3] = H[3] + d >>> 0;
+    H[4] = H[4] + e >>> 0;
+  }
+
+  return [H[0] >> 24 & 0xff, H[0] >> 16 & 0xff, H[0] >> 8 & 0xff, H[0] & 0xff, H[1] >> 24 & 0xff, H[1] >> 16 & 0xff, H[1] >> 8 & 0xff, H[1] & 0xff, H[2] >> 24 & 0xff, H[2] >> 16 & 0xff, H[2] >> 8 & 0xff, H[2] & 0xff, H[3] >> 24 & 0xff, H[3] >> 16 & 0xff, H[3] >> 8 & 0xff, H[3] & 0xff, H[4] >> 24 & 0xff, H[4] >> 16 & 0xff, H[4] >> 8 & 0xff, H[4] & 0xff];
+}
+
+var _default = sha1;
+exports.default = _default;
+},{}],"../node_modules/uuid/dist/esm-browser/v5.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _v = _interopRequireDefault(require("./v35.js"));
+
+var _sha = _interopRequireDefault(require("./sha1.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var v5 = (0, _v.default)('v5', 0x50, _sha.default);
+var _default = v5;
+exports.default = _default;
+},{"./v35.js":"../node_modules/uuid/dist/esm-browser/v35.js","./sha1.js":"../node_modules/uuid/dist/esm-browser/sha1.js"}],"../node_modules/uuid/dist/esm-browser/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "v1", {
+  enumerable: true,
+  get: function () {
+    return _v.default;
+  }
+});
+Object.defineProperty(exports, "v3", {
+  enumerable: true,
+  get: function () {
+    return _v2.default;
+  }
+});
+Object.defineProperty(exports, "v4", {
+  enumerable: true,
+  get: function () {
+    return _v3.default;
+  }
+});
+Object.defineProperty(exports, "v5", {
+  enumerable: true,
+  get: function () {
+    return _v4.default;
+  }
+});
+
+var _v = _interopRequireDefault(require("./v1.js"));
+
+var _v2 = _interopRequireDefault(require("./v3.js"));
+
+var _v3 = _interopRequireDefault(require("./v4.js"));
+
+var _v4 = _interopRequireDefault(require("./v5.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./v1.js":"../node_modules/uuid/dist/esm-browser/v1.js","./v3.js":"../node_modules/uuid/dist/esm-browser/v3.js","./v4.js":"../node_modules/uuid/dist/esm-browser/v4.js","./v5.js":"../node_modules/uuid/dist/esm-browser/v5.js"}],"threeTextUtil.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.removeAllTexts = exports.initThreeFont = exports.createTextObj = exports.FontNames = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -97513,6 +98195,8 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var THREE = _interopRequireWildcard(require("three"));
+
+var _uuid = require("uuid");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -97527,6 +98211,7 @@ var FontNames = {
 exports.FontNames = FontNames;
 var fontFiles = (0, _defineProperty2.default)({}, FontNames.Helvetiker, "./fonts/helvetiker_regular.typeface.json");
 var fonts = (0, _defineProperty2.default)({}, FontNames.Helvetiker, null);
+var textObjsWithConfig = {};
 
 var initThreeFont = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
@@ -97541,9 +98226,8 @@ var initThreeFont = /*#__PURE__*/function () {
           case 2:
             newFont = _context.sent;
             fonts[FontNames.Helvetiker] = newFont;
-            console.log("fonts loaded", newFont);
 
-          case 5:
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -97558,29 +98242,86 @@ var initThreeFont = /*#__PURE__*/function () {
 
 exports.initThreeFont = initThreeFont;
 
-var generateTextGeo = function generateTextGeo(text, fontName, fontSize) {
-  console.log("generate text", fonts[fontName]);
+var createTextObj = function createTextObj(scene, text, position) {
+  var fontName = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : FontNames.Helvetiker;
+  var fontSize = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 20;
+  var fontColor = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0xffffff;
+  var fontOpacity = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 0.5;
+  var textObjName = (0, _uuid.v4)();
   var textGeo = new THREE.TextGeometry(text, {
     font: fonts[fontName],
     size: fontSize,
-    curveSegments: 3,
-    bevelEnabled: false
+    bevelEnabled: false,
+    curveSegments: 1
   });
   textGeo.computeBoundingBox();
-  var textMaterial = new THREE.MeshPhongMaterial({
-    color: 0xff0000,
-    specular: 0xffffff
+  var textMaterial = new THREE.MeshBasicMaterial({
+    color: fontColor,
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+    opacity: fontOpacity
   });
   var mesh = new THREE.Mesh(textGeo, textMaterial);
-  mesh.position.set(1, -2, -2);
+  mesh.position.set(position.x, position.y, position.z);
   mesh.scale.set(0.01, 0.01, 0.01);
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
-  return mesh;
+  mesh.name = textObjName;
+  scene.add(mesh);
+  textObjsWithConfig[textObjName] = {
+    mesh: mesh,
+    font: fonts[fontName],
+    fontSize: fontSize
+  };
+  return {
+    mesh: mesh,
+    removeText: function removeText() {
+      return removeTextByName(scene, textObjName);
+    },
+    updateText: function updateText(text) {
+      return updateTextByName(textObjName, text);
+    }
+  };
 };
 
-exports.generateTextGeo = generateTextGeo;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","three":"../node_modules/three/build/three.module.js"}],"mainCanvas.js":[function(require,module,exports) {
+exports.createTextObj = createTextObj;
+
+var removeAllTexts = function removeAllTexts(scene) {
+  Object.values(textObjsWithConfig).forEach(function (text) {
+    text.mesh.geometry.dispose();
+    text.mesh.material.dispose();
+    scene.remove(text.mesh);
+  });
+  textObjsWithConfig = {};
+};
+
+exports.removeAllTexts = removeAllTexts;
+
+var removeTextByName = function removeTextByName(scene, textObjName) {
+  var text = scene.getObjectByName(textObjName);
+
+  if (text) {
+    text.geometry.dispose();
+    text.material.dispose();
+    scene.remove(text);
+    textObjsWithConfig[textObjName] = undefined;
+  }
+};
+
+var updateTextByName = function updateTextByName(textObjName, text) {
+  var textObj = textObjsWithConfig[textObjName];
+
+  if (textObj) {
+    var newTextGeo = new THREE.TextGeometry(text, {
+      font: textObj.font,
+      size: textObj.fontSize,
+      curveSegments: 1,
+      bevelEnabled: false
+    });
+    newTextGeo.computeBoundingBox();
+    textObj.mesh.geometry.dispose();
+    textObj.mesh.geometry = newTextGeo;
+  }
+};
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","three":"../node_modules/three/build/three.module.js","uuid":"../node_modules/uuid/dist/esm-browser/index.js"}],"mainCanvas.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -97604,7 +98345,7 @@ var _handPose = require("./handPose");
 
 var _analyseUser = require("./analyseUser");
 
-var _threeFontUtil = require("./threeFontUtil");
+var _threeTextUtil = require("./threeTextUtil");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -97619,34 +98360,36 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var initThreeCanvas = /*#__PURE__*/function () {
-  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-    var scene, camera, renderer, handLandmarks, clock, gltfLoader, gltfObjs, texts, composer, createText, setHandLandmarks, addPostProcessing, loadPlanes, loadGltf, resizeCanvasToDisplaySize, initScene, addLights, addCamera, initAndAttachCanvas, threejsLoaded, animate;
-    return _regenerator.default.wrap(function _callee$(_context) {
+  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+    var scene, camera, renderer, handLandmarks, clock, gltfLoader, gltfObjs, composer, loadedStatus, handElement, createText, setHandLandmarks, addPostProcessing, loadPlanes, loadGltf, resizeCanvasToDisplaySize, initScene, addLights, addCamera, initAndAttachCanvas, animate;
+    return _regenerator.default.wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
             handLandmarks = [];
             clock = new THREE.Clock();
             gltfLoader = new _GLTFLoader.GLTFLoader();
             gltfObjs = [];
-            texts = [];
 
-            createText = function createText(text, fontName, fontSize) {
-              var newText = (0, _threeFontUtil.generateTextGeo)(text, fontName, fontSize);
-              scene.add(newText);
-              texts.push(newText);
+            createText = function createText(text, fontName, fontSize, fontColor) {
+              var newText = (0, _threeTextUtil.createTextObj)(scene, text, new THREE.Vector3(1, -2, -2), fontName, fontSize, fontColor);
+              return newText;
             };
 
             setHandLandmarks = function setHandLandmarks() {
               (0, _analyseUser.getAgeGenderContent)();
 
               if (_handPose.isHandPresent) {
-                // texts[0].text = `${getHandElement()}`;
+                loadedStatus.updateText("ready");
+                handElement.updateText("".concat((0, _analyseUser.getHandElement)()));
+                loadedStatus.mesh.position.set(_handPose.hands[0].landmarks[0][0] * 0.01, _handPose.hands[0].landmarks[0][1] * -0.01, -2);
+
                 _handPose.hands[0].landmarks.forEach(function (landmark, index) {
                   handLandmarks[index].position.x = landmark[0] * 0.01;
                   handLandmarks[index].position.y = landmark[1] * -0.01;
                 });
-              } else {// texts[0].text = "no hands found";
+              } else {
+                handElement.updateText("No hands found");
               }
             };
 
@@ -97689,31 +98432,51 @@ var initThreeCanvas = /*#__PURE__*/function () {
               }
             };
 
-            loadGltf = function loadGltf(filePath) {
-              gltfLoader.load(filePath, function (gltf) {
-                var mixer = new THREE.AnimationMixer(gltf.scene);
+            loadGltf = /*#__PURE__*/function () {
+              var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(filePath) {
+                var gltf, mixer, _iterator, _step, anim;
 
-                var _iterator = _createForOfIteratorHelper(gltf.animations),
-                    _step;
+                return _regenerator.default.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return gltfLoader.loadAsync(filePath);
 
-                try {
-                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                    var anim = _step.value;
-                    mixer.clipAction(anim).play();
+                      case 2:
+                        gltf = _context.sent;
+                        mixer = new THREE.AnimationMixer(gltf.scene);
+                        _iterator = _createForOfIteratorHelper(gltf.animations);
+
+                        try {
+                          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                            anim = _step.value;
+                            mixer.clipAction(anim).play();
+                          }
+                        } catch (err) {
+                          _iterator.e(err);
+                        } finally {
+                          _iterator.f();
+                        }
+
+                        gltfObjs.push({
+                          gltf: gltf,
+                          mixer: mixer
+                        });
+                        scene.add(gltf.scene);
+
+                      case 8:
+                      case "end":
+                        return _context.stop();
+                    }
                   }
-                } catch (err) {
-                  _iterator.e(err);
-                } finally {
-                  _iterator.f();
-                }
+                }, _callee);
+              }));
 
-                gltfObjs.push({
-                  gltf: gltf,
-                  mixer: mixer
-                });
-                scene.add(gltf.scene);
-              });
-            };
+              return function loadGltf(_x) {
+                return _ref2.apply(this, arguments);
+              };
+            }();
 
             resizeCanvasToDisplaySize = function resizeCanvasToDisplaySize() {
               var canvas = renderer.domElement;
@@ -97783,17 +98546,21 @@ var initThreeCanvas = /*#__PURE__*/function () {
             initAndAttachCanvas();
             initScene();
             addCamera();
-            loadPlanes(21);
             addLights(); // addPostProcessing();
 
-            _context.next = 22;
-            return (0, _threeFontUtil.initThreeFont)();
+            loadPlanes(_handPose.NUM_HAND_LANDMARKS);
+            _context2.next = 21;
+            return (0, _threeTextUtil.initThreeFont)();
 
-          case 22:
-            createText("loading...", _threeFontUtil.FontNames.Helvetiker, 20);
-            loadGltf("resources/origin.glb");
+          case 21:
+            loadedStatus = createText("Loading...", _threeTextUtil.FontNames.Helvetiker, 20, 0xff00ff);
+            handElement = createText("Detecting hand. Please wait.", _threeTextUtil.FontNames.Helvetiker, 20, 0x00ffff);
+            _context2.next = 25;
+            return loadGltf("resources/origin.glb");
+
+          case 25:
             resizeCanvasToDisplaySize();
-            threejsLoaded = false;
+            (0, _loadingScreen.hideLoadingScreen)();
 
             animate = function animate() {
               // composer.render(clock.getDelta());
@@ -97802,25 +98569,17 @@ var initThreeCanvas = /*#__PURE__*/function () {
               gltfObjs.forEach(function (obj) {
                 obj.mixer.update(clock.getDelta());
               });
-
-              if (!threejsLoaded) {
-                console.log("three js loaded!");
-                threejsLoaded = true; // texts[0].text = "threejs loaded";
-
-                (0, _loadingScreen.hideLoadingScreen)();
-              }
-
               requestAnimationFrame(animate);
             };
 
             animate();
 
-          case 28:
+          case 29:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
-    }, _callee);
+    }, _callee2);
   }));
 
   return function initThreeCanvas() {
@@ -97830,7 +98589,7 @@ var initThreeCanvas = /*#__PURE__*/function () {
 
 var _default = initThreeCanvas;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./loadingScreen":"loadingScreen.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js","./threeFontUtil":"threeFontUtil.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./loadingScreen":"loadingScreen.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js","./threeTextUtil":"threeTextUtil.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -97984,7 +98743,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63621" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55310" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

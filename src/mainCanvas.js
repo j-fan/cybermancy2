@@ -2,9 +2,9 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { hideLoadingScreen } from "./loadingScreen";
-import { hands, isHandPresent } from "./handPose";
+import { hands, isHandPresent, NUM_HAND_LANDMARKS } from "./handPose";
 import { getAgeGenderContent, getHandElement } from "./analyseUser";
-import { initThreeFont, generateTextGeo, FontNames } from "./threeFontUtil";
+import { initThreeFont, createTextObj, FontNames } from "./threeTextUtil";
 
 const initThreeCanvas = async () => {
   let scene;
@@ -14,25 +14,38 @@ const initThreeCanvas = async () => {
   let clock = new THREE.Clock();
   const gltfLoader = new GLTFLoader();
   let gltfObjs = [];
-  let texts = [];
   let composer;
 
-  const createText = (text, fontName, fontSize) => {
-    const newText = generateTextGeo(text, fontName, fontSize);
-    scene.add(newText);
-    texts.push(newText);
+  let loadedStatus, handElement;
+
+  const createText = (text, fontName, fontSize, fontColor) => {
+    const newText = createTextObj(
+      scene,
+      text,
+      new THREE.Vector3(1, -2, -2),
+      fontName,
+      fontSize,
+      fontColor
+    );
+    return newText;
   };
 
   const setHandLandmarks = () => {
     getAgeGenderContent();
     if (isHandPresent) {
-      // texts[0].text = `${getHandElement()}`;
+      loadedStatus.updateText("ready");
+      handElement.updateText(`${getHandElement()}`);
+      loadedStatus.mesh.position.set(
+        hands[0].landmarks[0][0] * 0.01,
+        hands[0].landmarks[0][1] * -0.01,
+        -2
+      );
       hands[0].landmarks.forEach((landmark, index) => {
         handLandmarks[index].position.x = landmark[0] * 0.01;
         handLandmarks[index].position.y = landmark[1] * -0.01;
       });
     } else {
-      // texts[0].text = "no hands found";
+      handElement.updateText("No hands found");
     }
   };
 
@@ -77,15 +90,14 @@ const initThreeCanvas = async () => {
     }
   };
 
-  const loadGltf = (filePath) => {
-    gltfLoader.load(filePath, (gltf) => {
-      const mixer = new THREE.AnimationMixer(gltf.scene);
-      for (const anim of gltf.animations) {
-        mixer.clipAction(anim).play();
-      }
-      gltfObjs.push({ gltf, mixer });
-      scene.add(gltf.scene);
-    });
+  const loadGltf = async (filePath) => {
+    const gltf = await gltfLoader.loadAsync(filePath);
+    const mixer = new THREE.AnimationMixer(gltf.scene);
+    for (const anim of gltf.animations) {
+      mixer.clipAction(anim).play();
+    }
+    gltfObjs.push({ gltf, mixer });
+    scene.add(gltf.scene);
   };
 
   const resizeCanvasToDisplaySize = () => {
@@ -167,16 +179,23 @@ const initThreeCanvas = async () => {
   initAndAttachCanvas();
   initScene();
   addCamera();
-  loadPlanes(21);
   addLights();
   // addPostProcessing();
+
+  loadPlanes(NUM_HAND_LANDMARKS);
   await initThreeFont();
-  createText("loading...", FontNames.Helvetiker, 20);
-  loadGltf("resources/origin.glb");
+  loadedStatus = createText("Loading...", FontNames.Helvetiker, 20, 0xff00ff);
+  handElement = createText(
+    "Detecting hand. Please wait.",
+    FontNames.Helvetiker,
+    20,
+    0x00ffff
+  );
+
+  await loadGltf("resources/origin.glb");
 
   resizeCanvasToDisplaySize();
-
-  let threejsLoaded = false;
+  hideLoadingScreen();
 
   const animate = () => {
     // composer.render(clock.getDelta());
@@ -186,13 +205,6 @@ const initThreeCanvas = async () => {
     gltfObjs.forEach((obj) => {
       obj.mixer.update(clock.getDelta());
     });
-
-    if (!threejsLoaded) {
-      console.log("three js loaded!");
-      threejsLoaded = true;
-      // texts[0].text = "threejs loaded";
-      hideLoadingScreen();
-    }
 
     requestAnimationFrame(animate);
   };

@@ -1,7 +1,9 @@
 import * as handpose from "@tensorflow-models/handpose";
 import * as Comlink from "comlink";
 
-let isDetectionUsingWebWorker = true;
+// use webworker on chrome only; other browsers have bad performance with it
+let isDetectionUsingWebWorker =
+  !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
 const HandDetectorWorker = Comlink.wrap(new Worker("./handpose-worker.js"));
 let handDetector;
 
@@ -14,6 +16,7 @@ const handChangedThreshold = 200;
 let handAbsentCount = 0;
 let handChanged = true;
 let newHandAppeared = false;
+const NUM_HAND_LANDMARKS = 21;
 
 const startHandDetectorNormal = async () => {
   handDetector = await handpose.load();
@@ -76,6 +79,7 @@ const processHandStatus = () => {
 
 const initHandposeDetection = async () => {
   if (isDetectionUsingWebWorker) {
+    console.log("using web workers");
     await startHandDetectorWorker();
   } else {
     await startHandDetectorNormal();
@@ -96,4 +100,10 @@ const initHandposeDetection = async () => {
   runDetection();
 };
 
-export { initHandposeDetection, hands, isHandPresent, newHandAppeared };
+export {
+  initHandposeDetection,
+  hands,
+  isHandPresent,
+  newHandAppeared,
+  NUM_HAND_LANDMARKS,
+};
