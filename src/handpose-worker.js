@@ -7,7 +7,6 @@ class HandDetectorWorker {
     handpose.load().then((loadedModel) => {
       this.model = loadedModel;
     });
-    console.log("hand pose loaded");
   }
   async estimateHandPose(input) {
     if (!this.model) {

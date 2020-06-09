@@ -29,6 +29,9 @@ const startHandDetectorWorker = async () => {
 };
 
 const detectHandWithWorker = async () => {
+  if (videoElement.videoHeight == 0 || videoElement.videoWidth == 0) {
+    return;
+  }
   const context = canvasElement.getContext("2d");
   context.drawImage(
     videoElement,

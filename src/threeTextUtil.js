@@ -69,6 +69,7 @@ const createTextObj = (
     mesh: mesh,
     font: fonts[fontName],
     fontSize: fontSize,
+    text: text,
   };
   return {
     mesh: mesh,
@@ -99,6 +100,9 @@ const removeTextByName = (scene, textObjName) => {
 const updateTextByName = (textObjName, text) => {
   const textObj = textObjsWithConfig[textObjName];
   if (textObj) {
+    if (text === textObj.text) {
+      return;
+    }
     const newTextGeo = new THREE.TextGeometry(text, {
       font: textObj.font,
       size: textObj.fontSize,
@@ -108,6 +112,7 @@ const updateTextByName = (textObjName, text) => {
     newTextGeo.computeBoundingBox();
     textObj.mesh.geometry.dispose();
     textObj.mesh.geometry = newTextGeo;
+    textObj.text = text;
   }
 };
 
