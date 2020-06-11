@@ -1,169 +1,521 @@
 {
-  "0-0": [
-    "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
-    "Let go of the negative people in your life.",
-    "Don't talk your health for granted. Titan Fitness can help you with your fitness goals.",
-    "Loving yourself may be the hardest skill to learn. Learn self care techniques and mediation with Meditai.",
-    "A reputation is hard to build and easy to destroy. Learn how network and present yourself with confidence with speaking coach William Colins.",
-    "Learn to say no. You will have more energy to help yourself and others if you set boundaries."
-  ],
+  "0-0": {
+    "male": [],
+    "female": [],
+    "none": [
+      {
+        "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+        "logo": "mindwealth.jpg"
+      },
+      { "text": "Let go of the negative people in your life.", "logo": "" },
+      {
+        "text": "Don't talk your health for granted. Titan Fitness can help you with your fitness goals.",
+        "logo": "titanfitness.jpg"
+      },
+      {
+        "text": "Loving yourself may be the hardest skill to learn. Learn self care techniques and mediation with Meditai.",
+        "logo": "meditai.jpg"
+      },
+      {
+        "text": "A reputation is hard to build and easy to destroy. Learn how network and present yourself with confidence with speaking coach William Colins.",
+        "logo": ""
+      },
+      {
+        "text": "Learn to say no. You will have more energy to help yourself and others if you set boundaries.",
+        "logo": ""
+      },
+      {
+        "text": "Good relationships need regular maintenance. Keep in touch with Chatbee",
+        "logo": "chatbee.jpg"
+      },
+      {
+        "text": "If you want to stay competitive, you have to be on the cutting edge. Get your technology fix at TechRing",
+        "logo": "techring.jpg"
+      },
+      {
+        "text": "Spend less time on your screen and more with friends. Find new friends with your interests on SmartMeets.",
+        "logo": "smartmeets.jpg"
+      }
+    ]
+  },
   "0-10": {
     "female": [
-      "Learn the difference between a friend with a problem and a problem friend. Get real life advice from other teens like you on Ask.me",
-      "Why grow up when you can GLOW UP. Get popular cosmetics at a discount at Luxa"
+      {
+        "text": "Learn the difference between a friend with a problem and a problem friend. Get real life advice from other teens like you on Ask.me",
+        "logo": "askme.jpg"
+      },
+      {
+        "text": "Why grow up when you can GLOW UP. Get popular cosmetics at a discount at Luxa",
+        "logo": "luxa.jpg"
+      }
     ],
     "male": [
-      "Need to impress someone you like but don't know what do? Get expert advice from the Gentleman Daily.",
-      "The Lionsoft games vault opens to an awesome FREE game every Thursday at 11 AM Eastern. Get it now."
+      {
+        "text": "Need to impress someone you like but don't know what do? Get expert advice from the Gentleman Daily.",
+        "logo": "gentlemandaily.jpg"
+      },
+      {
+        "text": "The Lionsoft games vault opens to an awesome FREE game every Thursday at 11 AM Eastern. Get it now.",
+        "logo": "lionsoft.jpg"
+      }
     ],
     "none": [
-      "Fitting in with the cool kids is so boring. Get your own unique style at LitFits",
-      "Don't worry about your grades. People who aren't successful now might do well later in life",
-      "No shame in being weird if you're being real. Get your pop culture merch, figurines and more at GeekWare.com",
-      "Don't worry about your grades. People who aren't successful now might do well later in life",
-      "Life can be hard, and getting others to understand is even harder. You don't have to be alone. Meditai has trained counsellors online 24hrs to keep teens like you anonymously.",
-      "Don't rush to grow up.",
-      "Don't give into peer pressure"
+      {
+        "text": "Fitting in with the cool kids is so boring. Get your own unique style at LitFits",
+        "logo": "litfits.jpg"
+      },
+      {
+        "text": "Don't worry about your grades. People who aren't successful now might do well later in life",
+        "logo": ""
+      },
+      {
+        "text": "No shame in being weird if you're being real. Get your pop culture merch, figurines and more at GeekWare.com",
+        "logo": "geekware.jpg"
+      },
+      {
+        "text": "Don't worry about your grades. People who aren't successful now might do well later in life",
+        "logo": ""
+      },
+      {
+        "text": "Life can be hard, and getting others to understand is even harder. You don't have to be alone. Meditai has trained counsellors online 24hrs to keep teens like you anonymously.",
+        "logo": "meditai.jpg"
+      },
+      { "text": "Don't rush to grow up.", "logo": "" },
+      { "text": "Don't give into peer pressure.", "logo": "" }
     ]
   },
   "10-20": {
     "female": [
-      "Learn the difference between a friend with a problem and a problem friend. Get real life advice from other teens like you on Ask.me",
-      "Why grow up when you can GLOW UP. Get popular cosmetics at a discount at Luxa",
-      "First impressions matter. Find out about the latest beauty trends on Sass"
+      {
+        "text": "Learn the difference between a friend with a problem and a problem friend. Get real life advice from other teens like you on Ask.me",
+        "logo": "askme.jpg"
+      },
+      {
+        "text": "Why grow up when you can GLOW UP. Get popular cosmetics at a discount at Luxa",
+        "logo": "luxa.jpg"
+      },
+      {
+        "text": "First impressions matter. Find out about the latest beauty trends on Sass",
+        "logo": "sass.jpg"
+      }
     ],
     "male": [
-      "The Lionsoft games vault opens to an awesome FREE game every Thursday at 11 AM Eastern. Get it now.",
-      "Better to make your move and fail than live your life with regret",
-      "Getting your first car is a big step towards independence. Get quality used and new cars dor a deal at TempoAuto",
-      "Need to impress someone you like but don't know what do? Get expert advice from the Gentleman Daily."
+      {
+        "text": "The Lionsoft games vault opens to an awesome FREE game every Thursday at 11 AM Eastern. Get it now.",
+        "logo": "lionsoft.jpg"
+      },
+      {
+        "text": "Better to make your move and fail than live your life with regret",
+        "logo": ""
+      },
+      {
+        "text": "Getting your first car is a big step towards independence. Get quality used and new cars dor a deal at TempoAuto",
+        "logo": "tempoauto.jpg"
+      },
+      {
+        "text": "Need to impress someone you like but don't know what do? Get expert advice from the Gentleman Daily.",
+        "logo": "gentlemandaily.jpg"
+      }
     ],
     "none": [
-      "Don't rush to grow up.",
-      "You don't need to have your life planned out. Not even adults know what they are doing.",
-      "Fitting in with the cool kids is so boring. Get your own unique style at LitFits",
-      "Don't give into peer pressure",
-      "Just because they're an adult doesn't mean they're right",
-      "Problem with massive pimples? Isocutane can clear your skin within 3 weeks.",
-      "Don't worry about your grades. People who aren't successful now might do well later in life",
-      "Life can be hard, and getting others to understand is even harder. You don't have to be alone. Meditai has trained counsellors online 24hrs to keep teens like you anonymously.",
-      "No shame in being weird if you're being real. Get your pop culture merch, figurines and more at GeekWare.com"
+      { "text": "Don't rush to grow up.", "logo": "" },
+      {
+        "text": "You don't need to have your life planned out. Not even adults know what they are doing.",
+        "logo": ""
+      },
+      {
+        "text": "Fitting in with the cool kids is so boring. Get your own unique style at LitFits",
+        "logo": "litfits.jpg"
+      },
+      { "text": "Don't give into peer pressure", "logo": "" },
+      {
+        "text": "Just because they're an adult doesn't mean they're right",
+        "logo": ""
+      },
+      {
+        "text": "Problem with massive pimples? Isocutane can clear your skin within 3 weeks.",
+        "logo": "isocutane.jpg"
+      },
+      {
+        "text": "Don't worry about your grades. People who aren't successful now might do well later in life",
+        "logo": ""
+      },
+      {
+        "text": "Life can be hard, and getting others to understand is even harder. You don't have to be alone. Meditai has trained counsellors online 24hrs to keep teens like you anonymously.",
+        "logo": "meditai.jpg"
+      },
+      {
+        "text": "No shame in being weird if you're being real. Get your pop culture merch, figurines and more at GeekWare.com",
+        "logo": "geekware.jpg"
+      }
     ]
   },
   "20-30": {
     "female": [
-      "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
-      "Being in nature is good for the mind and heart. Bring a little of that indoors with house plants from Cultiva.",
-      "Be kind to yourself and stop comparing yourself to others.",
-      "Let go of the negative people in your life.",
-      "Loving yourself may be the hardest skill to learn. Learn self care techniques and mediation with Meditai.",
-      "Learn to say no. You will have more energy to help yourself and others if you set boundaries.",
-      "Don't equate your dating life to your self worth.",
-      "Learn the difference between a friend with a problem and a problem friend.",
-      "Wear whatever you like. There is no right hair or clothing for your body shape. Luxa's massive online catalog has it covered.",
-      "How do you choose between stable career or one that is you passionate about? Novelix's self help books may help you with questions like this and other life dilemmas.",
-      "Remember that you are enough.",
-      "First impression matter. Face the day with a fresh face with Chiffon cosmetics."
+      {
+        "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+        "logo": "mindwealth.jpg"
+      },
+      {
+        "text": "Being in nature is good for the mind and heart. Bring a little of that indoors with house plants from Cultiva.",
+        "logo": "cultiva.jpg"
+      },
+      {
+        "text": "Be kind to yourself and stop comparing yourself to others.",
+        "logo": ""
+      },
+      { "text": "Let go of the negative people in your life.", "logo": "" },
+      {
+        "text": "Loving yourself may be the hardest skill to learn. Learn self care techniques and mediation with Meditai.",
+        "logo": "meditai.jpg"
+      },
+      {
+        "text": "Learn to say no. You will have more energy to help yourself and others if you set boundaries.",
+        "logo": ""
+      },
+      {
+        "text": "Don't equate your dating life to your self worth.",
+        "logo": ""
+      },
+      {
+        "text": "Learn the difference between a friend with a problem and a problem friend.  Get real life advice from others like you on Ask.me",
+        "logo": "askme.jpg"
+      },
+      {
+        "text": "Wear whatever you like. There is no right hair or clothing for your body shape. Luxa's massive online catalog has it covered.",
+        "logo": "luxa.jpg"
+      },
+      {
+        "text": "How do you choose between stable career or one that is you passionate about? Novelix's self help books may help you with questions like this and other life dilemmas.",
+        "logo": "novelix.jpg"
+      },
+      { "text": "Remember that you are enough.", "logo": "" },
+      {
+        "text": "First impression matter. Face the day with a fresh face with Chiffon cosmetics.",
+        "logo": "chiffon.jpg"
+      }
     ],
     "male": [
-      "Avoid seeming too self-centered today. Your loved ones could use your full attention. Practice your emotional skills with the MindWealth app.",
-      "You don't need to accomplish everything while you are young. Take time to enjoy yourself and explore the world. Get started with Harmonic Travels.",
-      "Don't put on appearances to impress people.",
-      "Don't talk your health for granted while you are young. Get a head start and get fit with Titan Fitness.",
-      "Actually go to the doctor when something is wrong. 300+ GPs are available at your fingertips with Babylon Health online.",
-      "There's more to life than your relationship status",
-      "A reputation is hard to build and easy to destroy. Learn how network and present yourself with confidence with speaking coach William Colins.",
-      "Dress for the job you want. Get expert men's fashion advice with the Gentleman Daily.",
-      "Life is too short to be serious. Have some fun with other young singles on Flame.",
-      "If you want to stay competitive, you have to be on the cutting edge. Get your technology fix at TechRing",
-      "Are you pop cultured? Get merch, figurines and more at GeekWare.com"
+      {
+        "text": "Avoid seeming too self-centered today. Your loved ones could use your full attention. Practice your emotional skills with the MindWealth app.",
+        "logo": "mindwealth.jpg"
+      },
+      {
+        "text": "You don't need to accomplish everything while you are young. Take time to enjoy yourself and explore the world. Get started with Harmonic Travels.",
+        "logo": "harmonictravel.jpg"
+      },
+      { "text": "Don't put on appearances to impress people.", "logo": "" },
+      {
+        "text": "Don't talk your health for granted while you are young. Get a head start and get fit with Titan Fitness.",
+        "logo": "titanfitness.jpg"
+      },
+      {
+        "text": "Actually go to the doctor when something is wrong. 300+ GPs are available at your fingertips with Babylon Health online.",
+        "logo": "babylonhealth.jpg"
+      },
+      {
+        "text": "There's more to life than your relationship status",
+        "logo": ""
+      },
+      {
+        "text": "A reputation is hard to build and easy to destroy. Learn how network and present yourself with confidence with speaking coach William Colins.",
+        "logo": ""
+      },
+      {
+        "text": "Dress for the job you want. Get expert men's fashion advice with the Gentleman Daily.",
+        "logo": "gentlemandaily.jpg"
+      },
+      {
+        "text": "Life is too short to be serious. Have some fun with other young singles on Flame.",
+        "logo": "flame.jpg"
+      },
+      {
+        "text": "If you want to stay competitive, you have to be on the cutting edge. Get your technology fix at TechRing",
+        "logo": "techring.jpg"
+      },
+      {
+        "text": "Are you pop cultured? Get merch, figurines and more at GeekWare.com",
+        "logo": "geekware.jpg"
+      },
+      {
+        "text": "Getting your first car is a big step towards independence. Get quality used and new cars dor a deal at TempoAuto",
+        "logo": "tempoauto.jpg"
+      }
     ],
     "none": [
-      "Although you are young, it pays to get your finances in order. MutualCorp investments can help your money grow faster.",
-      "Adulthood can be hard as a young adult. As much as it is hard to admit, family can still help you.  Keep in touch with ChatBee.",
-      "Sick of dealing with catfishes, ghosts and cancelled dates? Join our exclusive community at Prestige Dates. We screen users to ensure you only get high quality responsive matches.",
-      "Remember not to get hooked on social media and catching up with successful friends. Be your authentic self.",
-      "You never know what you'll be good at if you don't try. Learn a new skill at education.ly",
-      "The path to success is no longer a straightforward path from university into a traditional career. Get yourself equipped for the new world with HypeSkill.",
-      "Dreams require sacrifice. Make it easier for you tomorrow by investing today with Investron.",
-      "Invest in experiences, not posessions. You have the most time and the least obligations right now. Go to that dream destination with UpTravel.",
-      "Spend less time on your screen and more with friends. Find new friends with your interests on SmartMeets.",
-      "It is ok to be lost and unsure of your life purpose while you are young.",
-      "Rather be tied up than tied down? Find some after dark fun on FlatterChat.",
-      "You prefer to do things online rather than walk in a store and wait for service. Why pay the extra fees for banking then? Pay lower fees with an online only bank like SwipeBank"
+      {
+        "text": "Although you are young, it pays to get your finances in order. MutualCorp investments can help your money grow faster.",
+        "logo": "mutualcorp.jpg"
+      },
+      {
+        "text": "Adulthood can be hard as a young adult. As much as it is hard to admit, family can still help you.  Keep in touch with ChatBee.",
+        "logo": "chatbee.jpg"
+      },
+      {
+        "text": "Sick of dealing with catfishes, ghosts and cancelled dates? Join our exclusive community at Prestige Dates. We screen users to ensure you only get high quality responsive matches.",
+        "logo": "prestigedates.jpg"
+      },
+      {
+        "text": "Remember not to get hooked on social media and catching up with successful friends. Be your authentic self.",
+        "logo": ""
+      },
+      {
+        "text": "You never know what you'll be good at if you don't try. Learn a new skill at education.ly",
+        "logo": "educaionly.jpg"
+      },
+      {
+        "text": "The path to success is no longer a straightforward path from university into a traditional career. Get yourself equipped for the new world with HypeSkill.",
+        "logo": "hypeskill.jpg"
+      },
+      {
+        "text": "Dreams require sacrifice. Make it easier for you tomorrow by investing today with Investron.",
+        "logo": "investron.jpg"
+      },
+      {
+        "text": "Invest in experiences, not posessions. You have the most time and the least obligations right now. Go to that dream destination with Harmonic Travel.",
+        "logo": "harmonictravel.jpg"
+      },
+      {
+        "text": "Spend less time on your screen and more with friends. Find new friends with your interests on SmartMeets.",
+        "logo": "smartmeets.jpg"
+      },
+      {
+        "text": "It is ok to be lost and unsure of your life purpose while you are young.",
+        "logo": ""
+      },
+      {
+        "text": "Rather be tied up than tied down? Find some after dark fun on FlatterChat.",
+        "logo": "flatterchat.jpg"
+      },
+      {
+        "text": "You prefer to do things online rather than walk in a store and wait for service. Why pay the extra fees for banking then? Pay lower fees with an online only bank like SwipeBank",
+        "logo": "swipebank.jpg"
+      }
     ]
   },
   "30-40": {
     "female": [
-      "Take care of your skin now and you can delay the onset of aging. Chiffon products takes care of your skin needs no matter your age.",
-      "Career or family? You don't need to make that choice today. Olympia life can help you preserve your eggs for when you are ready for that choice.",
-      "Worrying about your future and planning ahead rarely helps. Learn to live in the present and appreciate life with the MindWealth app",
-      "Don't equate your dating life to your self worth.",
-      "Travel in luxury for a family car price. Choose Velos",
-      "Don’t be afraid to walk away if you’re not feeling it. You’re not in your 20s anymore and you have better things you could be doing with your time."
+      {
+        "text": "Take care of your skin now and you can delay the onset of aging. Chiffon products takes care of your skin needs no matter your age.",
+        "logo": "chiffon.jpg"
+      },
+      {
+        "text": "Career or family? You don't need to make that choice today. Olympia life can help you preserve your eggs for when you are ready for that choice.",
+        "logo": "olympialife.jpg"
+      },
+      {
+        "text": "Worrying about your future and planning ahead rarely helps. Learn to live in the present and appreciate life with the MindWealth app",
+        "logo": "mindwealth.jpg"
+      },
+      {
+        "text": "Don't equate your dating life to your self worth.",
+        "logo": ""
+      },
+      {
+        "text": "Travel in luxury for a family car price. Choose Velos",
+        "logo": "velos.jpg"
+      },
+      {
+        "text": "Don’t be afraid to walk away if you’re not feeling it. You’re not in your 20s anymore and you have better things you could be doing with your time.",
+        "logo": ""
+      }
     ],
     "male": [
-      "Dreams require sacrifice. Make it easier for you tomorrow by investing today with Investron.",
-      "Dress for the job you want. Get expert men's fashion advice with the Gentleman Daily.",
-      "Thinking about starting a business or already have one? BizEnvoy can help you with the paperwork so you can focus on what you do best.",
-      "Don't allow yourself to be too comfortable with mediocrity. Drive with excellence with Ducati",
-      "Don't settle. Now's the perfect time in your life to get ahead in your career and relationships",
-      "A reputation is hard to build and easy to destroy. Learn how network and present yourself with confidence with speaking coach William Colins.",
-      "Life is too short to be serious. Have some fun with other young singles on Flame.",
-      "Thinking about making an app? Get in touch with professionals that can help you realise your business dreams with 2Market"
+      {
+        "text": "Dreams require sacrifice. Make it easier for you tomorrow by investing today with Investron.",
+        "logo": "investron.jpg"
+      },
+      {
+        "text": "Dress for the job you want. Get expert men's fashion advice with the Gentleman Daily.",
+        "logo": "gentlemandaily.jpg"
+      },
+      {
+        "text": "Thinking about starting a business or already have one? BizEnvoy can help you with the paperwork so you can focus on what you do best.",
+        "logo": "bizenvoy.jpg"
+      },
+      {
+        "text": "Don't allow yourself to be too comfortable with mediocrity. Drive with excellence with Ducati",
+        "logo": "ducati.jpg"
+      },
+      {
+        "text": "Don't settle. Now's the perfect time in your life to get ahead in your career and relationships",
+        "logo": ""
+      },
+      {
+        "text": "A reputation is hard to build and easy to destroy. Learn how network and present yourself with confidence with speaking coach William Colins.",
+        "logo": ""
+      },
+      {
+        "text": "Life is too short to be serious. Have some fun with other young singles on Flame.",
+        "logo": "flame.jpg"
+      },
+      {
+        "text": "Thinking about making an app? Get in touch with professionals that can help you realise your business dreams with 2Market",
+        "logo": "2market.jpg"
+      }
     ],
     "none": [
-      "You don't need a romantic partner to live a fulfilling life. MeetLife can help you find friends and interest groups.",
-      "Mortages are a big commitment. ULoans makes that easier with lower fees",
-      "People change their careers on up to 3 times on average. Get ahead and learn a new skill at education.ly",
-      "The path to success is no longer a straightforward path in a traditional career. Get yourself equipped for the new world with HypeSkill.",
-      "Remember that you work to live, not live to work. Smart investment now can mean an early retirement. MutualCorp can get you started on the right path.",
-      "Don't settle but stop seeking perfection.",
-      "You can't have everything, but you can focus on what you are good at. Network with other professionals in your industry on Buzznet",
-      "Dating can be hard when all your friends are settled down. It is never too late. Find your other half on Prestige Dates.",
-      "Time is too precious to waste on bad dates. Meet other commited quality singles on Prestige Dates",
-      "Looking to buy a house? Browse thousands of listings on HotLocation.com",
-      "If you are planning a family, it can feel that time is running out. Get expert advice from Olympia Life.",
-      "Your happiness is more than just your accomplishments. Connect with those you care about with ChatBee",
-      "You prefer to do things online rather than walk in a store and wait for service. Why pay the extra fees for banking then? Pay lower fees with an online only bank like SwipeBank"
+      {
+        "text": "You don't need a romantic partner to live a fulfilling life. MeetLife can help you find friends and interest groups.",
+        "logo": "meetlife.jpg"
+      },
+      {
+        "text": "Mortages are a big commitment. ULoans makes that easier with lower fees",
+        "logo": "uloans.jpg"
+      },
+      {
+        "text": "People change their careers on up to 3 times on average. Get ahead and learn a new skill at education.ly",
+        "logo": "educationly.jpg"
+      },
+      {
+        "text": "The path to success is no longer a straightforward path in a traditional career. Get yourself equipped for the new world with HypeSkill.",
+        "logo": "hypeskill.jpg"
+      },
+      {
+        "text": "Remember that you work to live, not live to work. Smart investment now can mean an early retirement. MutualCorp can get you started on the right path.",
+        "logo": "mutualcorp.jpg"
+      },
+      { "text": "Don't settle but stop seeking perfection.", "logo": "" },
+      {
+        "text": "You can't have everything, but you can focus on what you are good at. Network with other professionals in your industry on Buzznet",
+        "logo": "buzznet.jpg"
+      },
+      {
+        "text": "Dating can be hard when all your friends are settled down. It is never too late. Find your other half on Prestige Dates.",
+        "logo": "prestigedates.jpg"
+      },
+      {
+        "text": "Time is too precious to waste on bad dates. Meet other commited quality singles on Flame",
+        "logo": "flame.jpg"
+      },
+      {
+        "text": "Looking to buy a house? Browse thousands of listings on HotLocation.com",
+        "logo": "hotlocation.jpg"
+      },
+      {
+        "text": "If you are planning a family, it can feel that time is running out. Get expert advice from Olympia Life.",
+        "logo": "olympialife.jpg"
+      },
+      {
+        "text": "Your happiness is more than just your accomplishments. Connect with those you care about with ChatBee",
+        "logo": "chatbee.jpg"
+      },
+      {
+        "text": "You prefer to do things online rather than walk in a store and wait for service. Why pay the extra fees for banking then? Pay lower fees with an online only bank like SwipeBank",
+        "logo": "swipebank.jpg"
+      }
     ]
   },
   "40-50": {
     "female": [
-      "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
-      "If you are thinking of starting a family, it is not too late. Olympia Life can help you with your needs.",
-      "Travel in luxury for a family car price. Choose Velos",
-      "Even someone you has lost love can find love back in their arms again. Start that journey at Prestige Dates"
+      {
+        "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+        "logo": "mindwealth.jpg"
+      },
+      {
+        "text": "If you are thinking of starting a family, it is not too late. Olympia Life can help you with your needs.",
+        "logo": "olympialife.jpg"
+      },
+      {
+        "text": "Travel in luxury for a family car price. Choose Velos",
+        "logo": "velos.jpg"
+      },
+      {
+        "text": "Even someone you has lost love can find love back in their arms again. Start that journey at Prestige Dates",
+        "logo": "prestigedates.jpg"
+      }
     ],
     "male": [
-      "Avoid seeming too self-centered today. Your loved one could use your full attention. Practice your emotional skills with the MindWealth app.",
-      "Don't allow yourself to be too comfortable with mediocrity. Drive with excellence with Ducati",
-      "From family car to sports car. You won't feel the difference when you're driving with Velos",
-      "If you want to stay competitive, you have to be on the cutting edge. Get your technology fix at TechRing",
-      "Thinking about starting a business or already have one? BizEnvoy can help you with the paperwork so you can focus on what you do best.",
-      "Thinking about making an app? Get in touch with professionals that can help you realise your business dreams with 2Market",
-      "Having hair problems? Visit KeratinLabs for a free consultation today."
+      {
+        "text": "Don't allow yourself to be too comfortable with mediocrity. Drive with excellence with Ducati",
+        "logo": "ducati.jpg"
+      },
+      {
+        "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+        "logo": "velos.jpg"
+      },
+      {
+        "text": "If you want to stay competitive, you have to be on the cutting edge. Get your technology fix at TechRing",
+        "logo": "techring.jpg"
+      },
+      {
+        "text": "Thinking about starting a business or already have one? BizEnvoy can help you with the paperwork so you can focus on what you do best.",
+        "logo": "bizenvoy.jpg"
+      },
+      {
+        "text": "Thinking about making an app? Get in touch with professionals that can help you realise your business dreams with 2Market",
+        "logo": "2market.jpg"
+      },
+      {
+        "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+        "logo": "keratinlabs.jpg"
+      }
     ],
     "none": [
-      "Mortages are a big commitment. Pacific Home Loans makes that easier with lower fees",
-      "People change their careers on up to 3 times on average. Learn a new skill at education.ly",
-      "It's important to exercise your body but what about your brain? Keep it healthy with daily acitivites from BrainCamp",
-      "You're in a phase of life where experiences matter more than material things. Tick that destination off your bucket list with Harmonic Travel.",
-      "Got general health concerns but no time to visit the doctor? 300+ GPs are available at your fingertips with Babylon Health online.",
-      "Safeguard the quality of life of your loved ones with Chery Insurance today.",
-      "Looking to buy a house? Browse thousands of listings on HotLocation.com",
-      "Ospedali insurance will be with you in sickness and health.",
-      "You can't have everything, but you can focus on what you are good at. Network with other professionals in your industry on Buzznet",
-      "It is not too late to correct your life course. Learn the skills for that dream job you had when you were young at education.ly",
-      "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
-      "Your happiness is more than just your accomplishments. Connect with those you care about with ChatBee",
-      "You prefer to do things online rather than walk in a store and wait for service. Why pay the extra fees for banking then? Pay lower fees with an online only bank like SwipeBank"
+      {
+        "text": "Mortages are a big commitment. Pacific Home Loans makes that easier with lower fees",
+        "logo": ""
+      },
+      {
+        "text": "People change their careers on up to 3 times on average. Learn a new skill at education.ly",
+        "logo": "educationly.jpg"
+      },
+      {
+        "text": "It's important to exercise your body but what about your brain? Keep it healthy with daily acitivites from BrainCamp",
+        "logo": "braincamp.jpg"
+      },
+      {
+        "text": "You're in a phase of life where experiences matter more than material things. Tick that destination off your bucket list with Harmonic Travel.",
+        "logo": "harmonictravel.jpg"
+      },
+      {
+        "text": "Got general health concerns but no time to visit the doctor? 300+ GPs are available at your fingertips with Babylon Health online.",
+        "logo": "babylonhealth.jpg"
+      },
+      {
+        "text": "Safeguard the quality of life of your loved ones with Chery Insurance today.",
+        "logo": "cheryinsurance.jpg"
+      },
+      {
+        "text": "Looking to buy a house? Browse thousands of listings on HotLocation.com",
+        "logo": "hotlocation.jpg"
+      },
+      {
+        "text": "Ospedali insurance will be with you in sickness and health.",
+        "logo": "ospedaliinsurance.jpg"
+      },
+      {
+        "text": "You can't have everything, but you can focus on what you are good at. Network with other professionals in your industry on Buzznet",
+        "logo": "buzznet.jpg"
+      },
+      {
+        "text": "It is not too late to correct your life course. Learn the skills for that dream job you had when you were young at education.ly",
+        "logo": "educationly.jpg"
+      },
+      {
+        "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+        "logo": "proancestry.com"
+      },
+      {
+        "text": "Your happiness is more than just your accomplishments. Connect with those you care about with ChatBee",
+        "logo": "chatbee.jpg"
+      },
+      {
+        "text": "You prefer to do things online rather than walk in a store and wait for service. Why pay the extra fees for banking then? Pay lower fees with an online only bank like SwipeBank",
+        "logo": "swipebank.jpg"
+      }
     ]
   },
   "50-60": {
     "female": [
-      "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
-      "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app."
+      {
+        "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+        "logo": "chiffon.jpg"
+      },
+      {
+        "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+        "logo": "mindwealth.jpg"
+      }
     ],
     "male": [
       "From family car to sports car. You won't feel the difference when you're driving with Velos",
@@ -171,109 +523,306 @@
       "Having hair problems? Visit KeratinLabs for a free consultation today."
     ],
     "none": [
-      "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
-      "It's important to exercise your body but what about your brain? Keep it healthy with daily acitivites from BrainCamp",
-      "Grey hairs starting to show? Get AllureHair's hair dye kit and do it yourself at home",
-      "People change their careers on up to 3 times on average. Learn a new skill at education.ly",
-      "Looking to retire but don't have enough yet? Investron financial planning can help you make the most from your investments.",
-      "Safeguard the quality of life of your loved ones with Chery Insurance today.",
-      "Ospedali insurance will be with you in sickness and health.",
-      "Vintage does not mean obselete. Rediscover classic reads with Novelix.",
-      "Love can come at any age. Meet other mature singles on FlatterChat",
-      "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
-      "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
-      "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet"
+      {
+        "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+        "logo": "braincamp.jpg"
+      },
+      {
+        "text": "Grey hairs starting to show? Get AllureHair's hair dye kit and do it yourself at home",
+        "logo": "allurehair.jpg"
+      },
+      {
+        "text": "People change their careers on up to 3 times on average. Learn a new skill at education.ly",
+        "logo": "educationly.jpg"
+      },
+      {
+        "text": "Looking to retire but don't have enough yet? Investron financial planning can help you make the most from your investments.",
+        "logo": "investron.jpg"
+      },
+      {
+        "text": "Safeguard the quality of life of your loved ones with Chery Insurance today.",
+        "logo": "cheryinsurance.jpg"
+      },
+      {
+        "text": "Ospedali insurance will be with you in sickness and health.",
+        "logo": "ospedaliinsurance.jpg"
+      },
+      {
+        "text": "Vintage does not mean obselete. Rediscover classic reads with Novelix.",
+        "logo": "novelix.jpg"
+      },
+      {
+        "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+        "logo": "flatterchat.jpg"
+      },
+      {
+        "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+        "logo": "proancestary.jpg"
+      },
+      {
+        "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+        "logo": "harmonictravel.jpg"
+      },
+      {
+        "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+        "logo": "smartmeet.jpg"
+      }
     ]
   },
   "60-70": {
     "female": [
-      "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
-      "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app."
+      {
+        "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+        "logo": "chiffon.jpg"
+      },
+      {
+        "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+        "logo": "mindwealth.jpg"
+      }
     ],
     "male": [
-      "From family car to sports car. You won't feel the difference when you're driving with Velos",
-      "Few things are made with quality like in the past. Drive with excellence with Ducati",
-      "Having hair problems? Visit KeratinLabs for a free consultation today."
+      {
+        "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+        "logo": "velos.jpg"
+      },
+      {
+        "text": "Few things are made with quality like in the past. Drive with excellence with Ducati",
+        "logo": "ducati.jpg"
+      },
+      {
+        "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+        "logo": "keratinlabs.jpg"
+      }
     ],
     "none": [
-      "Looking to retire but don't have enough yet? Investron financial planning can help you make the most from your investments.",
-      "Safeguard the quality of life of your loved ones with Chery Insurance today.",
-      "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
-      "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
-      "It's important to exercise your body but what about your brain? Keep it healthy with daily acitivites from BrainCamp",
-      "Grey hairs starting to be a problem? Get AllureHair's hair dye kit and do it yourself at home",
-      "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
-      "Love can come at any age. Meet other mature singles on FlatterChat",
-      "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
-      "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
-      "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld"
+      {
+        "text": "Looking to retire but don't have enough yet? Investron financial planning can help you make the most from your investments.",
+        "logo": "investron.jpg"
+      },
+      {
+        "text": "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
+        "logo": ""
+      },
+      {
+        "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+        "logo": "braincamp.jpg"
+      },
+      {
+        "text": "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
+        "logo": "allurehair.jpg"
+      },
+      {
+        "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+        "logo": "proancestary.jpg"
+      },
+      {
+        "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+        "logo": "flatterchat.jpg"
+      },
+      {
+        "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+        "logo": "harmonictravel.jpg"
+      },
+      {
+        "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+        "logo": "smartmeet.jpg"
+      },
+      {
+        "text": "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld",
+        "logo": ""
+      }
     ]
   },
   "70-80": {
     "female": [
-      "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
-      "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app."
+      {
+        "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+        "logo": "chiffon.jpg"
+      },
+      {
+        "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+        "logo": "mindwealth.jpg"
+      }
     ],
     "male": [
-      "From family car to sports car. You won't feel the difference when you're driving with Velos",
-      "Few things are made with quality like in the past. Drive with excellence with Ducati",
-      "Having hair problems? Visit KeratinLabs for a free consultation today."
+      {
+        "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+        "logo": "velos.jpg"
+      },
+      {
+        "text": "Few things are made with quality like in the past. Drive with excellence with Ducati",
+        "logo": "ducati.jpg"
+      },
+      {
+        "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+        "logo": "keratinlabs.jpg"
+      }
     ],
     "none": [
-      "Looking for ways to make your retirment fund last? Investron financial planning can help you make the most of your money.",
-      "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
-      "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
-      "It's important to exercise your body but what about your brain? Keep it healthy with daily acitivites from BrainCamp",
-      "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
-      "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
-      "Love can come at any age. Meet other mature singles on FlatterChat",
-      "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
-      "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
-      "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld"
+      {
+        "text": "Looking for ways to make your retirment fund last? Investron financial planning can help you make the most of your money.",
+        "logo": "investron.jpg"
+      },
+      {
+        "text": "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
+        "logo": ""
+      },
+      {
+        "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+        "logo": "braincamp.jpg"
+      },
+      {
+        "text": "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
+        "logo": "allurehair.jpg"
+      },
+      {
+        "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+        "logo": "proancestary.jpg"
+      },
+      {
+        "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+        "logo": "flatterchat.jpg"
+      },
+      {
+        "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+        "logo": "harmonictravel.jpg"
+      },
+      {
+        "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+        "logo": "smartmeet.jpg"
+      },
+      {
+        "text": "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld",
+        "logo": ""
+      }
     ]
   },
   "80-90": {
     "female": [
-      "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
-      "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app."
+      {
+        "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+        "logo": "chiffon.jpg"
+      },
+      {
+        "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+        "logo": "mindwealth.jpg"
+      }
     ],
     "male": [
-      "From family car to sports car. You won't feel the difference when you're driving with Velos",
-      "Few things are made with quality like in the past. Drive with excellence with Ducati",
-      "Having hair problems? Visit KeratinLabs for a free consultation today."
+      {
+        "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+        "logo": "velos.jpg"
+      },
+      {
+        "text": "Few things are made with quality like in the past. Drive with excellence with Ducati",
+        "logo": "ducati.jpg"
+      },
+      {
+        "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+        "logo": "keratinlabs.jpg"
+      }
     ],
     "none": [
-      "Looking for ways to make your retirment fund last? Investron financial planning can help you make the most of your money.",
-      "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
-      "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
-      "It's important to exercise your body but what about your brain? Keep it healthy with daily acitivites from BrainCamp",
-      "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
-      "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
-      "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
-      "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
-      "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld"
+      {
+        "text": "Looking for ways to make your retirment fund last? Investron financial planning can help you make the most of your money.",
+        "logo": "investron.jpg"
+      },
+      {
+        "text": "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
+        "logo": ""
+      },
+      {
+        "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+        "logo": "braincamp.jpg"
+      },
+      {
+        "text": "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
+        "logo": "allurehair.jpg"
+      },
+      {
+        "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+        "logo": "proancestary.jpg"
+      },
+      {
+        "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+        "logo": "flatterchat.jpg"
+      },
+      {
+        "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+        "logo": "harmonictravel.jpg"
+      },
+      {
+        "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+        "logo": "smartmeet.jpg"
+      },
+      {
+        "text": "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld",
+        "logo": ""
+      }
     ]
   },
   "90-100": {
     "female": [
-      "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
-      "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app."
+      {
+        "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+        "logo": "chiffon.jpg"
+      },
+      {
+        "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+        "logo": "mindwealth.jpg"
+      }
     ],
     "male": [
-      "From family car to sports car. You won't feel the difference when you're driving with Velos",
-      "Few things are made with quality like in the past. Drive with excellence with Ducati",
-      "Having hair problems? Visit KeratinLabs for a free consultation today."
+      {
+        "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+        "logo": "velos.jpg"
+      },
+      {
+        "text": "Few things are made with quality like in the past. Drive with excellence with Ducati",
+        "logo": "ducati.jpg"
+      },
+      {
+        "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+        "logo": "keratinlabs.jpg"
+      }
     ],
     "none": [
-      "Looking for ways to make your retirment fund last? Investron financial planning can help you make the most of your money.",
-      "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
-      "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
-      "It's important to exercise your body but what about your brain? Keep it healthy with daily acitivites from BrainCamp",
-      "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
-      "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
-      "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
-      "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
-      "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld"
+      {
+        "text": "Looking for ways to make your retirment fund last? Investron financial planning can help you make the most of your money.",
+        "logo": "investron.jpg"
+      },
+      {
+        "text": "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
+        "logo": ""
+      },
+      {
+        "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+        "logo": "braincamp.jpg"
+      },
+      {
+        "text": "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
+        "logo": "allurehair.jpg"
+      },
+      {
+        "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+        "logo": "proancestary.jpg"
+      },
+      {
+        "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+        "logo": "flatterchat.jpg"
+      },
+      {
+        "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+        "logo": "harmonictravel.jpg"
+      },
+      {
+        "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+        "logo": "smartmeet.jpg"
+      },
+      {
+        "text": "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld",
+        "logo": ""
+      }
     ]
   }
 }

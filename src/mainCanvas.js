@@ -5,6 +5,7 @@ import { hideLoadingScreen } from "./loadingScreen";
 import { hands, isHandPresent, NUM_HAND_LANDMARKS } from "./handPose";
 import { getAgeGenderContent, getHandElement } from "./analyseUser";
 import { initThreeFont, createTextObj, FontNames } from "./threeTextUtil";
+import { loadImage } from "./threeImageUtil";
 
 const initThreeCanvas = async () => {
   let scene;
@@ -195,6 +196,7 @@ const initThreeCanvas = async () => {
   await loadGltf("resources/origin.glb");
 
   resizeCanvasToDisplaySize();
+  await loadImage(scene, "./logos/sass.JPG");
   hideLoadingScreen();
 
   const animate = () => {
