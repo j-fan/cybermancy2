@@ -90,7 +90,6 @@ const initFaceDetect = async () => {
       estimatedGender =
         totalGender == 0 ? "none" : totalGender > 0 ? "female" : "male";
     }
-    // console.log(result, estimatedAge, estimatedGender);
   };
 
   setIntervalCount(runDetection, 1, () => successfulDetections > 0);

@@ -8,7 +8,6 @@ const svgLoader = new SVGLoader();
 const loadImage = async (filename) => {
   try {
     const tex = await textureLoader.loadAsync(filename);
-    console.log("tex", tex);
     const material = new THREE.MeshBasicMaterial({
       map: tex,
       transparent: true,

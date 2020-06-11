@@ -90,7 +90,6 @@ const getAgeGender3dContent = async () => {
         newContent3d.push(image);
       }
       if (item.text) {
-        console.log(item.text);
         const textObj = createTextObjOnly(
           item.text,
           new THREE.Vector3(0, 0, -2),
