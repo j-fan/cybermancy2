@@ -66495,7 +66495,86 @@ var hideLoadingScreen = function hideLoadingScreen() {
 };
 
 exports.hideLoadingScreen = hideLoadingScreen;
-},{}],"../node_modules/face-api.js/node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
+},{}],"../node_modules/@babel/runtime/helpers/asyncIterator.js":[function(require,module,exports) {
+function _asyncIterator(iterable) {
+  var method;
+
+  if (typeof Symbol !== "undefined") {
+    if (Symbol.asyncIterator) {
+      method = iterable[Symbol.asyncIterator];
+      if (method != null) return method.call(iterable);
+    }
+
+    if (Symbol.iterator) {
+      method = iterable[Symbol.iterator];
+      if (method != null) return method.call(iterable);
+    }
+  }
+
+  throw new TypeError("Object is not async iterable");
+}
+
+module.exports = _asyncIterator;
+},{}],"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":[function(require,module,exports) {
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+},{}],"../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":[function(require,module,exports) {
+var arrayLikeToArray = require("./arrayLikeToArray");
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+},{"./arrayLikeToArray":"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js"}],"../node_modules/@babel/runtime/helpers/iterableToArray.js":[function(require,module,exports) {
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+},{}],"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":[function(require,module,exports) {
+var arrayLikeToArray = require("./arrayLikeToArray");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+},{"./arrayLikeToArray":"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js"}],"../node_modules/@babel/runtime/helpers/nonIterableSpread.js":[function(require,module,exports) {
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+},{}],"../node_modules/@babel/runtime/helpers/toConsumableArray.js":[function(require,module,exports) {
+var arrayWithoutHoles = require("./arrayWithoutHoles");
+
+var iterableToArray = require("./iterableToArray");
+
+var unsupportedIterableToArray = require("./unsupportedIterableToArray");
+
+var nonIterableSpread = require("./nonIterableSpread");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+},{"./arrayWithoutHoles":"../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js","./iterableToArray":"../node_modules/@babel/runtime/helpers/iterableToArray.js","./unsupportedIterableToArray":"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js","./nonIterableSpread":"../node_modules/@babel/runtime/helpers/nonIterableSpread.js"}],"../node_modules/face-api.js/node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var Buffer = require("buffer").Buffer;
@@ -97422,6 +97501,637 @@ module.exports = {
   "water": "You have water hands.\nYou are in tune with their emotions, intuition, and psychic ability.\nFueled by compassion and imagination, you are a creative individual.\nYou're also extremely sensitive which makes you in tune with others, but prone to being hurt by inconsiderate people",
   "air": " You have air hands.\nYou are intellectually curious with innate analytical abilities and communication skills.\nThose with air hands are easily distracted and, if not stimulated, can become anxious or edgy."
 };
+},{}],"ageContent.json":[function(require,module,exports) {
+module.exports = {
+  "0-0": {
+    "male": [],
+    "female": [],
+    "none": [{
+      "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+      "logo": "mindwealth.jpg"
+    }, {
+      "text": "Let go of the negative people in your life.",
+      "logo": ""
+    }, {
+      "text": "Don't talk your health for granted. Titan Fitness can help you with your fitness goals.",
+      "logo": "titanfitness.jpg"
+    }, {
+      "text": "Loving yourself may be the hardest skill to learn. Learn self care techniques and mediation with Meditai.",
+      "logo": "meditai.jpg"
+    }, {
+      "text": "A reputation is hard to build and easy to destroy. Learn how network and present yourself with confidence with speaking coach William Colins.",
+      "logo": ""
+    }, {
+      "text": "Learn to say no. You will have more energy to help yourself and others if you set boundaries.",
+      "logo": ""
+    }, {
+      "text": "Good relationships need regular maintenance. Keep in touch with Chatbee",
+      "logo": "chatbee.jpg"
+    }, {
+      "text": "If you want to stay competitive, you have to be on the cutting edge. Get your technology fix at TechRing",
+      "logo": "techring.jpg"
+    }, {
+      "text": "Spend less time on your screen and more with friends. Find new friends with your interests on SmartMeets.",
+      "logo": "smartmeets.jpg"
+    }]
+  },
+  "0-10": {
+    "female": [{
+      "text": "Learn the difference between a friend with a problem and a problem friend. Get real life advice from other teens like you on Ask.me",
+      "logo": "askme.jpg"
+    }, {
+      "text": "Why grow up when you can GLOW UP. Get popular cosmetics at a discount at Luxa",
+      "logo": "luxa.jpg"
+    }],
+    "male": [{
+      "text": "Need to impress someone you like but don't know what do? Get expert advice from the Gentleman Daily.",
+      "logo": "gentlemandaily.jpg"
+    }, {
+      "text": "The Lionsoft games vault opens to an awesome FREE game every Thursday at 11 AM Eastern. Get it now.",
+      "logo": "lionsoft.jpg"
+    }],
+    "none": [{
+      "text": "Fitting in with the cool kids is so boring. Get your own unique style at LitFits",
+      "logo": "litfits.jpg"
+    }, {
+      "text": "Don't worry about your grades. People who aren't successful now might do well later in life",
+      "logo": ""
+    }, {
+      "text": "No shame in being weird if you're being real. Get your pop culture merch, figurines and more at GeekWare.com",
+      "logo": "geekware.jpg"
+    }, {
+      "text": "Don't worry about your grades. People who aren't successful now might do well later in life",
+      "logo": ""
+    }, {
+      "text": "Life can be hard, and getting others to understand is even harder. You don't have to be alone. Meditai has trained counsellors online 24hrs to keep teens like you anonymously.",
+      "logo": "meditai.jpg"
+    }, {
+      "text": "Don't rush to grow up.",
+      "logo": ""
+    }, {
+      "text": "Don't give into peer pressure.",
+      "logo": ""
+    }]
+  },
+  "10-20": {
+    "female": [{
+      "text": "Learn the difference between a friend with a problem and a problem friend. Get real life advice from other teens like you on Ask.me",
+      "logo": "askme.jpg"
+    }, {
+      "text": "Why grow up when you can GLOW UP. Get popular cosmetics at a discount at Luxa",
+      "logo": "luxa.jpg"
+    }, {
+      "text": "First impressions matter. Find out about the latest beauty trends on Sass",
+      "logo": "sass.jpg"
+    }],
+    "male": [{
+      "text": "The Lionsoft games vault opens to an awesome FREE game every Thursday at 11 AM Eastern. Get it now.",
+      "logo": "lionsoft.jpg"
+    }, {
+      "text": "Better to make your move and fail than live your life with regret",
+      "logo": ""
+    }, {
+      "text": "Getting your first car is a big step towards independence. Get quality used and new cars dor a deal at TempoAuto",
+      "logo": "tempoauto.jpg"
+    }, {
+      "text": "Need to impress someone you like but don't know what do? Get expert advice from the Gentleman Daily.",
+      "logo": "gentlemandaily.jpg"
+    }],
+    "none": [{
+      "text": "Don't rush to grow up.",
+      "logo": ""
+    }, {
+      "text": "You don't need to have your life planned out. Not even adults know what they are doing.",
+      "logo": ""
+    }, {
+      "text": "Fitting in with the cool kids is so boring. Get your own unique style at LitFits",
+      "logo": "litfits.jpg"
+    }, {
+      "text": "Don't give into peer pressure",
+      "logo": ""
+    }, {
+      "text": "Just because they're an adult doesn't mean they're right",
+      "logo": ""
+    }, {
+      "text": "Problem with massive pimples? Isocutane can clear your skin within 3 weeks.",
+      "logo": "isocutane.jpg"
+    }, {
+      "text": "Don't worry about your grades. People who aren't successful now might do well later in life",
+      "logo": ""
+    }, {
+      "text": "Life can be hard, and getting others to understand is even harder. You don't have to be alone. Meditai has trained counsellors online 24hrs to keep teens like you anonymously.",
+      "logo": "meditai.jpg"
+    }, {
+      "text": "No shame in being weird if you're being real. Get your pop culture merch, figurines and more at GeekWare.com",
+      "logo": "geekware.jpg"
+    }]
+  },
+  "20-30": {
+    "female": [{
+      "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+      "logo": "mindwealth.jpg"
+    }, {
+      "text": "Being in nature is good for the mind and heart. Bring a little of that indoors with house plants from Cultiva.",
+      "logo": "cultiva.jpg"
+    }, {
+      "text": "Be kind to yourself and stop comparing yourself to others.",
+      "logo": ""
+    }, {
+      "text": "Let go of the negative people in your life.",
+      "logo": ""
+    }, {
+      "text": "Loving yourself may be the hardest skill to learn. Learn self care techniques and mediation with Meditai.",
+      "logo": "meditai.jpg"
+    }, {
+      "text": "Learn to say no. You will have more energy to help yourself and others if you set boundaries.",
+      "logo": ""
+    }, {
+      "text": "Don't equate your dating life to your self worth.",
+      "logo": ""
+    }, {
+      "text": "Learn the difference between a friend with a problem and a problem friend.  Get real life advice from others like you on Ask.me",
+      "logo": "askme.jpg"
+    }, {
+      "text": "Wear whatever you like. There is no right hair or clothing for your body shape. Luxa's massive online catalog has it covered.",
+      "logo": "luxa.jpg"
+    }, {
+      "text": "How do you choose between stable career or one that is you passionate about? Novelix's self help books may help you with questions like this and other life dilemmas.",
+      "logo": "novelix.jpg"
+    }, {
+      "text": "Remember that you are enough.",
+      "logo": ""
+    }, {
+      "text": "First impression matter. Face the day with a fresh face with Chiffon cosmetics.",
+      "logo": "chiffon.jpg"
+    }],
+    "male": [{
+      "text": "Avoid seeming too self-centered today. Your loved ones could use your full attention. Practice your emotional skills with the MindWealth app.",
+      "logo": "mindwealth.jpg"
+    }, {
+      "text": "You don't need to accomplish everything while you are young. Take time to enjoy yourself and explore the world. Get started with Harmonic Travels.",
+      "logo": "harmonictravel.jpg"
+    }, {
+      "text": "Don't put on appearances to impress people.",
+      "logo": ""
+    }, {
+      "text": "Don't talk your health for granted while you are young. Get a head start and get fit with Titan Fitness.",
+      "logo": "titanfitness.jpg"
+    }, {
+      "text": "Actually go to the doctor when something is wrong. 300+ GPs are available at your fingertips with Babylon Health online.",
+      "logo": "babylonhealth.jpg"
+    }, {
+      "text": "There's more to life than your relationship status",
+      "logo": ""
+    }, {
+      "text": "A reputation is hard to build and easy to destroy. Learn how network and present yourself with confidence with speaking coach William Colins.",
+      "logo": ""
+    }, {
+      "text": "Dress for the job you want. Get expert men's fashion advice with the Gentleman Daily.",
+      "logo": "gentlemandaily.jpg"
+    }, {
+      "text": "Life is too short to be serious. Have some fun with other young singles on Flame.",
+      "logo": "flame.jpg"
+    }, {
+      "text": "If you want to stay competitive, you have to be on the cutting edge. Get your technology fix at TechRing",
+      "logo": "techring.jpg"
+    }, {
+      "text": "Are you pop cultured? Get merch, figurines and more at GeekWare.com",
+      "logo": "geekware.jpg"
+    }, {
+      "text": "Getting your first car is a big step towards independence. Get quality used and new cars dor a deal at TempoAuto",
+      "logo": "tempoauto.jpg"
+    }],
+    "none": [{
+      "text": "Although you are young, it pays to get your finances in order. MutualCorp investments can help your money grow faster.",
+      "logo": "mutualcorp.jpg"
+    }, {
+      "text": "Adulthood can be hard as a young adult. As much as it is hard to admit, family can still help you.  Keep in touch with ChatBee.",
+      "logo": "chatbee.jpg"
+    }, {
+      "text": "Sick of dealing with catfishes, ghosts and cancelled dates? Join our exclusive community at Prestige Dates. We screen users to ensure you only get high quality responsive matches.",
+      "logo": "prestigedates.jpg"
+    }, {
+      "text": "Remember not to get hooked on social media and catching up with successful friends. Be your authentic self.",
+      "logo": ""
+    }, {
+      "text": "You never know what you'll be good at if you don't try. Learn a new skill at education.ly",
+      "logo": "educationly.jpg"
+    }, {
+      "text": "The path to success is no longer a straightforward path from university into a traditional career. Get yourself equipped for the new world with HypeSkill.",
+      "logo": "hypeskill.jpg"
+    }, {
+      "text": "Dreams require sacrifice. Make it easier for you tomorrow by investing today with Investron.",
+      "logo": "investron.jpg"
+    }, {
+      "text": "Invest in experiences, not posessions. You have the most time and the least obligations right now. Go to that dream destination with Harmonic Travel.",
+      "logo": "harmonictravel.jpg"
+    }, {
+      "text": "Spend less time on your screen and more with friends. Find new friends with your interests on SmartMeets.",
+      "logo": "smartmeets.jpg"
+    }, {
+      "text": "It is ok to be lost and unsure of your life purpose while you are young.",
+      "logo": ""
+    }, {
+      "text": "Rather be tied up than tied down? Find some after dark fun on FlatterChat.",
+      "logo": "flatterchat.jpg"
+    }, {
+      "text": "You prefer to do things online rather than walk in a store and wait for service. Why pay the extra fees for banking then? Pay lower fees with an online only bank like SwipeBank",
+      "logo": "swipebank.jpg"
+    }]
+  },
+  "30-40": {
+    "female": [{
+      "text": "Take care of your skin now and you can delay the onset of aging. Chiffon products takes care of your skin needs no matter your age.",
+      "logo": "chiffon.jpg"
+    }, {
+      "text": "Career or family? You don't need to make that choice today. Olympia life can help you preserve your eggs for when you are ready for that choice.",
+      "logo": "olympialife.jpg"
+    }, {
+      "text": "Worrying about your future and planning ahead rarely helps. Learn to live in the present and appreciate life with the MindWealth app",
+      "logo": "mindwealth.jpg"
+    }, {
+      "text": "Don't equate your dating life to your self worth.",
+      "logo": ""
+    }, {
+      "text": "Travel in luxury for a family car price. Choose Velos",
+      "logo": "velos.jpg"
+    }, {
+      "text": "Don’t be afraid to walk away if you’re not feeling it. You’re not in your 20s anymore and you have better things you could be doing with your time.",
+      "logo": ""
+    }],
+    "male": [{
+      "text": "Dreams require sacrifice. Make it easier for you tomorrow by investing today with Investron.",
+      "logo": "investron.jpg"
+    }, {
+      "text": "Dress for the job you want. Get expert men's fashion advice with the Gentleman Daily.",
+      "logo": "gentlemandaily.jpg"
+    }, {
+      "text": "Thinking about starting a business or already have one? BizEnvoy can help you with the paperwork so you can focus on what you do best.",
+      "logo": "bizenvoy.jpg"
+    }, {
+      "text": "Don't allow yourself to be too comfortable with mediocrity. Drive with excellence with Ducati",
+      "logo": "ducati.jpg"
+    }, {
+      "text": "Don't settle. Now's the perfect time in your life to get ahead in your career and relationships",
+      "logo": ""
+    }, {
+      "text": "A reputation is hard to build and easy to destroy. Learn how network and present yourself with confidence with speaking coach William Colins.",
+      "logo": ""
+    }, {
+      "text": "Life is too short to be serious. Have some fun with other young singles on Flame.",
+      "logo": "flame.jpg"
+    }, {
+      "text": "Thinking about making an app? Get in touch with professionals that can help you realise your business dreams with 2Market",
+      "logo": "2market.jpg"
+    }],
+    "none": [{
+      "text": "You don't need a romantic partner to live a fulfilling life. MeetLife can help you find friends and interest groups.",
+      "logo": "meetlife.jpg"
+    }, {
+      "text": "Mortages are a big commitment. ULoans makes that easier with lower fees",
+      "logo": "uloans.jpg"
+    }, {
+      "text": "People change their careers on up to 3 times on average. Get ahead and learn a new skill at education.ly",
+      "logo": "educationly.jpg"
+    }, {
+      "text": "The path to success is no longer a straightforward path in a traditional career. Get yourself equipped for the new world with HypeSkill.",
+      "logo": "hypeskill.jpg"
+    }, {
+      "text": "Remember that you work to live, not live to work. Smart investment now can mean an early retirement. MutualCorp can get you started on the right path.",
+      "logo": "mutualcorp.jpg"
+    }, {
+      "text": "Don't settle but stop seeking perfection.",
+      "logo": ""
+    }, {
+      "text": "You can't have everything, but you can focus on what you are good at. Network with other professionals in your industry on Buzznet",
+      "logo": "buzznet.jpg"
+    }, {
+      "text": "Dating can be hard when all your friends are settled down. It is never too late. Find your other half on Prestige Dates.",
+      "logo": "prestigedates.jpg"
+    }, {
+      "text": "Time is too precious to waste on bad dates. Meet other commited quality singles on Flame",
+      "logo": "flame.jpg"
+    }, {
+      "text": "Looking to buy a house? Browse thousands of listings on HotLocation.com",
+      "logo": "hotlocation.jpg"
+    }, {
+      "text": "If you are planning a family, it can feel that time is running out. Get expert advice from Olympia Life.",
+      "logo": "olympialife.jpg"
+    }, {
+      "text": "Your happiness is more than just your accomplishments. Connect with those you care about with ChatBee",
+      "logo": "chatbee.jpg"
+    }, {
+      "text": "You prefer to do things online rather than walk in a store and wait for service. Why pay the extra fees for banking then? Pay lower fees with an online only bank like SwipeBank",
+      "logo": "swipebank.jpg"
+    }]
+  },
+  "40-50": {
+    "female": [{
+      "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+      "logo": "mindwealth.jpg"
+    }, {
+      "text": "If you are thinking of starting a family, it is not too late. Olympia Life can help you with your needs.",
+      "logo": "olympialife.jpg"
+    }, {
+      "text": "Travel in luxury for a family car price. Choose Velos",
+      "logo": "velos.jpg"
+    }, {
+      "text": "Even someone you has lost love can find love back in their arms again. Start that journey at Prestige Dates",
+      "logo": "prestigedates.jpg"
+    }],
+    "male": [{
+      "text": "Don't allow yourself to be too comfortable with mediocrity. Drive with excellence with Ducati",
+      "logo": "ducati.jpg"
+    }, {
+      "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+      "logo": "velos.jpg"
+    }, {
+      "text": "If you want to stay competitive, you have to be on the cutting edge. Get your technology fix at TechRing",
+      "logo": "techring.jpg"
+    }, {
+      "text": "Thinking about starting a business or already have one? BizEnvoy can help you with the paperwork so you can focus on what you do best.",
+      "logo": "bizenvoy.jpg"
+    }, {
+      "text": "Thinking about making an app? Get in touch with professionals that can help you realise your business dreams with 2Market",
+      "logo": "2market.jpg"
+    }, {
+      "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+      "logo": "keratinlabs.jpg"
+    }],
+    "none": [{
+      "text": "Mortages are a big commitment. Pacific Home Loans makes that easier with lower fees",
+      "logo": ""
+    }, {
+      "text": "People change their careers on up to 3 times on average. Learn a new skill at education.ly",
+      "logo": "educationly.jpg"
+    }, {
+      "text": "It's important to exercise your body but what about your brain? Keep it healthy with daily acitivites from BrainCamp",
+      "logo": "braincamp.jpg"
+    }, {
+      "text": "You're in a phase of life where experiences matter more than material things. Tick that destination off your bucket list with Harmonic Travel.",
+      "logo": "harmonictravel.jpg"
+    }, {
+      "text": "Got general health concerns but no time to visit the doctor? 300+ GPs are available at your fingertips with Babylon Health online.",
+      "logo": "babylonhealth.jpg"
+    }, {
+      "text": "Safeguard the quality of life of your loved ones with Chery Insurance today.",
+      "logo": "cheryinsurance.jpg"
+    }, {
+      "text": "Looking to buy a house? Browse thousands of listings on HotLocation.com",
+      "logo": "hotlocation.jpg"
+    }, {
+      "text": "Ospedali insurance will be with you in sickness and health.",
+      "logo": "ospedaliinsurance.jpg"
+    }, {
+      "text": "You can't have everything, but you can focus on what you are good at. Network with other professionals in your industry on Buzznet",
+      "logo": "buzznet.jpg"
+    }, {
+      "text": "It is not too late to correct your life course. Learn the skills for that dream job you had when you were young at education.ly",
+      "logo": "educationly.jpg"
+    }, {
+      "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+      "logo": "proancestry.com"
+    }, {
+      "text": "Your happiness is more than just your accomplishments. Connect with those you care about with ChatBee",
+      "logo": "chatbee.jpg"
+    }, {
+      "text": "You prefer to do things online rather than walk in a store and wait for service. Why pay the extra fees for banking then? Pay lower fees with an online only bank like SwipeBank",
+      "logo": "swipebank.jpg"
+    }]
+  },
+  "50-60": {
+    "female": [{
+      "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+      "logo": "chiffon.jpg"
+    }, {
+      "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+      "logo": "mindwealth.jpg"
+    }],
+    "male": ["From family car to sports car. You won't feel the difference when you're driving with Velos", "Few things are made with quality like in the past. Drive with excellence with Ducati", "Having hair problems? Visit KeratinLabs for a free consultation today."],
+    "none": [{
+      "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+      "logo": "braincamp.jpg"
+    }, {
+      "text": "Grey hairs starting to show? Get AllureHair's hair dye kit and do it yourself at home",
+      "logo": "allurehair.jpg"
+    }, {
+      "text": "People change their careers on up to 3 times on average. Learn a new skill at education.ly",
+      "logo": "educationly.jpg"
+    }, {
+      "text": "Looking to retire but don't have enough yet? Investron financial planning can help you make the most from your investments.",
+      "logo": "investron.jpg"
+    }, {
+      "text": "Safeguard the quality of life of your loved ones with Chery Insurance today.",
+      "logo": "cheryinsurance.jpg"
+    }, {
+      "text": "Ospedali insurance will be with you in sickness and health.",
+      "logo": "ospedaliinsurance.jpg"
+    }, {
+      "text": "Vintage does not mean obselete. Rediscover classic reads with Novelix.",
+      "logo": "novelix.jpg"
+    }, {
+      "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+      "logo": "flatterchat.jpg"
+    }, {
+      "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+      "logo": "proancestary.jpg"
+    }, {
+      "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+      "logo": "harmonictravel.jpg"
+    }, {
+      "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+      "logo": "smartmeet.jpg"
+    }]
+  },
+  "60-70": {
+    "female": [{
+      "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+      "logo": "chiffon.jpg"
+    }, {
+      "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+      "logo": "mindwealth.jpg"
+    }],
+    "male": [{
+      "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+      "logo": "velos.jpg"
+    }, {
+      "text": "Few things are made with quality like in the past. Drive with excellence with Ducati",
+      "logo": "ducati.jpg"
+    }, {
+      "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+      "logo": "keratinlabs.jpg"
+    }],
+    "none": [{
+      "text": "Looking to retire but don't have enough yet? Investron financial planning can help you make the most from your investments.",
+      "logo": "investron.jpg"
+    }, {
+      "text": "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
+      "logo": ""
+    }, {
+      "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+      "logo": "braincamp.jpg"
+    }, {
+      "text": "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
+      "logo": "allurehair.jpg"
+    }, {
+      "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+      "logo": "proancestary.jpg"
+    }, {
+      "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+      "logo": "flatterchat.jpg"
+    }, {
+      "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+      "logo": "harmonictravel.jpg"
+    }, {
+      "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+      "logo": "smartmeet.jpg"
+    }, {
+      "text": "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld",
+      "logo": ""
+    }]
+  },
+  "70-80": {
+    "female": [{
+      "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+      "logo": "chiffon.jpg"
+    }, {
+      "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+      "logo": "mindwealth.jpg"
+    }],
+    "male": [{
+      "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+      "logo": "velos.jpg"
+    }, {
+      "text": "Few things are made with quality like in the past. Drive with excellence with Ducati",
+      "logo": "ducati.jpg"
+    }, {
+      "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+      "logo": "keratinlabs.jpg"
+    }],
+    "none": [{
+      "text": "Looking for ways to make your retirment fund last? Investron financial planning can help you make the most of your money.",
+      "logo": "investron.jpg"
+    }, {
+      "text": "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
+      "logo": ""
+    }, {
+      "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+      "logo": "braincamp.jpg"
+    }, {
+      "text": "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
+      "logo": "allurehair.jpg"
+    }, {
+      "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+      "logo": "proancestary.jpg"
+    }, {
+      "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+      "logo": "flatterchat.jpg"
+    }, {
+      "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+      "logo": "harmonictravel.jpg"
+    }, {
+      "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+      "logo": "smartmeet.jpg"
+    }, {
+      "text": "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld",
+      "logo": ""
+    }]
+  },
+  "80-90": {
+    "female": [{
+      "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+      "logo": "chiffon.jpg"
+    }, {
+      "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+      "logo": "mindwealth.jpg"
+    }],
+    "male": [{
+      "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+      "logo": "velos.jpg"
+    }, {
+      "text": "Few things are made with quality like in the past. Drive with excellence with Ducati",
+      "logo": "ducati.jpg"
+    }, {
+      "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+      "logo": "keratinlabs.jpg"
+    }],
+    "none": [{
+      "text": "Looking for ways to make your retirment fund last? Investron financial planning can help you make the most of your money.",
+      "logo": "investron.jpg"
+    }, {
+      "text": "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
+      "logo": ""
+    }, {
+      "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+      "logo": "braincamp.jpg"
+    }, {
+      "text": "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
+      "logo": "allurehair.jpg"
+    }, {
+      "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+      "logo": "proancestary.jpg"
+    }, {
+      "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+      "logo": "flatterchat.jpg"
+    }, {
+      "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+      "logo": "harmonictravel.jpg"
+    }, {
+      "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+      "logo": "smartmeet.jpg"
+    }, {
+      "text": "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld",
+      "logo": ""
+    }]
+  },
+  "90-100": {
+    "female": [{
+      "text": "Rather than chasing youth, learn to be comfortable with your age. Chiffon has skincare products for every age.",
+      "logo": "chiffon.jpg"
+    }, {
+      "text": "Be mindful of your loved one's feelings today. If they seem a little sensitive, treat them with a gentle touch. Practice your emotional skills with the MindWealth app.",
+      "logo": "mindwealth.jpg"
+    }],
+    "male": [{
+      "text": "From family car to sports car. You won't feel the difference when you're driving with Velos",
+      "logo": "velos.jpg"
+    }, {
+      "text": "Few things are made with quality like in the past. Drive with excellence with Ducati",
+      "logo": "ducati.jpg"
+    }, {
+      "text": "Having hair problems? Visit KeratinLabs for a free consultation today.",
+      "logo": "keratinlabs.jpg"
+    }],
+    "none": [{
+      "text": "Looking for ways to make your retirment fund last? Investron financial planning can help you make the most of your money.",
+      "logo": "investron.jpg"
+    }, {
+      "text": "It's never too late to explore the world. Travel in comfort and style with Platnium Cruises",
+      "logo": ""
+    }, {
+      "text": "Is your memory not what it used to be? You can recover that with daily puzzles from BrainCamp",
+      "logo": "braincamp.jpg"
+    }, {
+      "text": "Grey hairs a problem? Get AllureHair's hair dye kit and do it yourself at home",
+      "logo": "allurehair.jpg"
+    }, {
+      "text": "Ever wondered about your ancestors and how you got here today? ProAncestary can help you learn the story of your family",
+      "logo": "proancestary.jpg"
+    }, {
+      "text": "Love can come at any age. Meet other mature singles on FlatterChat",
+      "logo": "flatterchat.jpg"
+    }, {
+      "text": "Enjoy life to the fullest. Tick that destination off your bucket list with Harmonic Travel.",
+      "logo": "harmonictravel.jpg"
+    }, {
+      "text": "Do that thing you used to love. Doing it with others is even better. Find friends and interest groups with SmartMeet",
+      "logo": "smartmeet.jpg"
+    }, {
+      "text": "Over the years, you have learnt that generosity is a powerful trait. Give back to the world and sponsor a child with VisionWorld",
+      "logo": ""
+    }]
+  }
+};
 },{}],"analyseUser.js":[function(require,module,exports) {
 "use strict";
 
@@ -97430,17 +98140,22 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getAgeGenderContent = exports.getHandElement = void 0;
 
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
+
 var _faceDetect = require("./faceDetect");
 
 var _handPose = require("./handPose");
 
 var elementContent = _interopRequireWildcard(require("./elements.json"));
 
+var allAgeGenderContent = _interopRequireWildcard(require("./ageContent.json"));
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-var ageGenderContent = [];
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var handElement = "";
 
 var distance = function distance(x1, y1, z1, x2, y2, z2) {
@@ -97483,17 +98198,50 @@ var getHandElement = function getHandElement() {
 
 exports.getHandElement = getHandElement;
 
-var getAgeGenderContent = function getAgeGenderContent() {
-  if (_handPose.newHandAppeared) {
-    var key = "".concat(Math.floor(_faceDetect.estimatedAge / 10) * 10, "-").concat((Math.floor(_faceDetect.estimatedAge / 10) + 1) * 10);
-    console.log("getGenderAge", key, _handPose.newHandAppeared);
+var shuffle = function shuffle(a) {
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var _ref = [a[j], a[i]];
+    a[i] = _ref[0];
+    a[j] = _ref[1];
   }
 
-  return ageGenderContent;
+  return a;
+};
+
+var getNRandomElements = function getNRandomElements(array, n) {
+  var randomElements = array.slice();
+
+  if (n > array.length - 1) {
+    n = array.length - 1;
+  }
+
+  randomElements = shuffle(randomElements);
+  return randomElements.slice(0, n);
+};
+
+var getAgeGenderContent = function getAgeGenderContent() {
+  var key = "0-0";
+
+  if (_faceDetect.estimatedAge > 0) {
+    key = "".concat(Math.floor(_faceDetect.estimatedAge / 10) * 10, "-").concat((Math.floor(_faceDetect.estimatedAge / 10) + 1) * 10);
+  }
+
+  if (key in allAgeGenderContent) {
+    var allAgeContent = allAgeGenderContent[key];
+    var content = getNRandomElements(allAgeContent["none"], 5);
+
+    if (_faceDetect.estimatedGender != "none") {
+      var contentGender = getNRandomElements(allAgeContent[_faceDetect.estimatedGender], 2);
+      content = [].concat((0, _toConsumableArray2.default)(content), (0, _toConsumableArray2.default)(contentGender));
+    }
+
+    return content;
+  }
 };
 
 exports.getAgeGenderContent = getAgeGenderContent;
-},{"./faceDetect":"faceDetect.js","./handPose":"handPose.js","./elements.json":"elements.json"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/toConsumableArray":"../node_modules/@babel/runtime/helpers/toConsumableArray.js","./faceDetect":"faceDetect.js","./handPose":"handPose.js","./elements.json":"elements.json","./ageContent.json":"ageContent.json"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -97510,26 +98258,6 @@ function _defineProperty(obj, key, value) {
 }
 
 module.exports = _defineProperty;
-},{}],"../node_modules/@babel/runtime/helpers/asyncIterator.js":[function(require,module,exports) {
-function _asyncIterator(iterable) {
-  var method;
-
-  if (typeof Symbol !== "undefined") {
-    if (Symbol.asyncIterator) {
-      method = iterable[Symbol.asyncIterator];
-      if (method != null) return method.call(iterable);
-    }
-
-    if (Symbol.iterator) {
-      method = iterable[Symbol.iterator];
-      if (method != null) return method.call(iterable);
-    }
-  }
-
-  throw new TypeError("Object is not async iterable");
-}
-
-module.exports = _asyncIterator;
 },{}],"../node_modules/uuid/dist/esm-browser/rng.js":[function(require,module,exports) {
 "use strict";
 
@@ -98214,7 +98942,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.removeAllTexts = exports.initThreeFont = exports.createTextObj = exports.FontNames = void 0;
+exports.createTextObjOnly = exports.removeAllTexts = exports.initThreeFont = exports.createTextObj = exports.FontNames = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -98346,13 +99074,49 @@ var initThreeFont = /*#__PURE__*/function () {
 
 exports.initThreeFont = initThreeFont;
 
+var formatTextWrap = function formatTextWrap(text, maxLineLength) {
+  var words = text.replace(/[\r\n]+/g, " ").split(" ");
+  var lineLength = 0;
+  return words.reduce(function (result, word) {
+    if (lineLength + word.length >= maxLineLength) {
+      lineLength = word.length;
+      return result + "\n".concat(word);
+    } else {
+      lineLength += word.length + (result ? 1 : 0);
+      return result ? result + " ".concat(word) : "".concat(word);
+    }
+  }, "");
+};
+
 var createTextObj = function createTextObj(scene, text, position) {
   var fontName = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : FontNames.Helvetiker;
   var fontSize = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 20;
   var fontColor = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0xffffff;
   var fontOpacity = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 0.5;
+  var maxLineLength = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 30;
+  var mesh = createTextObjOnly(text, position, fontName, fontSize, fontColor, fontOpacity, maxLineLength);
+  scene.add(mesh);
+  return {
+    mesh: mesh,
+    removeText: function removeText() {
+      return removeTextByName(scene, mesh.name);
+    },
+    updateText: function updateText(text) {
+      return updateTextByName(mesh.name, text);
+    }
+  };
+};
+
+exports.createTextObj = createTextObj;
+
+var createTextObjOnly = function createTextObjOnly(text, position) {
+  var fontName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : FontNames.Helvetiker;
+  var fontSize = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 20;
+  var fontColor = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0xffffff;
+  var fontOpacity = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0.5;
+  var maxLineLength = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 30;
   var textObjName = (0, _uuid.v4)();
-  var textGeo = new THREE.TextGeometry(text, {
+  var textGeo = new THREE.TextGeometry(formatTextWrap(text, maxLineLength), {
     font: fonts[fontName],
     size: fontSize,
     bevelEnabled: false,
@@ -98375,25 +99139,16 @@ var createTextObj = function createTextObj(scene, text, position) {
   }
 
   mesh.name = textObjName;
-  scene.add(mesh);
   textObjsWithConfig[textObjName] = {
     mesh: mesh,
     font: fonts[fontName],
     fontSize: fontSize,
     text: text
   };
-  return {
-    mesh: mesh,
-    removeText: function removeText() {
-      return removeTextByName(scene, textObjName);
-    },
-    updateText: function updateText(text) {
-      return updateTextByName(textObjName, text);
-    }
-  };
+  return mesh;
 };
 
-exports.createTextObj = createTextObj;
+exports.createTextObjOnly = createTextObjOnly;
 
 var removeAllTexts = function removeAllTexts(scene) {
   Object.values(textObjsWithConfig).forEach(function (text) {
@@ -99999,7 +100754,7 @@ var textureLoader = new THREE.TextureLoader();
 var svgLoader = new _SVGLoader.SVGLoader();
 
 var loadImage = /*#__PURE__*/function () {
-  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(scene, filename) {
+  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(filename) {
     var tex, material, geometry, mesh;
     return _regenerator.default.wrap(function _callee$(_context) {
       while (1) {
@@ -100021,10 +100776,8 @@ var loadImage = /*#__PURE__*/function () {
             geometry = new THREE.PlaneGeometry(tex.image.width * 0.001, tex.image.height * 0.001);
             mesh = new THREE.Mesh(geometry, material);
             mesh.position.set(2, -2, -2);
-            scene.add(mesh);
             images.push(mesh);
-            _context.next = 16;
-            break;
+            return _context.abrupt("return", mesh);
 
           case 13:
             _context.prev = 13;
@@ -100039,7 +100792,7 @@ var loadImage = /*#__PURE__*/function () {
     }, _callee, null, [[0, 13]]);
   }));
 
-  return function loadImage(_x, _x2) {
+  return function loadImage(_x) {
     return _ref.apply(this, arguments);
   };
 }();
@@ -100047,28 +100800,45 @@ var loadImage = /*#__PURE__*/function () {
 exports.loadImage = loadImage;
 
 var loadImageSvg = /*#__PURE__*/function () {
-  var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2(scene, filename) {
-    var data, paths, group, i, path, material, shapes, j, shape, geometry, mesh;
+  var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2(filename) {
+    var position,
+        color,
+        data,
+        paths,
+        group,
+        i,
+        path,
+        material,
+        shapes,
+        j,
+        shape,
+        geometry,
+        mesh,
+        _args2 = arguments;
     return _regenerator.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.prev = 0;
-            _context2.next = 3;
+            position = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : new THREE.Vector3(2, -2, -2);
+            color = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : 0x00ffff;
+            _context2.prev = 2;
+            _context2.next = 5;
             return svgLoader.loadAsync(filename);
 
-          case 3:
+          case 5:
             data = _context2.sent;
             paths = data.paths;
             group = new THREE.Group();
 
             for (i = 0; i < paths.length; i++) {
               path = paths[i];
-              material = new THREE.MeshBasicMaterial({
-                color: path.color,
+              material = new THREE.MeshLambertMaterial({
+                color: color,
                 opacity: 0.5,
                 side: THREE.DoubleSide,
-                depthWrite: false
+                depthWrite: false,
+                emissive: color,
+                transparent: true
               });
               shapes = path.toShapes(false, false);
 
@@ -100077,29 +100847,28 @@ var loadImageSvg = /*#__PURE__*/function () {
                 geometry = new THREE.ShapeBufferGeometry(shape);
                 mesh = new THREE.Mesh(geometry, material);
                 mesh.scale.set(0.001, -0.001, 0.001);
-                mesh.position.set(2, -2, -2);
+                mesh.position.set(position.x, position.y, position.z);
                 group.add(mesh);
               }
             }
 
-            scene.add(group);
-            _context2.next = 13;
-            break;
-
-          case 10:
-            _context2.prev = 10;
-            _context2.t0 = _context2["catch"](0);
-            console.log("failed to load image ".concat(filename), _context2.t0);
+            images.push(group);
+            return _context2.abrupt("return", group);
 
           case 13:
+            _context2.prev = 13;
+            _context2.t0 = _context2["catch"](2);
+            console.log("failed to load image ".concat(filename), _context2.t0);
+
+          case 16:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 10]]);
+    }, _callee2, null, [[2, 13]]);
   }));
 
-  return function loadImageSvg(_x3, _x4) {
+  return function loadImageSvg(_x2) {
     return _ref2.apply(this, arguments);
   };
 }();
@@ -100115,7 +100884,285 @@ var removeAllImages = function removeAllImages(scene) {
 };
 
 exports.removeAllImages = removeAllImages;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/SVGLoader":"../node_modules/three/examples/jsm/loaders/SVGLoader.js"}],"mainCanvas.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/SVGLoader":"../node_modules/three/examples/jsm/loaders/SVGLoader.js"}],"threeHands.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setHandLandmarks = exports.initThreeHands = void 0;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _asyncIterator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncIterator"));
+
+var _handPose = require("./handPose");
+
+var _analyseUser = require("./analyseUser");
+
+var _threeTextUtil = require("./threeTextUtil");
+
+var THREE = _interopRequireWildcard(require("three"));
+
+var _threeImageUtil = require("./threeImageUtil");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var textColors = [0xff00ff, 0x00ffff, 0x00ff9f, 0x00b8ff, 0x001eff];
+var handLandmarks = [];
+var ageGenderContent3d = [];
+var scene;
+var loadedStatus, handElement;
+
+var createText = function createText(text, fontName, fontSize, fontColor) {
+  var newText = (0, _threeTextUtil.createTextObj)(scene, text, new THREE.Vector3(1, -2, -2), fontName, fontSize, fontColor);
+  return newText;
+};
+
+var loadPlanes = function loadPlanes(numPlanes) {
+  var planeMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffff00,
+    metalness: 0,
+    roughness: 0,
+    opacity: 0.5,
+    blendEquation: THREE.AdditiveBlending,
+    side: THREE.DoubleSide,
+    transparent: true
+  });
+  var geometry = new THREE.PlaneBufferGeometry(1, 1);
+
+  for (var i = 0; i < numPlanes; i++) {
+    var planeMesh = new THREE.Mesh(geometry, planeMaterial);
+    planeMesh.scale.x = 0.03;
+    planeMesh.scale.y = 0.03;
+    planeMesh.scale.z = 0.03;
+    planeMesh.position.z = -1;
+    planeMesh.position.x = (i - numPlanes / 2) * 0.5;
+    planeMesh.receiveShadow = true;
+    scene.add(planeMesh);
+    handLandmarks.push(planeMesh);
+  }
+};
+
+var initThreeHands = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(sceneRef) {
+    return _regenerator.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            scene = sceneRef;
+            loadPlanes(_handPose.NUM_HAND_LANDMARKS);
+            _context.next = 4;
+            return (0, _threeTextUtil.initThreeFont)();
+
+          case 4:
+            loadedStatus = createText("Loading", _threeTextUtil.FontNames.NeonNanoborg, 20, 0xff00ff);
+            handElement = createText("Detecting. hand Please wait.", _threeTextUtil.FontNames.Helvetiker, 20, 0x00ffff);
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function initThreeHands(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.initThreeHands = initThreeHands;
+
+var getAgeGender3dContent = /*#__PURE__*/function () {
+  var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+    var content, newContent3d, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, _value, item, image, textObj;
+
+    return _regenerator.default.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (!_handPose.newHandAppeared) {
+              _context2.next = 52;
+              break;
+            }
+
+            (0, _threeImageUtil.removeAllImages)(scene);
+            (0, _threeTextUtil.removeAllTexts)(scene);
+            content = (0, _analyseUser.getAgeGenderContent)();
+            newContent3d = [];
+            _iteratorNormalCompletion = true;
+            _didIteratorError = false;
+            _context2.prev = 7;
+            _iterator = (0, _asyncIterator2.default)(content);
+
+          case 9:
+            _context2.next = 11;
+            return _iterator.next();
+
+          case 11:
+            _step = _context2.sent;
+            _iteratorNormalCompletion = _step.done;
+            _context2.next = 15;
+            return _step.value;
+
+          case 15:
+            _value = _context2.sent;
+
+            if (_iteratorNormalCompletion) {
+              _context2.next = 34;
+              break;
+            }
+
+            item = _value;
+            image = null;
+
+            if (!item.logo) {
+              _context2.next = 29;
+              break;
+            }
+
+            if (!item.logo.includes("svg")) {
+              _context2.next = 26;
+              break;
+            }
+
+            _context2.next = 23;
+            return (0, _threeImageUtil.loadImageSvg)("logos/".concat(item.logo));
+
+          case 23:
+            image = _context2.sent;
+            _context2.next = 29;
+            break;
+
+          case 26:
+            _context2.next = 28;
+            return (0, _threeImageUtil.loadImage)("logos/".concat(item.logo));
+
+          case 28:
+            image = _context2.sent;
+
+          case 29:
+            if (image) {
+              newContent3d.push(image);
+            }
+
+            if (item.text) {
+              console.log(item.text);
+              textObj = (0, _threeTextUtil.createTextObjOnly)(item.text, new THREE.Vector3(0, 0, -2), _threeTextUtil.FontNames.Helvetiker, 10, textColors[newContent3d.length % textColors.length], 0.8);
+              newContent3d.push(textObj);
+            }
+
+          case 31:
+            _iteratorNormalCompletion = true;
+            _context2.next = 9;
+            break;
+
+          case 34:
+            _context2.next = 40;
+            break;
+
+          case 36:
+            _context2.prev = 36;
+            _context2.t0 = _context2["catch"](7);
+            _didIteratorError = true;
+            _iteratorError = _context2.t0;
+
+          case 40:
+            _context2.prev = 40;
+            _context2.prev = 41;
+
+            if (!(!_iteratorNormalCompletion && _iterator.return != null)) {
+              _context2.next = 45;
+              break;
+            }
+
+            _context2.next = 45;
+            return _iterator.return();
+
+          case 45:
+            _context2.prev = 45;
+
+            if (!_didIteratorError) {
+              _context2.next = 48;
+              break;
+            }
+
+            throw _iteratorError;
+
+          case 48:
+            return _context2.finish(45);
+
+          case 49:
+            return _context2.finish(40);
+
+          case 50:
+            ageGenderContent3d = newContent3d;
+            ageGenderContent3d.forEach(function (item) {
+              scene.add(item);
+            });
+
+          case 52:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[7, 36, 40, 50], [41,, 45, 49]]);
+  }));
+
+  return function getAgeGender3dContent() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var setHandLandmarks = /*#__PURE__*/function () {
+  var _ref3 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+    return _regenerator.default.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return getAgeGender3dContent();
+
+          case 2:
+            if (_handPose.isHandPresent) {
+              loadedStatus.updateText("ready");
+              handElement.updateText("".concat((0, _analyseUser.getHandElement)()));
+              loadedStatus.mesh.position.set(_handPose.hands[0].landmarks[0][0] * 0.01, _handPose.hands[0].landmarks[0][1] * -0.01, -2);
+              ageGenderContent3d.forEach(function (item, index) {
+                item.position.x = _handPose.hands[0].landmarks[index][0] * 0.01;
+                item.position.y = _handPose.hands[0].landmarks[index][1] * -0.01;
+              });
+
+              _handPose.hands[0].landmarks.forEach(function (landmark, index) {
+                handLandmarks[index].position.x = landmark[0] * 0.01;
+                handLandmarks[index].position.y = landmark[1] * -0.01;
+              });
+            } else {
+              handElement.updateText("No hands found");
+            }
+
+          case 3:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function setHandLandmarks() {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.setHandLandmarks = setHandLandmarks;
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/asyncIterator":"../node_modules/@babel/runtime/helpers/asyncIterator.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js","./threeTextUtil":"threeTextUtil.js","three":"../node_modules/three/build/three.module.js","./threeImageUtil":"threeImageUtil.js"}],"mainCanvas.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100135,13 +101182,7 @@ var _RGBELoader = require("three/examples/jsm/loaders/RGBELoader.js");
 
 var _loadingScreen = require("./loadingScreen");
 
-var _handPose = require("./handPose");
-
-var _analyseUser = require("./analyseUser");
-
-var _threeTextUtil = require("./threeTextUtil");
-
-var _threeImageUtil = require("./threeImageUtil");
+var _threeHands = require("./threeHands");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -100156,38 +101197,15 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var initThreeCanvas = /*#__PURE__*/function () {
-  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-    var scene, camera, renderer, handLandmarks, clock, gltfLoader, gltfObjs, composer, loadedStatus, handElement, createText, setHandLandmarks, addPostProcessing, loadPlanes, loadGltf, resizeCanvasToDisplaySize, initScene, addLights, addCamera, initAndAttachCanvas, animate;
-    return _regenerator.default.wrap(function _callee2$(_context2) {
+  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+    var scene, camera, renderer, clock, gltfLoader, gltfObjs, composer, addPostProcessing, loadGltf, resizeCanvasToDisplaySize, initScene, addLights, addCamera, initAndAttachCanvas, animate;
+    return _regenerator.default.wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
-            handLandmarks = [];
             clock = new THREE.Clock();
             gltfLoader = new _GLTFLoader.GLTFLoader();
             gltfObjs = [];
-
-            createText = function createText(text, fontName, fontSize, fontColor) {
-              var newText = (0, _threeTextUtil.createTextObj)(scene, text, new THREE.Vector3(1, -2, -2), fontName, fontSize, fontColor);
-              return newText;
-            };
-
-            setHandLandmarks = function setHandLandmarks() {
-              (0, _analyseUser.getAgeGenderContent)();
-
-              if (_handPose.isHandPresent) {
-                loadedStatus.updateText("ready");
-                handElement.updateText("".concat((0, _analyseUser.getHandElement)()));
-                loadedStatus.mesh.position.set(_handPose.hands[0].landmarks[0][0] * 0.01, _handPose.hands[0].landmarks[0][1] * -0.01, -2);
-
-                _handPose.hands[0].landmarks.forEach(function (landmark, index) {
-                  handLandmarks[index].position.x = landmark[0] * 0.01;
-                  handLandmarks[index].position.y = landmark[1] * -0.01;
-                });
-              } else {
-                handElement.updateText("No hands found");
-              }
-            };
 
             addPostProcessing = function addPostProcessing() {
               composer = new EffectComposer(renderer);
@@ -100201,31 +101219,6 @@ var initThreeCanvas = /*#__PURE__*/function () {
               composer.addPass(new RenderPass(scene, camera));
               composer.addPass(new EffectPass(camera, noiseEffect));
               composer.addPass(new EffectPass(camera, chromaticAbberationEffect));
-            };
-
-            loadPlanes = function loadPlanes(numPlanes) {
-              var planeMaterial = new THREE.MeshPhysicalMaterial({
-                color: 0xdddddd,
-                metalness: 0,
-                roughness: 0,
-                opacity: 1,
-                side: THREE.DoubleSide,
-                transparent: false,
-                premultipliedAlpha: true
-              });
-              var geometry = new THREE.PlaneBufferGeometry(1, 1);
-
-              for (var i = 0; i < numPlanes; i++) {
-                var planeMesh = new THREE.Mesh(geometry, planeMaterial);
-                planeMesh.scale.x = 0.2;
-                planeMesh.scale.y = 0.2;
-                planeMesh.scale.z = 0.2;
-                planeMesh.position.z = -1;
-                planeMesh.position.x = (i - numPlanes / 2) * 0.5;
-                planeMesh.receiveShadow = true;
-                scene.add(planeMesh);
-                handLandmarks.push(planeMesh);
-              }
             };
 
             loadGltf = /*#__PURE__*/function () {
@@ -100344,42 +101337,55 @@ var initThreeCanvas = /*#__PURE__*/function () {
             addCamera();
             addLights(); // addPostProcessing();
 
-            loadPlanes(_handPose.NUM_HAND_LANDMARKS);
-            _context2.next = 21;
-            return (0, _threeTextUtil.initThreeFont)();
+            _context3.next = 16;
+            return (0, _threeHands.initThreeHands)(scene);
 
-          case 21:
-            loadedStatus = createText("Loading", _threeTextUtil.FontNames.NeonNanoborg, 20, 0xff00ff);
-            handElement = createText("Detecting. hand Please wait.", _threeTextUtil.FontNames.Helvetiker, 20, 0x00ffff);
-            _context2.next = 25;
+          case 16:
+            _context3.next = 18;
             return loadGltf("resources/origin.glb");
 
-          case 25:
+          case 18:
             resizeCanvasToDisplaySize();
-            _context2.next = 28;
-            return (0, _threeImageUtil.loadImageSvg)(scene, "logos/buzznet.svg");
-
-          case 28:
             (0, _loadingScreen.hideLoadingScreen)();
 
-            animate = function animate() {
-              // composer.render(clock.getDelta());
-              renderer.render(scene, camera);
-              setHandLandmarks();
-              gltfObjs.forEach(function (obj) {
-                obj.mixer.update(clock.getDelta());
-              });
-              requestAnimationFrame(animate);
-            };
+            animate = /*#__PURE__*/function () {
+              var _ref3 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+                return _regenerator.default.wrap(function _callee2$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        // composer.render(clock.getDelta());
+                        renderer.render(scene, camera);
+                        _context2.next = 3;
+                        return (0, _threeHands.setHandLandmarks)();
+
+                      case 3:
+                        gltfObjs.forEach(function (obj) {
+                          obj.mixer.update(clock.getDelta());
+                        });
+                        requestAnimationFrame(animate);
+
+                      case 5:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }
+                }, _callee2);
+              }));
+
+              return function animate() {
+                return _ref3.apply(this, arguments);
+              };
+            }();
 
             animate();
 
-          case 31:
+          case 22:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2);
+    }, _callee3);
   }));
 
   return function initThreeCanvas() {
@@ -100389,7 +101395,7 @@ var initThreeCanvas = /*#__PURE__*/function () {
 
 var _default = initThreeCanvas;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./loadingScreen":"loadingScreen.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js","./threeTextUtil":"threeTextUtil.js","./threeImageUtil":"threeImageUtil.js"}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./loadingScreen":"loadingScreen.js","./threeHands":"threeHands.js"}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -100543,7 +101549,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59722" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52870" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

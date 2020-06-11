@@ -29,6 +29,21 @@ const initThreeFont = async () => {
   }
 };
 
+const formatTextWrap = (text, maxLineLength) => {
+  const words = text.replace(/[\r\n]+/g, " ").split(" ");
+  let lineLength = 0;
+
+  return words.reduce((result, word) => {
+    if (lineLength + word.length >= maxLineLength) {
+      lineLength = word.length;
+      return result + `\n${word}`;
+    } else {
+      lineLength += word.length + (result ? 1 : 0);
+      return result ? result + ` ${word}` : `${word}`;
+    }
+  }, "");
+};
+
 const createTextObj = (
   scene,
   text,
@@ -36,10 +51,37 @@ const createTextObj = (
   fontName = FontNames.Helvetiker,
   fontSize = 20,
   fontColor = 0xffffff,
-  fontOpacity = 0.5
+  fontOpacity = 0.5,
+  maxLineLength = 30
+) => {
+  const mesh = createTextObjOnly(
+    text,
+    position,
+    fontName,
+    fontSize,
+    fontColor,
+    fontOpacity,
+    maxLineLength
+  );
+  scene.add(mesh);
+  return {
+    mesh: mesh,
+    removeText: () => removeTextByName(scene, mesh.name),
+    updateText: (text) => updateTextByName(mesh.name, text),
+  };
+};
+
+const createTextObjOnly = (
+  text,
+  position,
+  fontName = FontNames.Helvetiker,
+  fontSize = 20,
+  fontColor = 0xffffff,
+  fontOpacity = 0.5,
+  maxLineLength = 30
 ) => {
   const textObjName = uuidv4();
-  const textGeo = new THREE.TextGeometry(text, {
+  const textGeo = new THREE.TextGeometry(formatTextWrap(text, maxLineLength), {
     font: fonts[fontName],
     size: fontSize,
     bevelEnabled: false,
@@ -64,18 +106,13 @@ const createTextObj = (
   }
   mesh.name = textObjName;
 
-  scene.add(mesh);
   textObjsWithConfig[textObjName] = {
     mesh: mesh,
     font: fonts[fontName],
     fontSize: fontSize,
     text: text,
   };
-  return {
-    mesh: mesh,
-    removeText: () => removeTextByName(scene, textObjName),
-    updateText: (text) => updateTextByName(textObjName, text),
-  };
+  return mesh;
 };
 
 const removeAllTexts = (scene) => {
@@ -116,4 +153,10 @@ const updateTextByName = (textObjName, text) => {
   }
 };
 
-export { FontNames, createTextObj, initThreeFont, removeAllTexts };
+export {
+  FontNames,
+  createTextObj,
+  initThreeFont,
+  removeAllTexts,
+  createTextObjOnly,
+};

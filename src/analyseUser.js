@@ -1,8 +1,8 @@
 import { estimatedAge, estimatedGender } from "./faceDetect";
 import { hands, newHandAppeared } from "./handPose";
 import * as elementContent from "./elements.json";
+import * as allAgeGenderContent from "./ageContent.json";
 
-let ageGenderContent = [];
 let handElement = "";
 
 const distance = (x1, y1, z1, x2, y2, z2) => {
@@ -52,14 +52,42 @@ const getHandElement = () => {
   return handElement ? elementContent[handElement] : "";
 };
 
+const shuffle = (a) => {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+const getNRandomElements = (array, n) => {
+  let randomElements = array.slice();
+  if (n > array.length - 1) {
+    n = array.length - 1;
+  }
+  randomElements = shuffle(randomElements);
+  return randomElements.slice(0, n);
+};
+
 const getAgeGenderContent = () => {
-  if (newHandAppeared) {
-    const key = `${Math.floor(estimatedAge / 10) * 10}-${
+  let key = "0-0";
+  if (estimatedAge > 0) {
+    key = `${Math.floor(estimatedAge / 10) * 10}-${
       (Math.floor(estimatedAge / 10) + 1) * 10
     }`;
-    console.log("getGenderAge", key, newHandAppeared);
   }
-  return ageGenderContent;
+  if (key in allAgeGenderContent) {
+    const allAgeContent = allAgeGenderContent[key];
+    let content = getNRandomElements(allAgeContent["none"], 5);
+    if (estimatedGender != "none") {
+      const contentGender = getNRandomElements(
+        allAgeContent[estimatedGender],
+        2
+      );
+      content = [...content, ...contentGender];
+    }
+    return content;
+  }
 };
 
 export { getHandElement, getAgeGenderContent };

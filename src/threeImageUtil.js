@@ -5,7 +5,7 @@ let images = [];
 const textureLoader = new THREE.TextureLoader();
 const svgLoader = new SVGLoader();
 
-const loadImage = async (scene, filename) => {
+const loadImage = async (filename) => {
   try {
     const tex = await textureLoader.loadAsync(filename);
     console.log("tex", tex);
@@ -21,14 +21,18 @@ const loadImage = async (scene, filename) => {
     );
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(2, -2, -2);
-    scene.add(mesh);
     images.push(mesh);
+    return mesh;
   } catch (err) {
     console.log(`failed to load image ${filename}`, err);
   }
 };
 
-const loadImageSvg = async (scene, filename) => {
+const loadImageSvg = async (
+  filename,
+  position = new THREE.Vector3(2, -2, -2),
+  color = 0x00ffff
+) => {
   try {
     const data = await svgLoader.loadAsync(filename);
     const paths = data.paths;
@@ -36,11 +40,13 @@ const loadImageSvg = async (scene, filename) => {
 
     for (let i = 0; i < paths.length; i++) {
       const path = paths[i];
-      const material = new THREE.MeshBasicMaterial({
-        color: path.color,
+      const material = new THREE.MeshLambertMaterial({
+        color: color,
         opacity: 0.5,
         side: THREE.DoubleSide,
         depthWrite: false,
+        emissive: color,
+        transparent: true,
       });
       const shapes = path.toShapes(false, false);
       for (let j = 0; j < shapes.length; j++) {
@@ -48,13 +54,13 @@ const loadImageSvg = async (scene, filename) => {
         const geometry = new THREE.ShapeBufferGeometry(shape);
         const mesh = new THREE.Mesh(geometry, material);
         mesh.scale.set(0.001, -0.001, 0.001);
-        mesh.position.set(2, -2, -2);
+        mesh.position.set(position.x, position.y, position.z);
 
         group.add(mesh);
       }
     }
-
-    scene.add(group);
+    images.push(group);
+    return group;
   } catch (err) {
     console.log(`failed to load image ${filename}`, err);
   }

@@ -2,53 +2,16 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { hideLoadingScreen } from "./loadingScreen";
-import { hands, isHandPresent, NUM_HAND_LANDMARKS } from "./handPose";
-import { getAgeGenderContent, getHandElement } from "./analyseUser";
-import { initThreeFont, createTextObj, FontNames } from "./threeTextUtil";
-import { loadImage, loadImageSvg } from "./threeImageUtil";
+import { initThreeHands, setHandLandmarks } from "./threeHands";
 
 const initThreeCanvas = async () => {
   let scene;
   let camera;
   let renderer;
-  let handLandmarks = [];
   let clock = new THREE.Clock();
   const gltfLoader = new GLTFLoader();
   let gltfObjs = [];
   let composer;
-
-  let loadedStatus, handElement;
-
-  const createText = (text, fontName, fontSize, fontColor) => {
-    const newText = createTextObj(
-      scene,
-      text,
-      new THREE.Vector3(1, -2, -2),
-      fontName,
-      fontSize,
-      fontColor
-    );
-    return newText;
-  };
-
-  const setHandLandmarks = () => {
-    getAgeGenderContent();
-    if (isHandPresent) {
-      loadedStatus.updateText("ready");
-      handElement.updateText(`${getHandElement()}`);
-      loadedStatus.mesh.position.set(
-        hands[0].landmarks[0][0] * 0.01,
-        hands[0].landmarks[0][1] * -0.01,
-        -2
-      );
-      hands[0].landmarks.forEach((landmark, index) => {
-        handLandmarks[index].position.x = landmark[0] * 0.01;
-        handLandmarks[index].position.y = landmark[1] * -0.01;
-      });
-    } else {
-      handElement.updateText("No hands found");
-    }
-  };
 
   const addPostProcessing = () => {
     composer = new EffectComposer(renderer);
@@ -65,30 +28,6 @@ const initThreeCanvas = async () => {
     composer.addPass(new RenderPass(scene, camera));
     composer.addPass(new EffectPass(camera, noiseEffect));
     composer.addPass(new EffectPass(camera, chromaticAbberationEffect));
-  };
-
-  const loadPlanes = (numPlanes) => {
-    const planeMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xdddddd,
-      metalness: 0,
-      roughness: 0,
-      opacity: 1,
-      side: THREE.DoubleSide,
-      transparent: false,
-      premultipliedAlpha: true,
-    });
-    const geometry = new THREE.PlaneBufferGeometry(1, 1);
-    for (let i = 0; i < numPlanes; i++) {
-      const planeMesh = new THREE.Mesh(geometry, planeMaterial);
-      planeMesh.scale.x = 0.2;
-      planeMesh.scale.y = 0.2;
-      planeMesh.scale.z = 0.2;
-      planeMesh.position.z = -1;
-      planeMesh.position.x = (i - numPlanes / 2) * 0.5;
-      planeMesh.receiveShadow = true;
-      scene.add(planeMesh);
-      handLandmarks.push(planeMesh);
-    }
   };
 
   const loadGltf = async (filePath) => {
@@ -182,28 +121,17 @@ const initThreeCanvas = async () => {
   addCamera();
   addLights();
   // addPostProcessing();
-
-  loadPlanes(NUM_HAND_LANDMARKS);
-  await initThreeFont();
-  loadedStatus = createText("Loading", FontNames.NeonNanoborg, 20, 0xff00ff);
-  handElement = createText(
-    "Detecting. hand Please wait.",
-    FontNames.Helvetiker,
-    20,
-    0x00ffff
-  );
-
+  await initThreeHands(scene);
   await loadGltf("resources/origin.glb");
 
   resizeCanvasToDisplaySize();
-  await loadImageSvg(scene, "logos/buzznet.svg");
   hideLoadingScreen();
 
-  const animate = () => {
+  const animate = async () => {
     // composer.render(clock.getDelta());
     renderer.render(scene, camera);
 
-    setHandLandmarks();
+    await setHandLandmarks();
     gltfObjs.forEach((obj) => {
       obj.mixer.update(clock.getDelta());
     });
