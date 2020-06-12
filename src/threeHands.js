@@ -10,6 +10,7 @@ import {
   createTextObj,
   FontNames,
   createTextObjOnly,
+  alignText,
 } from "./threeTextUtil";
 import * as THREE from "three";
 import { loadImageSvg, loadImage } from "./threeImageUtil";
@@ -28,7 +29,7 @@ const initThreeHands = async (sceneRef, width, height) => {
   scene = sceneRef;
   canvasHeight = height;
   canvasWidth = width;
-  loadPlanes(NUM_HAND_LANDMARKS);
+  loadLandmarks(NUM_HAND_LANDMARKS);
   await initThreeFont();
   waitingHandObj = createTextObj(
     scene,
@@ -42,7 +43,7 @@ const initThreeHands = async (sceneRef, width, height) => {
   );
 };
 
-const loadPlanes = (numPlanes) => {
+const loadLandmarks = (numPlanes) => {
   const planeMaterial = new THREE.MeshPhysicalMaterial({
     color: 0xffff00,
     metalness: 0,
@@ -123,9 +124,16 @@ const getAgeGender3dContent = async () => {
 };
 
 const updateAgeGenderContent = () => {
+  const handCentre = hands[0].annotations.middleFinger[0][0] * 0.01;
+
   ageGenderContent3d.forEach((item, index) => {
     item.position.x = hands[0].landmarks[index][0] * 0.01;
     item.position.y = hands[0].landmarks[index][1] * -0.01;
+    if (item.position.x > handCentre) {
+      alignText(item.geometry, "right");
+    } else {
+      alignText(item.geometry, "left");
+    }
   });
 };
 

@@ -78,10 +78,24 @@ const alignText = (geo, alignment) => {
     geo.computeBoundingBox();
   }
   if (alignment === "centre") {
-    THREE.GeometryUtils.center(geo);
+    geo.center(geo);
   } else if (alignment === "left") {
-    geo.applyMatrix(
-      new THREE.Matrix4().makeTranslation(-geo.boundingBox.getSize().x, 0, 0)
+    geo.center(geo);
+    geo.applyMatrix4(
+      new THREE.Matrix4().makeTranslation(
+        -geo.boundingBox.getSize(new THREE.Vector3()).x / 2,
+        0,
+        0
+      )
+    );
+  } else {
+    geo.center(geo);
+    geo.applyMatrix4(
+      new THREE.Matrix4().makeTranslation(
+        geo.boundingBox.getSize(new THREE.Vector3()).x / 2,
+        0,
+        0
+      )
     );
   }
 };
@@ -110,6 +124,7 @@ const createTextObjOnly = (
     blending: THREE.AdditiveBlending,
     opacity: fontOpacity,
   });
+  textGeo.center;
   const mesh = new THREE.Mesh(textGeo, textMaterial);
   mesh.position.set(position.x, position.y, position.z);
   if (
@@ -175,4 +190,5 @@ export {
   initThreeFont,
   removeAllTexts,
   createTextObjOnly,
+  alignText,
 };
