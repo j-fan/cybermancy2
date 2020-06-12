@@ -51,6 +51,7 @@ const createTextObj = (
   fontName = FontNames.Helvetiker,
   fontSize = 20,
   fontColor = 0xffffff,
+  alignment = "left",
   fontOpacity = 0.5,
   maxLineLength = 30
 ) => {
@@ -60,6 +61,7 @@ const createTextObj = (
     fontName,
     fontSize,
     fontColor,
+    alignment,
     fontOpacity,
     maxLineLength
   );
@@ -67,8 +69,21 @@ const createTextObj = (
   return {
     mesh: mesh,
     removeText: () => removeTextByName(scene, mesh.name),
-    updateText: (text) => updateTextByName(mesh.name, text),
+    updateText: (text) => updateTextByName(mesh.name, text, alignment),
   };
+};
+
+const alignText = (geo, alignment) => {
+  if (!geo.boundingBox) {
+    geo.computeBoundingBox();
+  }
+  if (alignment === "centre") {
+    THREE.GeometryUtils.center(geo);
+  } else if (alignment === "left") {
+    geo.applyMatrix(
+      new THREE.Matrix4().makeTranslation(-geo.boundingBox.getSize().x, 0, 0)
+    );
+  }
 };
 
 const createTextObjOnly = (
@@ -77,6 +92,7 @@ const createTextObjOnly = (
   fontName = FontNames.Helvetiker,
   fontSize = 20,
   fontColor = 0xffffff,
+  alignment = "left",
   fontOpacity = 0.5,
   maxLineLength = 30
 ) => {
@@ -87,14 +103,14 @@ const createTextObjOnly = (
     bevelEnabled: false,
     curveSegments: 1,
   });
-  textGeo.computeBoundingBox();
-  var textMaterial = new THREE.MeshBasicMaterial({
+  alignText(textGeo, alignment);
+  const textMaterial = new THREE.MeshBasicMaterial({
     color: fontColor,
     transparent: true,
     blending: THREE.AdditiveBlending,
     opacity: fontOpacity,
   });
-  var mesh = new THREE.Mesh(textGeo, textMaterial);
+  const mesh = new THREE.Mesh(textGeo, textMaterial);
   mesh.position.set(position.x, position.y, position.z);
   if (
     fontName === FontNames.NeonAbsolute ||
@@ -134,7 +150,7 @@ const removeTextByName = (scene, textObjName) => {
   }
 };
 
-const updateTextByName = (textObjName, text) => {
+const updateTextByName = (textObjName, text, alignment) => {
   const textObj = textObjsWithConfig[textObjName];
   if (textObj) {
     if (text === textObj.text) {
@@ -146,7 +162,7 @@ const updateTextByName = (textObjName, text) => {
       curveSegments: 1,
       bevelEnabled: false,
     });
-    newTextGeo.computeBoundingBox();
+    alignText(newTextGeo, alignment);
     textObj.mesh.geometry.dispose();
     textObj.mesh.geometry = newTextGeo;
     textObj.text = text;

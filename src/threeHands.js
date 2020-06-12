@@ -9,29 +9,37 @@ import {
   initThreeFont,
   createTextObj,
   FontNames,
-  removeAllTexts,
   createTextObjOnly,
 } from "./threeTextUtil";
 import * as THREE from "three";
-import { removeAllImages, loadImageSvg, loadImage } from "./threeImageUtil";
+import { loadImageSvg, loadImage } from "./threeImageUtil";
+import { hideLoadingScreen } from "./loadingScreen";
 
 const textColors = [0xff00ff, 0x00ffff, 0x00ff9f, 0x00b8ff, 0x001eff];
 let handLandmarks = [];
 let ageGenderContent3d = [];
 let scene;
+let canvasWidth,
+  canvasHeight = 0;
+let isLoaded = false;
+let waitingHandObj;
 
-let loadedStatus, handElement;
-
-const createText = (text, fontName, fontSize, fontColor) => {
-  const newText = createTextObj(
+const initThreeHands = async (sceneRef, width, height) => {
+  scene = sceneRef;
+  canvasHeight = height;
+  canvasWidth = width;
+  loadPlanes(NUM_HAND_LANDMARKS);
+  await initThreeFont();
+  waitingHandObj = createTextObj(
     scene,
-    text,
-    new THREE.Vector3(1, -2, -2),
-    fontName,
-    fontSize,
-    fontColor
+    "Looking for hands...",
+    new THREE.Vector3(canvasWidth / 2, canvasHeight / -2, -2),
+    FontNames.Helvetiker,
+    20,
+    0x00ffff,
+    "centre",
+    0.9
   );
-  return newText;
 };
 
 const loadPlanes = (numPlanes) => {
@@ -58,78 +66,89 @@ const loadPlanes = (numPlanes) => {
   }
 };
 
-const initThreeHands = async (sceneRef) => {
-  scene = sceneRef;
-  loadPlanes(NUM_HAND_LANDMARKS);
-  await initThreeFont();
-  loadedStatus = createText("Loading", FontNames.NeonNanoborg, 20, 0xff00ff);
-  handElement = createText(
-    "Detecting. hand Please wait.",
-    FontNames.Helvetiker,
-    20,
-    0x00ffff
-  );
+const removeAllAgeGenderContent = () => {
+  ageGenderContent3d.forEach((obj) => {
+    obj.material.dispose();
+    obj.geometry.dispose();
+    scene.remove(obj);
+  });
+  ageGenderContent3d = [];
 };
 
 const getAgeGender3dContent = async () => {
-  if (newHandAppeared) {
-    removeAllImages(scene);
-    removeAllTexts(scene);
-    const content = getAgeGenderContent();
-    let newContent3d = [];
-    for await (let item of content) {
-      let image = null;
-      if (item.logo) {
-        if (item.logo.includes("svg")) {
-          image = await loadImageSvg(`logos/${item.logo}`);
-        } else {
-          image = await loadImage(`logos/${item.logo}`);
-        }
-      }
-      if (image) {
-        newContent3d.push(image);
-      }
-      if (item.text) {
-        const textObj = createTextObjOnly(
-          item.text,
-          new THREE.Vector3(0, 0, -2),
-          FontNames.Helvetiker,
-          10,
-          textColors[newContent3d.length % textColors.length],
-          0.8
-        );
-        newContent3d.push(textObj);
+  removeAllAgeGenderContent();
+  const content = getAgeGenderContent();
+  let newContent3d = [];
+  for await (let item of content) {
+    let image = null;
+    if (item.logo) {
+      if (item.logo.includes("svg")) {
+        image = await loadImageSvg(`logos/${item.logo}`);
+      } else {
+        image = await loadImage(`logos/${item.logo}`);
       }
     }
-    ageGenderContent3d = newContent3d;
-    ageGenderContent3d.forEach((item) => {
-      scene.add(item);
-    });
+    if (image) {
+      newContent3d.push(image);
+    }
+    if (item.text) {
+      const textObj = createTextObjOnly(
+        item.text,
+        new THREE.Vector3(0, 0, -2),
+        FontNames.Helvetiker,
+        10,
+        textColors[newContent3d.length % textColors.length],
+        "centre",
+        0.8
+      );
+      newContent3d.push(textObj);
+    }
   }
+
+  const handElement = createTextObjOnly(
+    getHandElement(),
+    new THREE.Vector3(0, 0, -2),
+    FontNames.Helvetiker,
+    10,
+    textColors[newContent3d.length % textColors.length],
+    "centre",
+    0.8
+  );
+  newContent3d.push(handElement);
+
+  ageGenderContent3d = newContent3d;
+  ageGenderContent3d.forEach((item) => {
+    scene.add(item);
+  });
+};
+
+const updateAgeGenderContent = () => {
+  ageGenderContent3d.forEach((item, index) => {
+    item.position.x = hands[0].landmarks[index][0] * 0.01;
+    item.position.y = hands[0].landmarks[index][1] * -0.01;
+  });
 };
 
 const setHandLandmarks = async () => {
-  await getAgeGender3dContent();
+  if (!isLoaded) {
+    hideLoadingScreen();
+    waitingHandObj.updateText("Looking for hands...");
+    isLoaded = true;
+  }
+
+  if (newHandAppeared) {
+    await getAgeGender3dContent();
+  }
+
   if (isHandPresent) {
-    loadedStatus.updateText("ready");
-    handElement.updateText(`${getHandElement()}`);
-    loadedStatus.mesh.position.set(
-      hands[0].landmarks[0][0] * 0.01,
-      hands[0].landmarks[0][1] * -0.01,
-      -2
-    );
-
-    ageGenderContent3d.forEach((item, index) => {
-      item.position.x = hands[0].landmarks[index][0] * 0.01;
-      item.position.y = hands[0].landmarks[index][1] * -0.01;
-    });
-
+    waitingHandObj.updateText("");
+    updateAgeGenderContent();
     hands[0].landmarks.forEach((landmark, index) => {
       handLandmarks[index].position.x = landmark[0] * 0.01;
       handLandmarks[index].position.y = landmark[1] * -0.01;
     });
   } else {
-    handElement.updateText("No hands found");
+    waitingHandObj.updateText("Looking for hands...");
   }
 };
 

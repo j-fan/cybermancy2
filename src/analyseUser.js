@@ -1,9 +1,7 @@
 import { estimatedAge, estimatedGender } from "./faceDetect";
-import { hands, newHandAppeared } from "./handPose";
+import { hands, newHandAppeared, isHandPresent } from "./handPose";
 import * as elementContent from "./elements.json";
 import * as allAgeGenderContent from "./ageContent.json";
-
-let handElement = "";
 
 const distance = (x1, y1, z1, x2, y2, z2) => {
   const x = x1 - x2;
@@ -16,9 +14,10 @@ const distanceWithArray = (p1, p2) =>
   distance(p1[0], p1[1], p1[2], p2[0], p2[1], p2[2]);
 
 const getHandElement = () => {
-  if (newHandAppeared) {
+  let handElement = "";
+  if (hands.length > 0) {
     const annotations = hands[0].annotations;
-    const palmWidth = distanceWithArray(
+    const palmHeight = distanceWithArray(
       annotations.palmBase[0],
       annotations.middleFinger[0]
     );
@@ -26,13 +25,13 @@ const getHandElement = () => {
       annotations.middleFinger[0],
       annotations.middleFinger[3]
     );
-    const palmLength = distanceWithArray(
+    const palmWidth = distanceWithArray(
       annotations.indexFinger[0],
       annotations.pinky[0]
     );
 
-    const palmRatio = palmLength / palmWidth;
-    const fingerToPalmRatio = fingerLength / palmLength;
+    const palmRatio = palmWidth / palmHeight;
+    const fingerToPalmRatio = fingerLength / palmHeight;
 
     const isLongFingers = fingerToPalmRatio > 1.4;
     const isWideHand = palmRatio > 1;

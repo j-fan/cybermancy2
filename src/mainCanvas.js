@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
-import { hideLoadingScreen } from "./loadingScreen";
 import { initThreeHands, setHandLandmarks } from "./threeHands";
 
 const initThreeCanvas = async () => {
@@ -121,11 +120,14 @@ const initThreeCanvas = async () => {
   addCamera();
   addLights();
   // addPostProcessing();
-  await initThreeHands(scene);
+  await initThreeHands(
+    scene,
+    Math.abs(camera.left) + Math.abs(camera.right),
+    Math.abs(camera.top) + Math.abs(camera.bottom)
+  );
   await loadGltf("resources/origin.glb");
 
   resizeCanvasToDisplaySize();
-  hideLoadingScreen();
 
   const animate = async () => {
     // composer.render(clock.getDelta());

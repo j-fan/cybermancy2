@@ -19,7 +19,7 @@ const loadImage = async (filename) => {
       tex.image.height * 0.001
     );
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(2, -2, -2);
+    mesh.position.set(-2, 0, -2);
     images.push(mesh);
     return mesh;
   } catch (err) {
@@ -29,7 +29,7 @@ const loadImage = async (filename) => {
 
 const loadImageSvg = async (
   filename,
-  position = new THREE.Vector3(2, -2, -2),
+  position = new THREE.Vector3(-2, 0, -2),
   color = 0x00ffff
 ) => {
   try {
