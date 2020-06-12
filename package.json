@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel serve src/index.html --out-dir docs",
-    "local": "parcel serve src/index.html --host 192.168.20.17 --https --out-dir docs",
+    "local": "parcel serve src/index.html --host 192.168.20.24 --https --out-dir docs",
     "build": "parcel build src/index.html --out-dir docs",
     "postbuild": "ncp ./static ./docs --filter '**/*.*'",
     "gh": "npm run build -- --public-url=./",
@@ -20,6 +20,7 @@
     "@tensorflow/tfjs-core": "^1.7.4",
     "comlink": "^4.3.0",
     "face-api.js": "^0.22.2",
+    "postprocessing": "^6.14.0",
     "regenerator-runtime": "^0.13.5",
     "stats.js": "^0.17.0",
     "three": "^0.116.1",

@@ -2,6 +2,14 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { initThreeHands, setHandLandmarks } from "./threeHands";
+import {
+  EffectComposer,
+  EffectPass,
+  RenderPass,
+  NoiseEffect,
+  BlendFunction,
+  ChromaticAberrationEffect,
+} from "postprocessing";
 
 const initThreeCanvas = async () => {
   let scene;
@@ -18,14 +26,16 @@ const initThreeCanvas = async () => {
     const noiseEffect = new NoiseEffect({
       blendFunction: BlendFunction.COLOR_DODGE,
     });
-    noiseEffect.blendMode.opacity.value = 0.05;
+    noiseEffect.blendMode.opacity.value = 0.1;
 
     const chromaticAbberationEffect = new ChromaticAberrationEffect({
-      offset: new THREE.Vector2(0.001, 0.003),
+      offset: new THREE.Vector2(-0.002, 0),
+      blendFunction: BlendFunction.ADD,
     });
+    chromaticAbberationEffect.blendMode.opacity.value = 0.5;
 
     composer.addPass(new RenderPass(scene, camera));
-    composer.addPass(new EffectPass(camera, noiseEffect));
+    // composer.addPass(new EffectPass(camera, noiseEffect));
     composer.addPass(new EffectPass(camera, chromaticAbberationEffect));
   };
 
@@ -109,7 +119,7 @@ const initThreeCanvas = async () => {
     renderer.setSize(selfHtmlNode.clientWidth, selfHtmlNode.clientHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.setClearColor(0x000000, 0);
+    renderer.setClearColor(0xffffff, 0);
     window.addEventListener("resize", () => {
       resizeCanvasToDisplaySize();
     });
@@ -119,19 +129,18 @@ const initThreeCanvas = async () => {
   initScene();
   addCamera();
   addLights();
-  // addPostProcessing();
   await initThreeHands(
     scene,
     Math.abs(camera.left) + Math.abs(camera.right),
     Math.abs(camera.top) + Math.abs(camera.bottom)
   );
   await loadGltf("resources/origin.glb");
-
   resizeCanvasToDisplaySize();
+  addPostProcessing();
 
   const animate = async () => {
-    // composer.render(clock.getDelta());
-    renderer.render(scene, camera);
+    composer.render(clock.getDelta());
+    // renderer.render(scene, camera);
 
     await setHandLandmarks();
     gltfObjs.forEach((obj) => {
