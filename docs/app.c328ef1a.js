@@ -98962,10 +98962,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var fontLoader = new THREE.FontLoader();
 var FontNames = {
-  Helvetiker: "Helvetika",
-  BurgerJoint: "BurgerJoint",
-  NeonAbsolute: "NeonAbsolute",
-  NeonNanoborg: "NeonNanoborg"
+  Helvetiker: "Helvetika" // BurgerJoint: "BurgerJoint",
+  // NeonAbsolute: "NeonAbsolute",
+  // NeonNanoborg: "NeonNanoborg",
+
 };
 exports.FontNames = FontNames;
 var fontFiles = (_fontFiles = {}, (0, _defineProperty2.default)(_fontFiles, FontNames.Helvetiker, "./fonts/helvetiker_regular.typeface.json"), (0, _defineProperty2.default)(_fontFiles, FontNames.BurgerJoint, "./fonts/Burger_Joint.json"), (0, _defineProperty2.default)(_fontFiles, FontNames.NeonAbsolute, "./fonts/Neon_Absolute.json"), (0, _defineProperty2.default)(_fontFiles, FontNames.NeonNanoborg, "./fonts/Neon_Nanoborg.json"), _fontFiles);
@@ -100790,7 +100790,7 @@ var loadImage = /*#__PURE__*/function () {
               blending: THREE.AdditiveBlending,
               opacity: 0.5
             });
-            geometry = new THREE.PlaneGeometry(tex.image.width * 0.001, tex.image.height * 0.001);
+            geometry = new THREE.PlaneGeometry(tex.image.width * 0.0015, tex.image.height * 0.0015);
             mesh = new THREE.Mesh(geometry, material);
             mesh.position.set(-2, 0, -2);
             images.push(mesh);
@@ -102020,7 +102020,7 @@ var getAgeGender3dContent = /*#__PURE__*/function () {
             }
 
             if (item.text) {
-              textObj = (0, _threeTextUtil.createTextObjOnly)(item.text, new THREE.Vector3(0, 0, -2), _threeTextUtil.FontNames.Helvetiker, canvasHeight * 2, textColors[newContent3d.length % textColors.length], "centre", 0.6);
+              textObj = (0, _threeTextUtil.createTextObjOnly)(item.text, new THREE.Vector3(0, 0, -2), _threeTextUtil.FontNames.Helvetiker, canvasHeight * 3, textColors[newContent3d.length % textColors.length], "centre", 0.6);
               newContent3d.push(textObj);
             }
 
@@ -102068,7 +102068,7 @@ var getAgeGender3dContent = /*#__PURE__*/function () {
             return _context2.finish(38);
 
           case 48:
-            handElement = (0, _threeTextUtil.createTextObjOnly)((0, _analyseUser.getHandElement)(), new THREE.Vector3(0, 0, -2), _threeTextUtil.FontNames.Helvetiker, canvasHeight * 2, textColors[newContent3d.length % textColors.length], "centre", 0.6);
+            handElement = (0, _threeTextUtil.createTextObjOnly)((0, _analyseUser.getHandElement)(), new THREE.Vector3(0, 0, -2), _threeTextUtil.FontNames.Helvetiker, canvasHeight * 3, textColors[newContent3d.length % textColors.length], "centre", 0.6);
             newContent3d.push(handElement);
             ageGenderContent3d = newContent3d;
             ageGenderContent3d.forEach(function (item) {
@@ -102179,7 +102179,7 @@ var updateHandUI = /*#__PURE__*/function () {
               if (anyHandSeenYet) {
                 waitingHandText.updateText("Looking for hand...");
               } else {
-                waitingHandText.updateText("Looking for hand. Analysing...");
+                waitingHandText.updateText("Looking for hand. Please wait...");
               }
 
               waitingHandObj.position.set(0, 0, 0);
@@ -113575,9 +113575,9 @@ var checkedAssets, assetsToAccept;
 var parent = module.bundle.parent;
 
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "192.168.20.24" || location.hostname;
+  var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61225" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49441" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

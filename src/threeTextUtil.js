@@ -5,9 +5,9 @@ const fontLoader = new THREE.FontLoader();
 
 const FontNames = {
   Helvetiker: "Helvetika",
-  BurgerJoint: "BurgerJoint",
-  NeonAbsolute: "NeonAbsolute",
-  NeonNanoborg: "NeonNanoborg",
+  // BurgerJoint: "BurgerJoint",
+  // NeonAbsolute: "NeonAbsolute",
+  // NeonNanoborg: "NeonNanoborg",
 };
 
 let fontFiles = {

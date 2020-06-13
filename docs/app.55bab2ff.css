@@ -134,6 +134,10 @@ p {
   max-width: 600px;
   margin: 10px 40px;
 }
+#loadingScreen .loadingText span {
+  color: #ffbb00;
+  font-weight: bold;
+}
 #loadingScreen .loadingText .loading {
   display: flex;
   justify-content: center;
@@ -150,6 +154,7 @@ p {
 }
 #loadingScreen .loadingText .loading img {
   width: 16px;
+  height: 16px;
 }
 #loadingScreen .circle1,
 #loadingScreen .circle2,

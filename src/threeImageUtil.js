@@ -15,8 +15,8 @@ const loadImage = async (filename) => {
       opacity: 0.5,
     });
     const geometry = new THREE.PlaneGeometry(
-      tex.image.width * 0.001,
-      tex.image.height * 0.001
+      tex.image.width * 0.0015,
+      tex.image.height * 0.0015
     );
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(-2, 0, -2);

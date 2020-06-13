@@ -112,7 +112,7 @@ const getAgeGender3dContent = async () => {
         item.text,
         new THREE.Vector3(0, 0, -2),
         FontNames.Helvetiker,
-        canvasHeight * 2,
+        canvasHeight * 3,
         textColors[newContent3d.length % textColors.length],
         "centre",
         0.6
@@ -125,7 +125,7 @@ const getAgeGender3dContent = async () => {
     getHandElement(),
     new THREE.Vector3(0, 0, -2),
     FontNames.Helvetiker,
-    canvasHeight * 2,
+    canvasHeight * 3,
     textColors[newContent3d.length % textColors.length],
     "centre",
     0.6
@@ -240,7 +240,7 @@ const updateHandUI = async () => {
     if (anyHandSeenYet) {
       waitingHandText.updateText("Looking for hand...");
     } else {
-      waitingHandText.updateText("Looking for hand. Analysing...");
+      waitingHandText.updateText("Looking for hand. Please wait...");
     }
     waitingHandObj.position.set(0, 0, 0);
   }
