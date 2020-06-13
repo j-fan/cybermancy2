@@ -48,7 +48,7 @@ const initThreeCanvas = async () => {
 
     const glitchEffect = new GlitchEffect({
       delay: new THREE.Vector2(4, 8),
-      duration: new THREE.Vector2(0.1, 0.6),
+      duration: new THREE.Vector2(0.3, 0.6),
       strength: new THREE.Vector2(0.05, 0),
       columns: 0.0001,
     });

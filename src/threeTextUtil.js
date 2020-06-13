@@ -116,6 +116,7 @@ const createTextObjOnly = (
     size: fontSize,
     bevelEnabled: false,
     curveSegments: 1,
+    height: 0.1,
   });
   alignText(textGeo, alignment);
   const textMaterial = new THREE.MeshBasicMaterial({

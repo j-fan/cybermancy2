@@ -92,7 +92,7 @@ const initFaceDetect = async () => {
     }
   };
 
-  setIntervalCount(runDetection, 1, () => successfulDetections > 0);
+  setIntervalCount(runDetection, 1, () => successfulDetections > 10);
 };
 
 export { initFaceDetect, estimatedAge, estimatedGender };

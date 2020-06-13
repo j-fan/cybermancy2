@@ -29,13 +29,16 @@ const loadImage = async (filename) => {
 
 const loadImageSvg = async (
   filename,
-  position = new THREE.Vector3(-2, 0, -2),
-  color = 0x00ffff
+  position = new THREE.Vector3(2, -2, -2),
+  color = 0x00ffff,
+  scale = 1
 ) => {
   try {
     const data = await svgLoader.loadAsync(filename);
     const paths = data.paths;
     let group = new THREE.Group();
+
+    const width = data.xml.width.baseVal.valueInSpecifiedUnits * -0.001 * scale;
 
     for (let i = 0; i < paths.length; i++) {
       const path = paths[i];
@@ -52,9 +55,8 @@ const loadImageSvg = async (
         const shape = shapes[j];
         const geometry = new THREE.ShapeBufferGeometry(shape);
         const mesh = new THREE.Mesh(geometry, material);
-        mesh.scale.set(0.001, -0.001, 0.001);
-        mesh.position.set(position.x, position.y, position.z);
-
+        mesh.position.set(position.x + width / 2, position.y, position.z);
+        mesh.scale.set(0.001 * scale, -0.001 * scale, 0.001 * scale);
         group.add(mesh);
       }
     }

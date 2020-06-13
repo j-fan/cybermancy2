@@ -16,15 +16,18 @@ import * as THREE from "three";
 import { loadImageSvg, loadImage } from "./threeImageUtil";
 import { hideLoadingScreen } from "./loadingScreen";
 import { Vector3 } from "three";
+import { shuffle } from "@tensorflow/tfjs-core/dist/util";
 
 const textColors = [0xff66ff, 0x00ffff, 0xac66ff, 0x00b8ff, 0x5468ff];
+let shuffledHandOrder = [];
 let handLandmarks = [];
 let ageGenderContent3d = [];
 let scene;
 let canvasWidth,
   canvasHeight = 0;
 let isLoaded = false;
-let waitingHandObj;
+let waitingHandText, waitingHandObj;
+let anyHandSeenYet = false;
 
 const initThreeHands = async (sceneRef, width, height) => {
   scene = sceneRef;
@@ -32,16 +35,27 @@ const initThreeHands = async (sceneRef, width, height) => {
   canvasWidth = width;
   loadLandmarks(NUM_HAND_LANDMARKS);
   await initThreeFont();
-  waitingHandObj = createTextObj(
+  waitingHandText = createTextObj(
     scene,
-    "Looking for hands...\n(First time may take some time)",
-    new THREE.Vector3(canvasWidth / 2, canvasHeight / -2, -2),
+    "Looking for hand...",
+    new THREE.Vector3(canvasWidth / 2, canvasHeight / -2 + 0.6, -1),
     FontNames.Helvetiker,
-    20,
+    canvasHeight * 3,
     0x00ffff,
     "centre",
     0.6
   );
+  waitingHandObj = await loadImageSvg(
+    "img/hand.svg",
+    new THREE.Vector3(canvasWidth / 2, canvasHeight / -2 + 0.5, -1),
+    0x00ffff,
+    1.3
+  );
+  for (let i = 0; i < NUM_HAND_LANDMARKS; i++) {
+    shuffledHandOrder.push(i);
+  }
+  shuffle(shuffledHandOrder);
+  scene.add(waitingHandObj);
 };
 
 const loadLandmarks = (numPlanes) => {
@@ -98,7 +112,7 @@ const getAgeGender3dContent = async () => {
         item.text,
         new THREE.Vector3(0, 0, -2),
         FontNames.Helvetiker,
-        10,
+        canvasHeight * 2,
         textColors[newContent3d.length % textColors.length],
         "centre",
         0.6
@@ -111,7 +125,7 @@ const getAgeGender3dContent = async () => {
     getHandElement(),
     new THREE.Vector3(0, 0, -2),
     FontNames.Helvetiker,
-    10,
+    canvasHeight * 2,
     textColors[newContent3d.length % textColors.length],
     "centre",
     0.6
@@ -125,7 +139,11 @@ const getAgeGender3dContent = async () => {
 };
 
 const updateAgeGenderContent = () => {
-  const handCentre = hands[0].annotations.middleFinger[0][0] * 0.01;
+  const handCentre = new THREE.Vector3(
+    hands[0].annotations.middleFinger[0][0] * 0.01,
+    hands[0].annotations.middleFinger[0][1] * -0.01,
+    hands[0].annotations.middleFinger[0][2] * 0.01
+  );
 
   ageGenderContent3d.forEach((item, index) => {
     item.position.set(
@@ -135,8 +153,8 @@ const updateAgeGenderContent = () => {
     );
 
     if (
-      item.position.x < handCentre + 0.05 &&
-      item.position.x > handCentre - 0.05
+      item.position.x < handCentre.x + 0.05 &&
+      item.position.x > handCentre.x - 0.05
     ) {
       alignText(item.geometry, "centre");
     } else if (item.position.x > handCentre) {
@@ -144,6 +162,7 @@ const updateAgeGenderContent = () => {
     } else {
       alignText(item.geometry, "left");
     }
+    item.lookAt(canvasWidth / 2, canvasHeight / -2, 1);
   });
 };
 
@@ -184,7 +203,8 @@ const updateLandmarksSmooth = () => {
       -1
     );
 
-    handLandmarks[index].position.set(
+    const shuffledIndex = shuffledHandOrder[index];
+    handLandmarks[shuffledIndex].position.set(
       averagePosition.x,
       averagePosition.y,
       averagePosition.z
@@ -209,13 +229,20 @@ const updateHandUI = async () => {
   }
 
   if (isHandPresent) {
-    waitingHandObj.updateText("");
+    anyHandSeenYet = true;
+    waitingHandText.updateText("");
     updateAgeGenderContent();
     updateLandmarksSmooth();
+    waitingHandObj.position.set(10, 10, 10);
   } else {
-    waitingHandObj.updateText("Looking for hands...");
     hideAgeGenderContent();
     hideHandLandmarks();
+    if (anyHandSeenYet) {
+      waitingHandText.updateText("Looking for hand...");
+    } else {
+      waitingHandText.updateText("Looking for hand. Analysing...");
+    }
+    waitingHandObj.position.set(0, 0, 0);
   }
 };
 

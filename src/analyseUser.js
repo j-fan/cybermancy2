@@ -1,7 +1,8 @@
 import { estimatedAge, estimatedGender } from "./faceDetect";
-import { hands, newHandAppeared, isHandPresent } from "./handPose";
+import { hands } from "./handPose";
 import * as elementContent from "./elements.json";
 import * as allAgeGenderContent from "./ageContent.json";
+import { shuffle } from "./shuffle";
 
 const distance = (x1, y1, z1, x2, y2, z2) => {
   const x = x1 - x2;
@@ -49,14 +50,6 @@ const getHandElement = () => {
   }
 
   return handElement ? elementContent[handElement] : "";
-};
-
-const shuffle = (a) => {
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
 };
 
 const getNRandomElements = (array, n) => {
