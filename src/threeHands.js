@@ -135,8 +135,8 @@ const updateAgeGenderContent = () => {
     );
 
     if (
-      item.position.x < handCentre + 0.0001 &&
-      item.position.x > handCentre - 0.0001
+      item.position.x < handCentre + 0.05 &&
+      item.position.x > handCentre - 0.05
     ) {
       alignText(item.geometry, "centre");
     } else if (item.position.x > handCentre) {

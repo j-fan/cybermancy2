@@ -101150,7 +101150,7 @@ var updateAgeGenderContent = function updateAgeGenderContent() {
   ageGenderContent3d.forEach(function (item, index) {
     item.position.set(handLandmarks[index].position.x, handLandmarks[index].position.y, handLandmarks[index].position.z);
 
-    if (item.position.x < handCentre + 0.0001 && item.position.x > handCentre - 0.0001) {
+    if (item.position.x < handCentre + 0.05 && item.position.x > handCentre - 0.05) {
       (0, _threeTextUtil.alignText)(item.geometry, "centre");
     } else if (item.position.x > handCentre) {
       (0, _threeTextUtil.alignText)(item.geometry, "right");
@@ -112285,10 +112285,17 @@ var initThreeCanvas = /*#__PURE__*/function () {
                 density: 2
               });
               scanLineEffect.blendMode.opacity.value = 0.2;
+              var glitchEffect = new _postprocessing.GlitchEffect({
+                delay: new THREE.Vector2(4, 8),
+                duration: new THREE.Vector2(0.1, 0.6),
+                strength: new THREE.Vector2(0.05, 0),
+                columns: 0.0001
+              });
               composer.addPass(new _postprocessing.RenderPass(scene, camera));
               composer.addPass(new _postprocessing.EffectPass(camera, chromaticAbberationEffect));
               composer.addPass(new _postprocessing.EffectPass(camera, bloomEffect));
               composer.addPass(new _postprocessing.EffectPass(camera, scanLineEffect));
+              composer.addPass(new _postprocessing.EffectPass(camera, glitchEffect));
             };
 
             loadGltf = /*#__PURE__*/function () {
@@ -112613,9 +112620,9 @@ var checkedAssets, assetsToAccept;
 var parent = module.bundle.parent;
 
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "" || location.hostname;
+  var hostname = "192.168.20.24" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59252" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60371" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -11,6 +11,7 @@ import {
   ChromaticAberrationEffect,
   KernelSize,
   ScanlineEffect,
+  GlitchEffect,
 } from "postprocessing";
 
 const initThreeCanvas = async () => {
@@ -45,10 +46,18 @@ const initThreeCanvas = async () => {
     });
     scanLineEffect.blendMode.opacity.value = 0.2;
 
+    const glitchEffect = new GlitchEffect({
+      delay: new THREE.Vector2(4, 8),
+      duration: new THREE.Vector2(0.1, 0.6),
+      strength: new THREE.Vector2(0.05, 0),
+      columns: 0.0001,
+    });
+
     composer.addPass(new RenderPass(scene, camera));
     composer.addPass(new EffectPass(camera, chromaticAbberationEffect));
     composer.addPass(new EffectPass(camera, bloomEffect));
     composer.addPass(new EffectPass(camera, scanLineEffect));
+    composer.addPass(new EffectPass(camera, glitchEffect));
   };
 
   const loadGltf = async (filePath) => {
