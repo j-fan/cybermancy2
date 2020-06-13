@@ -12,7 +12,7 @@ const loadImage = async (filename) => {
       map: tex,
       transparent: true,
       blending: THREE.AdditiveBlending,
-      opacity: 0.7,
+      opacity: 0.5,
     });
     const geometry = new THREE.PlaneGeometry(
       tex.image.width * 0.001,

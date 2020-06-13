@@ -16,7 +16,7 @@ import * as THREE from "three";
 import { loadImageSvg, loadImage } from "./threeImageUtil";
 import { hideLoadingScreen } from "./loadingScreen";
 
-const textColors = [0xff00ff, 0x00ffff, 0x00ff9f, 0x00b8ff, 0x001eff];
+const textColors = [0xff66ff, 0x00ffff, 0xac66ff, 0x00b8ff, 0x5468ff];
 let handLandmarks = [];
 let ageGenderContent3d = [];
 let scene;
@@ -39,7 +39,7 @@ const initThreeHands = async (sceneRef, width, height) => {
     20,
     0x00ffff,
     "centre",
-    0.9
+    0.6
   );
 };
 
@@ -100,7 +100,7 @@ const getAgeGender3dContent = async () => {
         10,
         textColors[newContent3d.length % textColors.length],
         "centre",
-        0.8
+        0.6
       );
       newContent3d.push(textObj);
     }
@@ -113,7 +113,7 @@ const getAgeGender3dContent = async () => {
     10,
     textColors[newContent3d.length % textColors.length],
     "centre",
-    0.8
+    0.6
   );
   newContent3d.push(handElement);
 
@@ -129,6 +129,7 @@ const updateAgeGenderContent = () => {
   ageGenderContent3d.forEach((item, index) => {
     item.position.x = hands[0].landmarks[index][0] * 0.01;
     item.position.y = hands[0].landmarks[index][1] * -0.01;
+    item.position.z = -2;
     if (item.position.x > handCentre) {
       alignText(item.geometry, "right");
     } else {
@@ -137,7 +138,27 @@ const updateAgeGenderContent = () => {
   });
 };
 
-const setHandLandmarks = async () => {
+const hideAgeGenderContent = () => {
+  ageGenderContent3d.forEach((item) => {
+    item.position.set(0, 0, 0);
+  });
+};
+
+const updateLandmarks = () => {
+  hands[0].landmarks.forEach((landmark, index) => {
+    handLandmarks[index].position.x = landmark[0] * 0.01;
+    handLandmarks[index].position.y = landmark[1] * -0.01;
+    handLandmarks[index].position.z = -2;
+  });
+};
+
+const hideHandLandmarks = () => {
+  handLandmarks.forEach((landmark) => {
+    landmark.position.set(0, 0, 0);
+  });
+};
+
+const updateHandUI = async () => {
   if (!isLoaded) {
     hideLoadingScreen();
     waitingHandObj.updateText("Looking for hands...");
@@ -151,13 +172,12 @@ const setHandLandmarks = async () => {
   if (isHandPresent) {
     waitingHandObj.updateText("");
     updateAgeGenderContent();
-    hands[0].landmarks.forEach((landmark, index) => {
-      handLandmarks[index].position.x = landmark[0] * 0.01;
-      handLandmarks[index].position.y = landmark[1] * -0.01;
-    });
+    updateLandmarks();
   } else {
     waitingHandObj.updateText("Looking for hands...");
+    hideAgeGenderContent();
+    hideHandLandmarks();
   }
 };
 
-export { initThreeHands, setHandLandmarks };
+export { initThreeHands, updateHandUI };

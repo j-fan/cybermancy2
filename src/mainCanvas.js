@@ -1,14 +1,16 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
-import { initThreeHands, setHandLandmarks } from "./threeHands";
+import { initThreeHands, updateHandUI } from "./threeHands";
 import {
   EffectComposer,
   EffectPass,
   RenderPass,
-  NoiseEffect,
+  BloomEffect,
   BlendFunction,
   ChromaticAberrationEffect,
+  KernelSize,
+  ScanlineEffect,
 } from "postprocessing";
 
 const initThreeCanvas = async () => {
@@ -23,20 +25,30 @@ const initThreeCanvas = async () => {
   const addPostProcessing = () => {
     composer = new EffectComposer(renderer);
 
-    const noiseEffect = new NoiseEffect({
-      blendFunction: BlendFunction.COLOR_DODGE,
+    const bloomEffect = new BloomEffect({
+      blendFunction: BlendFunction.SCREEN,
+      kernelSize: KernelSize.LARGE,
+      luminanceThreshold: 0.25,
+      intensity: 1,
     });
-    noiseEffect.blendMode.opacity.value = 0.1;
+    bloomEffect.blendMode.opacity.value = 1.0;
 
     const chromaticAbberationEffect = new ChromaticAberrationEffect({
       offset: new THREE.Vector2(-0.002, 0),
       blendFunction: BlendFunction.ADD,
     });
-    chromaticAbberationEffect.blendMode.opacity.value = 0.5;
+    chromaticAbberationEffect.blendMode.opacity.value = 0.8;
+
+    const scanLineEffect = new ScanlineEffect({
+      blendFunction: BlendFunction.MULTIPLY,
+      density: 2,
+    });
+    scanLineEffect.blendMode.opacity.value = 0.2;
 
     composer.addPass(new RenderPass(scene, camera));
-    // composer.addPass(new EffectPass(camera, noiseEffect));
     composer.addPass(new EffectPass(camera, chromaticAbberationEffect));
+    composer.addPass(new EffectPass(camera, bloomEffect));
+    composer.addPass(new EffectPass(camera, scanLineEffect));
   };
 
   const loadGltf = async (filePath) => {
@@ -119,7 +131,7 @@ const initThreeCanvas = async () => {
     renderer.setSize(selfHtmlNode.clientWidth, selfHtmlNode.clientHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.setClearColor(0xffffff, 0);
+    renderer.setClearColor(0x000000, 0.3);
     window.addEventListener("resize", () => {
       resizeCanvasToDisplaySize();
     });
@@ -142,7 +154,7 @@ const initThreeCanvas = async () => {
     composer.render(clock.getDelta());
     // renderer.render(scene, camera);
 
-    await setHandLandmarks();
+    await updateHandUI();
     gltfObjs.forEach((obj) => {
       obj.mixer.update(clock.getDelta());
     });
