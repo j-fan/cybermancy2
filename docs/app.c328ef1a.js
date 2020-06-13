@@ -100776,7 +100776,7 @@ var loadImage = /*#__PURE__*/function () {
               map: tex,
               transparent: true,
               blending: THREE.AdditiveBlending,
-              opacity: 0.7
+              opacity: 0.5
             });
             geometry = new THREE.PlaneGeometry(tex.image.width * 0.001, tex.image.height * 0.001);
             mesh = new THREE.Mesh(geometry, material);
@@ -100909,7 +100909,7 @@ exports.hideLoadingScreen = hideLoadingScreen;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setHandLandmarks = exports.initThreeHands = void 0;
+exports.updateHandUI = exports.initThreeHands = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -100935,7 +100935,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var textColors = [0xff00ff, 0x00ffff, 0x00ff9f, 0x00b8ff, 0x001eff];
+var textColors = [0xff66ff, 0x00ffff, 0xac66ff, 0x00b8ff, 0x5468ff];
 var handLandmarks = [];
 var ageGenderContent3d = [];
 var scene;
@@ -100958,7 +100958,7 @@ var initThreeHands = /*#__PURE__*/function () {
             return (0, _threeTextUtil.initThreeFont)();
 
           case 6:
-            waitingHandObj = (0, _threeTextUtil.createTextObj)(scene, "Looking for hands...", new THREE.Vector3(canvasWidth / 2, canvasHeight / -2, -2), _threeTextUtil.FontNames.Helvetiker, 20, 0x00ffff, "centre", 0.9);
+            waitingHandObj = (0, _threeTextUtil.createTextObj)(scene, "Looking for hands...\n(First time may take some time)", new THREE.Vector3(canvasWidth / 2, canvasHeight / -2, -2), _threeTextUtil.FontNames.Helvetiker, 20, 0x00ffff, "centre", 0.6);
 
           case 7:
           case "end":
@@ -101077,7 +101077,7 @@ var getAgeGender3dContent = /*#__PURE__*/function () {
             }
 
             if (item.text) {
-              textObj = (0, _threeTextUtil.createTextObjOnly)(item.text, new THREE.Vector3(0, 0, -2), _threeTextUtil.FontNames.Helvetiker, 10, textColors[newContent3d.length % textColors.length], "centre", 0.8);
+              textObj = (0, _threeTextUtil.createTextObjOnly)(item.text, new THREE.Vector3(0, 0, -2), _threeTextUtil.FontNames.Helvetiker, 10, textColors[newContent3d.length % textColors.length], "centre", 0.6);
               newContent3d.push(textObj);
             }
 
@@ -101125,7 +101125,7 @@ var getAgeGender3dContent = /*#__PURE__*/function () {
             return _context2.finish(38);
 
           case 48:
-            handElement = (0, _threeTextUtil.createTextObjOnly)((0, _analyseUser.getHandElement)(), new THREE.Vector3(0, 0, -2), _threeTextUtil.FontNames.Helvetiker, 10, textColors[newContent3d.length % textColors.length], "centre", 0.8);
+            handElement = (0, _threeTextUtil.createTextObjOnly)((0, _analyseUser.getHandElement)(), new THREE.Vector3(0, 0, -2), _threeTextUtil.FontNames.Helvetiker, 10, textColors[newContent3d.length % textColors.length], "centre", 0.6);
             newContent3d.push(handElement);
             ageGenderContent3d = newContent3d;
             ageGenderContent3d.forEach(function (item) {
@@ -101148,10 +101148,11 @@ var getAgeGender3dContent = /*#__PURE__*/function () {
 var updateAgeGenderContent = function updateAgeGenderContent() {
   var handCentre = _handPose.hands[0].annotations.middleFinger[0][0] * 0.01;
   ageGenderContent3d.forEach(function (item, index) {
-    item.position.x = _handPose.hands[0].landmarks[index][0] * 0.01;
-    item.position.y = _handPose.hands[0].landmarks[index][1] * -0.01;
+    item.position.set(handLandmarks[index].position.x, handLandmarks[index].position.y, handLandmarks[index].position.z);
 
-    if (item.position.x > handCentre) {
+    if (item.position.x < handCentre + 0.0001 && item.position.x > handCentre - 0.0001) {
+      (0, _threeTextUtil.alignText)(item.geometry, "centre");
+    } else if (item.position.x > handCentre) {
       (0, _threeTextUtil.alignText)(item.geometry, "right");
     } else {
       (0, _threeTextUtil.alignText)(item.geometry, "left");
@@ -101159,7 +101160,47 @@ var updateAgeGenderContent = function updateAgeGenderContent() {
   });
 };
 
-var setHandLandmarks = /*#__PURE__*/function () {
+var hideAgeGenderContent = function hideAgeGenderContent() {
+  ageGenderContent3d.forEach(function (item) {
+    item.position.set(0, 0, 0);
+  });
+};
+
+var handLandmarksHistory = {};
+var smoothPower = 10;
+
+var updateLandmarksSmooth = function updateLandmarksSmooth() {
+  _handPose.hands[0].landmarks.forEach(function (landmark, index) {
+    var newLandmarkPos = new THREE.Vector3(landmark[0] * 0.01, landmark[1] * -0.01, -1);
+
+    if (!(index in handLandmarksHistory)) {
+      handLandmarksHistory[index] = {
+        history: [],
+        total: new THREE.Vector3()
+      };
+    }
+
+    handLandmarksHistory[index].history.push(newLandmarkPos);
+    handLandmarksHistory[index].total.add(newLandmarkPos);
+    var historyLength = handLandmarksHistory[index].history.length;
+
+    if (historyLength > smoothPower) {
+      var oldestHistoryPos = handLandmarksHistory[index].history.shift();
+      handLandmarksHistory[index].total.sub(oldestHistoryPos);
+    }
+
+    var averagePosition = new THREE.Vector3(handLandmarksHistory[index].total.x / (historyLength - 1), handLandmarksHistory[index].total.y / (historyLength - 1), -1);
+    handLandmarks[index].position.set(averagePosition.x, averagePosition.y, averagePosition.z);
+  });
+};
+
+var hideHandLandmarks = function hideHandLandmarks() {
+  handLandmarks.forEach(function (landmark) {
+    landmark.position.set(0, 0, 0);
+  });
+};
+
+var updateHandUI = /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
     return _regenerator.default.wrap(function _callee3$(_context3) {
       while (1) {
@@ -101167,7 +101208,6 @@ var setHandLandmarks = /*#__PURE__*/function () {
           case 0:
             if (!isLoaded) {
               (0, _loadingScreen.hideLoadingScreen)();
-              waitingHandObj.updateText("Looking for hands...");
               isLoaded = true;
             }
 
@@ -101183,13 +101223,11 @@ var setHandLandmarks = /*#__PURE__*/function () {
             if (_handPose.isHandPresent) {
               waitingHandObj.updateText("");
               updateAgeGenderContent();
-
-              _handPose.hands[0].landmarks.forEach(function (landmark, index) {
-                handLandmarks[index].position.x = landmark[0] * 0.01;
-                handLandmarks[index].position.y = landmark[1] * -0.01;
-              });
+              updateLandmarksSmooth();
             } else {
               waitingHandObj.updateText("Looking for hands...");
+              hideAgeGenderContent();
+              hideHandLandmarks();
             }
 
           case 5:
@@ -101200,12 +101238,12 @@ var setHandLandmarks = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function setHandLandmarks() {
+  return function updateHandUI() {
     return _ref3.apply(this, arguments);
   };
 }();
 
-exports.setHandLandmarks = setHandLandmarks;
+exports.updateHandUI = updateHandUI;
 },{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/asyncIterator":"../node_modules/@babel/runtime/helpers/asyncIterator.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js","./threeTextUtil":"threeTextUtil.js","three":"../node_modules/three/build/three.module.js","./threeImageUtil":"threeImageUtil.js","./loadingScreen":"loadingScreen.js"}],"../node_modules/postprocessing/build/postprocessing.esm.js":[function(require,module,exports) {
 "use strict";
 
@@ -112230,18 +112268,27 @@ var initThreeCanvas = /*#__PURE__*/function () {
 
             addPostProcessing = function addPostProcessing() {
               composer = new _postprocessing.EffectComposer(renderer);
-              var noiseEffect = new _postprocessing.NoiseEffect({
-                blendFunction: _postprocessing.BlendFunction.COLOR_DODGE
+              var bloomEffect = new _postprocessing.BloomEffect({
+                blendFunction: _postprocessing.BlendFunction.SCREEN,
+                kernelSize: _postprocessing.KernelSize.LARGE,
+                luminanceThreshold: 0.25,
+                intensity: 1
               });
-              noiseEffect.blendMode.opacity.value = 0.1;
+              bloomEffect.blendMode.opacity.value = 1.0;
               var chromaticAbberationEffect = new _postprocessing.ChromaticAberrationEffect({
                 offset: new THREE.Vector2(-0.002, 0),
                 blendFunction: _postprocessing.BlendFunction.ADD
               });
-              chromaticAbberationEffect.blendMode.opacity.value = 0.5;
-              composer.addPass(new _postprocessing.RenderPass(scene, camera)); // composer.addPass(new EffectPass(camera, noiseEffect));
-
+              chromaticAbberationEffect.blendMode.opacity.value = 0.8;
+              var scanLineEffect = new _postprocessing.ScanlineEffect({
+                blendFunction: _postprocessing.BlendFunction.MULTIPLY,
+                density: 2
+              });
+              scanLineEffect.blendMode.opacity.value = 0.2;
+              composer.addPass(new _postprocessing.RenderPass(scene, camera));
               composer.addPass(new _postprocessing.EffectPass(camera, chromaticAbberationEffect));
+              composer.addPass(new _postprocessing.EffectPass(camera, bloomEffect));
+              composer.addPass(new _postprocessing.EffectPass(camera, scanLineEffect));
             };
 
             loadGltf = /*#__PURE__*/function () {
@@ -112349,7 +112396,7 @@ var initThreeCanvas = /*#__PURE__*/function () {
               renderer.setSize(selfHtmlNode.clientWidth, selfHtmlNode.clientHeight);
               renderer.shadowMap.enabled = true;
               renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-              renderer.setClearColor(0xffffff, 0);
+              renderer.setClearColor(0x000000, 0.3);
               window.addEventListener("resize", function () {
                 resizeCanvasToDisplaySize();
               });
@@ -112363,10 +112410,7 @@ var initThreeCanvas = /*#__PURE__*/function () {
             return (0, _threeHands.initThreeHands)(scene, Math.abs(camera.left) + Math.abs(camera.right), Math.abs(camera.top) + Math.abs(camera.bottom));
 
           case 16:
-            _context3.next = 18;
-            return loadGltf("resources/origin.glb");
-
-          case 18:
+            // await loadGltf("resources/origin.glb");
             resizeCanvasToDisplaySize();
             addPostProcessing();
 
@@ -112379,7 +112423,7 @@ var initThreeCanvas = /*#__PURE__*/function () {
                         composer.render(clock.getDelta()); // renderer.render(scene, camera);
 
                         _context2.next = 3;
-                        return (0, _threeHands.setHandLandmarks)();
+                        return (0, _threeHands.updateHandUI)();
 
                       case 3:
                         gltfObjs.forEach(function (obj) {
@@ -112402,7 +112446,7 @@ var initThreeCanvas = /*#__PURE__*/function () {
 
             animate();
 
-          case 22:
+          case 20:
           case "end":
             return _context3.stop();
         }
@@ -112569,9 +112613,9 @@ var checkedAssets, assetsToAccept;
 var parent = module.bundle.parent;
 
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "192.168.20.24" || location.hostname;
+  var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55368" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59252" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

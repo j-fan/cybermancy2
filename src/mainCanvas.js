@@ -146,7 +146,7 @@ const initThreeCanvas = async () => {
     Math.abs(camera.left) + Math.abs(camera.right),
     Math.abs(camera.top) + Math.abs(camera.bottom)
   );
-  await loadGltf("resources/origin.glb");
+  // await loadGltf("resources/origin.glb");
   resizeCanvasToDisplaySize();
   addPostProcessing();
 

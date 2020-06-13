@@ -15,6 +15,7 @@ import {
 import * as THREE from "three";
 import { loadImageSvg, loadImage } from "./threeImageUtil";
 import { hideLoadingScreen } from "./loadingScreen";
+import { Vector3 } from "three";
 
 const textColors = [0xff66ff, 0x00ffff, 0xac66ff, 0x00b8ff, 0x5468ff];
 let handLandmarks = [];
@@ -33,7 +34,7 @@ const initThreeHands = async (sceneRef, width, height) => {
   await initThreeFont();
   waitingHandObj = createTextObj(
     scene,
-    "Looking for hands...",
+    "Looking for hands...\n(First time may take some time)",
     new THREE.Vector3(canvasWidth / 2, canvasHeight / -2, -2),
     FontNames.Helvetiker,
     20,
@@ -127,10 +128,18 @@ const updateAgeGenderContent = () => {
   const handCentre = hands[0].annotations.middleFinger[0][0] * 0.01;
 
   ageGenderContent3d.forEach((item, index) => {
-    item.position.x = hands[0].landmarks[index][0] * 0.01;
-    item.position.y = hands[0].landmarks[index][1] * -0.01;
-    item.position.z = -2;
-    if (item.position.x > handCentre) {
+    item.position.set(
+      handLandmarks[index].position.x,
+      handLandmarks[index].position.y,
+      handLandmarks[index].position.z
+    );
+
+    if (
+      item.position.x < handCentre + 0.0001 &&
+      item.position.x > handCentre - 0.0001
+    ) {
+      alignText(item.geometry, "centre");
+    } else if (item.position.x > handCentre) {
       alignText(item.geometry, "right");
     } else {
       alignText(item.geometry, "left");
@@ -144,11 +153,42 @@ const hideAgeGenderContent = () => {
   });
 };
 
-const updateLandmarks = () => {
+let handLandmarksHistory = {};
+let smoothPower = 10;
+const updateLandmarksSmooth = () => {
   hands[0].landmarks.forEach((landmark, index) => {
-    handLandmarks[index].position.x = landmark[0] * 0.01;
-    handLandmarks[index].position.y = landmark[1] * -0.01;
-    handLandmarks[index].position.z = -2;
+    const newLandmarkPos = new THREE.Vector3(
+      landmark[0] * 0.01,
+      landmark[1] * -0.01,
+      -1
+    );
+
+    if (!(index in handLandmarksHistory)) {
+      handLandmarksHistory[index] = {
+        history: [],
+        total: new THREE.Vector3(),
+      };
+    }
+    handLandmarksHistory[index].history.push(newLandmarkPos);
+    handLandmarksHistory[index].total.add(newLandmarkPos);
+
+    const historyLength = handLandmarksHistory[index].history.length;
+    if (historyLength > smoothPower) {
+      const oldestHistoryPos = handLandmarksHistory[index].history.shift();
+      handLandmarksHistory[index].total.sub(oldestHistoryPos);
+    }
+
+    const averagePosition = new Vector3(
+      handLandmarksHistory[index].total.x / (historyLength - 1),
+      handLandmarksHistory[index].total.y / (historyLength - 1),
+      -1
+    );
+
+    handLandmarks[index].position.set(
+      averagePosition.x,
+      averagePosition.y,
+      averagePosition.z
+    );
   });
 };
 
@@ -161,7 +201,6 @@ const hideHandLandmarks = () => {
 const updateHandUI = async () => {
   if (!isLoaded) {
     hideLoadingScreen();
-    waitingHandObj.updateText("Looking for hands...");
     isLoaded = true;
   }
 
@@ -172,7 +211,7 @@ const updateHandUI = async () => {
   if (isHandPresent) {
     waitingHandObj.updateText("");
     updateAgeGenderContent();
-    updateLandmarks();
+    updateLandmarksSmooth();
   } else {
     waitingHandObj.updateText("Looking for hands...");
     hideAgeGenderContent();
