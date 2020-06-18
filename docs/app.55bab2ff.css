@@ -38,6 +38,7 @@ body {
 #artwork #webcam-video {
   position: absolute;
   object-position: left;
+  transform: scaleX(-1);
 }
 #artwork #webcam-canvas {
   display: none;

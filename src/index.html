@@ -55,6 +55,18 @@
             stats.update();
             requestAnimationFrame(loop);
           });
+          stats.dom.style.display = "none";
+          let showStats = false;
+          window.addEventListener("keypress", (e) => {
+            showStats = !showStats;
+            if ((e.code = "KeyP")) {
+              if (showStats) {
+                stats.dom.style.display = "block";
+              } else {
+                stats.dom.style.display = "none";
+              }
+            }
+          });
         };
         script.src = "//mrdoob.github.io/stats.js/build/stats.min.js";
         document.head.appendChild(script);

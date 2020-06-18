@@ -27807,7 +27807,7 @@ var detectHandNormal = /*#__PURE__*/function () {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.next = 2;
-            return handDetector.estimateHands(videoElement);
+            return handDetector.estimateHands(videoElement, true);
 
           case 2:
             handEstimate = _context4.sent;
@@ -113577,7 +113577,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49441" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50685" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

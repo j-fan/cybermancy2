@@ -41,6 +41,7 @@ body {
   #webcam-video {
     position: absolute;
     object-position: left;
+    transform: scaleX(-1);
   }
   #webcam-canvas {
     display: none;

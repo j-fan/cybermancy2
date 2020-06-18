@@ -12,7 +12,7 @@ class HandDetectorWorker {
     if (!this.model) {
       return null;
     }
-    const handEstimate = await this.model.estimateHands(input);
+    const handEstimate = await this.model.estimateHands(input, true);
     return handEstimate;
   }
 }

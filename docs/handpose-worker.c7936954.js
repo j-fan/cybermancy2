@@ -27633,7 +27633,7 @@ var HandDetectorWorker = /*#__PURE__*/function () {
 
               case 2:
                 _context.next = 4;
-                return this.model.estimateHands(input);
+                return this.model.estimateHands(input, true);
 
               case 4:
                 handEstimate = _context.sent;
@@ -27686,7 +27686,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49441" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50685" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
