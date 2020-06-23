@@ -46,7 +46,6 @@ const getHandElement = () => {
     } else {
       handElement == "earth";
     }
-    console.log(handElement);
   }
 
   return handElement ? elementContent[handElement] : "";

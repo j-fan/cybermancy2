@@ -88,22 +88,22 @@ const initThreeCanvas = async () => {
 
   const initScene = () => {
     scene = new THREE.Scene();
-    let pmremGenerator = new THREE.PMREMGenerator(renderer);
+    // let pmremGenerator = new THREE.PMREMGenerator(renderer);
 
-    new RGBELoader()
-      .setDataType(THREE.UnsignedByteType)
-      .load("img/royal_esplanade_1k.hdr", (hdrEquirect) => {
-        let hdrCubeRenderTarget = pmremGenerator.fromEquirectangular(
-          hdrEquirect
-        );
-        hdrEquirect.dispose();
-        pmremGenerator.dispose();
+    // new RGBELoader()
+    //   .setDataType(THREE.UnsignedByteType)
+    //   .load("img/royal_esplanade_1k.hdr", (hdrEquirect) => {
+    //     let hdrCubeRenderTarget = pmremGenerator.fromEquirectangular(
+    //       hdrEquirect
+    //     );
+    //     hdrEquirect.dispose();
+    //     pmremGenerator.dispose();
 
-        // scene.background = hdrCubeRenderTarget.texture;
-        scene.environment = hdrCubeRenderTarget.texture;
-      });
+    // scene.background = hdrCubeRenderTarget.texture;
+    //     scene.environment = hdrCubeRenderTarget.texture;
+    //   });
 
-    pmremGenerator.compileEquirectangularShader();
+    // pmremGenerator.compileEquirectangularShader();
   };
 
   const addLights = () => {
