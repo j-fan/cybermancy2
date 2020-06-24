@@ -915,9 +915,9 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -1126,7 +1126,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -1280,7 +1280,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -1366,14 +1366,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -3166,7 +3166,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
+},{"base64-js":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var Buffer = require("buffer").Buffer;
@@ -21059,7 +21059,7 @@ wt.prototype.add = function (t) {
 }, wt.prototype.batchNorm = function (t, e, n, r, o) {
   return nc(this, t, e, n, r, o);
 }, xt = ff;
-},{"crypto":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js":[function(require,module,exports) {
+},{"crypto":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js":[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 "use strict";
 
@@ -26688,7 +26688,7 @@ function loadGraphModel(e, t) {
 
 var version = "1.7.4";
 exports.version_converter = version;
-},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js":[function(require,module,exports) {
+},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -27633,7 +27633,7 @@ var HandDetectorWorker = /*#__PURE__*/function () {
 
               case 2:
                 _context.next = 4;
-                return this.model.estimateHands(input, true);
+                return this.model.estimateHands(input);
 
               case 4:
                 handEstimate = _context.sent;
@@ -27658,7 +27658,7 @@ var HandDetectorWorker = /*#__PURE__*/function () {
 }();
 
 Comlink.expose(HandDetectorWorker);
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../node_modules/@babel/runtime/helpers/createClass.js","@tensorflow-models/handpose":"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js","comlink":"../node_modules/comlink/dist/esm/comlink.mjs"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../node_modules/@babel/runtime/helpers/createClass.js","@tensorflow-models/handpose":"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js","comlink":"../node_modules/comlink/dist/esm/comlink.mjs"}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -27686,7 +27686,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51617" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57850" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -27862,5 +27862,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","handpose-worker.js"], null)
+},{}]},{},["../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","handpose-worker.js"], null)
 //# sourceMappingURL=/handpose-worker.c7936954.js.map

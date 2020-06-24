@@ -54,7 +54,7 @@ const detectHandWithWorker = async () => {
 };
 
 const detectHandNormal = async () => {
-  const handEstimate = await handDetector.estimateHands(videoElement, true);
+  const handEstimate = await handDetector.estimateHands(videoElement);
   hands = handEstimate;
 };
 

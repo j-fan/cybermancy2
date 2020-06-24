@@ -38,7 +38,7 @@ const initThreeHands = async (sceneRef, width, height) => {
   waitingHandText = createTextObj(
     scene,
     "Looking for hand...",
-    new THREE.Vector3(canvasWidth / 2, canvasHeight / -2 + 0.6, -1),
+    new THREE.Vector3(canvasWidth / -2, canvasHeight / -2 + 0.6, -1),
     FontNames.Helvetiker,
     canvasHeight * 3,
     0x00ffff,
@@ -47,7 +47,7 @@ const initThreeHands = async (sceneRef, width, height) => {
   );
   waitingHandObj = await loadImageSvg(
     "img/hand.svg",
-    new THREE.Vector3(canvasWidth / 2, canvasHeight / -2 + 0.5, -1),
+    new THREE.Vector3(canvasWidth / -2, canvasHeight / -2 + 0.5, -1),
     0x00ffff,
     1.3
   );
@@ -162,7 +162,7 @@ const updateAgeGenderContent = () => {
     } else {
       alignText(item.geometry, "left");
     }
-    item.lookAt(canvasWidth / 2, canvasHeight / -2, 1);
+    item.lookAt(canvasWidth / -2, canvasHeight / -2, 1);
   });
 };
 
@@ -177,7 +177,7 @@ let smoothPower = 10;
 const updateLandmarksSmooth = () => {
   hands[0].landmarks.forEach((landmark, index) => {
     const newLandmarkPos = new THREE.Vector3(
-      landmark[0] * 0.01,
+      landmark[0] * -0.01,
       landmark[1] * -0.01,
       -1
     );

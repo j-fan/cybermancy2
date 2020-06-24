@@ -998,9 +998,9 @@ var initCamera = /*#__PURE__*/function () {
 
 var _default = initCamera;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js"}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -1209,7 +1209,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -1363,7 +1363,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -1449,14 +1449,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -3249,7 +3249,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
+},{"base64-js":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var Buffer = require("buffer").Buffer;
@@ -21142,7 +21142,7 @@ wt.prototype.add = function (t) {
 }, wt.prototype.batchNorm = function (t, e, n, r, o) {
   return nc(this, t, e, n, r, o);
 }, xt = ff;
-},{"crypto":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js":[function(require,module,exports) {
+},{"crypto":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js":[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 "use strict";
 
@@ -26771,7 +26771,7 @@ function loadGraphModel(e, t) {
 
 var version = "1.7.4";
 exports.version_converter = version;
-},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js":[function(require,module,exports) {
+},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -27807,7 +27807,7 @@ var detectHandNormal = /*#__PURE__*/function () {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.next = 2;
-            return handDetector.estimateHands(videoElement, true);
+            return handDetector.estimateHands(videoElement);
 
           case 2:
             handEstimate = _context4.sent;
@@ -84337,7 +84337,7 @@ function Td() {
 wt.prototype.squaredDifference = function (t) {
   return nu(this, t);
 }, xt = Gh;
-},{"crypto":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/face-api.js/build/es6/draw/drawContour.js":[function(require,module,exports) {
+},{"crypto":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/face-api.js/build/es6/draw/drawContour.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86592,7 +86592,7 @@ function createFileSystem(fs) {
     readFile: readFile
   };
 }
-},{"fs":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js"}],"../node_modules/face-api.js/build/es6/env/createNodejsEnv.js":[function(require,module,exports) {
+},{"fs":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/_empty.js"}],"../node_modules/face-api.js/build/es6/env/createNodejsEnv.js":[function(require,module,exports) {
 var global = arguments[3];
 "use strict";
 
@@ -86697,7 +86697,7 @@ function isNodejs() {
   // && !!module.exports
   && typeof process !== 'undefined' && !!process.version;
 }
-},{"process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/face-api.js/build/es6/env/index.js":[function(require,module,exports) {
+},{"process":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/face-api.js/build/es6/env/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -98365,8 +98365,6 @@ var getHandElement = function getHandElement() {
     } else {
       handElement == "earth";
     }
-
-    console.log(handElement);
   }
 
   return handElement ? elementContent[handElement] : "";
@@ -102068,9 +102066,9 @@ var initThreeHands = /*#__PURE__*/function () {
             return (0, _threeTextUtil.initThreeFont)();
 
           case 6:
-            waitingHandText = (0, _threeTextUtil.createTextObj)(scene, "Looking for hand...", new THREE.Vector3(canvasWidth / 2, canvasHeight / -2 + 0.6, -1), _threeTextUtil.FontNames.Helvetiker, canvasHeight * 3, 0x00ffff, "centre", 0.6);
+            waitingHandText = (0, _threeTextUtil.createTextObj)(scene, "Looking for hand...", new THREE.Vector3(canvasWidth / -2, canvasHeight / -2 + 0.6, -1), _threeTextUtil.FontNames.Helvetiker, canvasHeight * 3, 0x00ffff, "centre", 0.6);
             _context.next = 9;
-            return (0, _threeImageUtil.loadImageSvg)("img/hand.svg", new THREE.Vector3(canvasWidth / 2, canvasHeight / -2 + 0.5, -1), 0x00ffff, 1.3);
+            return (0, _threeImageUtil.loadImageSvg)("img/hand.svg", new THREE.Vector3(canvasWidth / -2, canvasHeight / -2 + 0.5, -1), 0x00ffff, 1.3);
 
           case 9:
             waitingHandObj = _context.sent;
@@ -102280,7 +102278,7 @@ var updateAgeGenderContent = function updateAgeGenderContent() {
       (0, _threeTextUtil.alignText)(item.geometry, "left");
     }
 
-    item.lookAt(canvasWidth / 2, canvasHeight / -2, 1);
+    item.lookAt(canvasWidth / -2, canvasHeight / -2, 1);
   });
 };
 
@@ -102295,7 +102293,7 @@ var smoothPower = 10;
 
 var updateLandmarksSmooth = function updateLandmarksSmooth() {
   _handPose.hands[0].landmarks.forEach(function (landmark, index) {
-    var newLandmarkPos = new THREE.Vector3(landmark[0] * 0.01, landmark[1] * -0.01, -1);
+    var newLandmarkPos = new THREE.Vector3(landmark[0] * -0.01, landmark[1] * -0.01, -1);
 
     if (!(index in handLandmarksHistory)) {
       handLandmarksHistory[index] = {
@@ -113593,7 +113591,7 @@ var initThreeCanvas = /*#__PURE__*/function () {
               var videoElement = document.getElementById("webcam-video");
               var width = videoElement.videoWidth * 0.01;
               var height = videoElement.videoHeight * 0.01;
-              camera = new THREE.OrthographicCamera(0, width, 0, -height, 0.1, 1000);
+              camera = new THREE.OrthographicCamera(-width, 0, 0, -height, 0.1, 1000);
             };
 
             initAndAttachCanvas = function initAndAttachCanvas() {
@@ -113671,7 +113669,7 @@ var initThreeCanvas = /*#__PURE__*/function () {
 
 var _default = initThreeCanvas;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./threeHands":"threeHands.js","postprocessing":"../node_modules/postprocessing/build/postprocessing.esm.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./threeHands":"threeHands.js","postprocessing":"../node_modules/postprocessing/build/postprocessing.esm.js"}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -113703,7 +113701,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -113738,12 +113736,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"app.scss":[function(require,module,exports) {
+},{"./bundle-url":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"app.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./img\\c1.svg":[["c1.301b5e86.svg","img/c1.svg"],"img/c1.svg"],"./img\\c2.svg":[["c2.96e01056.svg","img/c2.svg"],"img/c2.svg"],"./img\\c3.svg":[["c3.4892b254.svg","img/c3.svg"],"img/c3.svg"],"./img\\c4.svg":[["c4.8079e299.svg","img/c4.svg"],"img/c4.svg"],"./img\\c5.svg":[["c5.29978d72.svg","img/c5.svg"],"img/c5.svg"],"./img\\c6.svg":[["c6.d0c2f27e.svg","img/c6.svg"],"img/c6.svg"],"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"app.js":[function(require,module,exports) {
+},{"./img/c1.svg":[["c1.301b5e86.svg","img/c1.svg"],"img/c1.svg"],"./img/c2.svg":[["c2.96e01056.svg","img/c2.svg"],"img/c2.svg"],"./img/c3.svg":[["c3.4892b254.svg","img/c3.svg"],"img/c3.svg"],"./img/c4.svg":[["c4.8079e299.svg","img/c4.svg"],"img/c4.svg"],"./img/c5.svg":[["c5.29978d72.svg","img/c5.svg"],"img/c5.svg"],"./img/c6.svg":[["c6.d0c2f27e.svg","img/c6.svg"],"img/c6.svg"],"_css_loader":"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
@@ -113797,7 +113795,7 @@ var initAll = /*#__PURE__*/function () {
 }();
 
 initAll();
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","./webcam":"webcam.js","./handPose":"handPose.js","./mainCanvas":"mainCanvas.js","./faceDetect":"faceDetect.js","./app.scss":"app.scss"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","./webcam":"webcam.js","./handPose":"handPose.js","./mainCanvas":"mainCanvas.js","./faceDetect":"faceDetect.js","./app.scss":"app.scss"}],"../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -113825,7 +113823,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51617" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57850" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -114001,5 +113999,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","app.js"], null)
+},{}]},{},["../../../.nvm/versions/node/v12.16.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","app.js"], null)
 //# sourceMappingURL=/app.c328ef1a.js.map

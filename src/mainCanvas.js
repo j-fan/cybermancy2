@@ -130,7 +130,7 @@ const initThreeCanvas = async () => {
     const videoElement = document.getElementById("webcam-video");
     const width = videoElement.videoWidth * 0.01;
     const height = videoElement.videoHeight * 0.01;
-    camera = new THREE.OrthographicCamera(0, width, 0, -height, 0.1, 1000);
+    camera = new THREE.OrthographicCamera(-width, 0, 0, -height, 0.1, 1000);
   };
 
   const initAndAttachCanvas = () => {
