@@ -115,6 +115,29 @@ p {
   }
 }
 
+.centredContent {
+  display: flex;
+  justify-content: center;
+}
+
+#loadingButton {
+  pointer-events: all;
+  background-color: #000;
+  border: 1px solid white;
+  color: white;
+  padding: 8px;
+  border-radius: 2px;
+  font-size: larger;
+  cursor: pointer;
+  &.hidden {
+    pointer-events: none;
+  }
+  &:hover {
+    color: #0ff;
+    border-color: #0ff;
+  }
+}
+
 #loadingScreen {
   color: #fff;
   width: 100vw;
@@ -138,26 +161,8 @@ p {
     max-width: 600px;
     margin: 10px 40px;
     span {
-      color: rgb(255, 187, 0);
+      color: #0ff;
       font-weight: bold;
-    }
-    .loading {
-      display: flex;
-      justify-content: center;
-      background-color: rgba(10, 10, 10, 1);
-      p {
-        margin: 0;
-        position: relative;
-        text-align: center;
-        text-transform: uppercase;
-        font-style: italic;
-        font-weight: bold;
-        padding-right: 0;
-      }
-      img {
-        width: 16px;
-        height: 16px;
-      }
     }
   }
   .circle1,

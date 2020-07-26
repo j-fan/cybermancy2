@@ -915,9 +915,9 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -1126,7 +1126,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -1280,7 +1280,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -1366,14 +1366,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -3166,7 +3166,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/face-api.js/node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
+},{"base64-js":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/face-api.js/node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var Buffer = require("buffer").Buffer;
@@ -20774,7 +20774,7 @@ function Td() {
 wt.prototype.squaredDifference = function (t) {
   return nu(this, t);
 }, xt = Gh;
-},{"crypto":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/face-api.js/build/es6/draw/drawContour.js":[function(require,module,exports) {
+},{"crypto":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/face-api.js/build/es6/draw/drawContour.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23029,7 +23029,7 @@ function createFileSystem(fs) {
     readFile: readFile
   };
 }
-},{"fs":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js"}],"../node_modules/face-api.js/build/es6/env/createNodejsEnv.js":[function(require,module,exports) {
+},{"fs":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js"}],"../node_modules/face-api.js/build/es6/env/createNodejsEnv.js":[function(require,module,exports) {
 var global = arguments[3];
 "use strict";
 
@@ -23134,7 +23134,7 @@ function isNodejs() {
   // && !!module.exports
   && typeof process !== 'undefined' && !!process.version;
 }
-},{"process":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/face-api.js/build/es6/env/index.js":[function(require,module,exports) {
+},{"process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/face-api.js/build/es6/env/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34321,7 +34321,7 @@ var FaceDetectorWorker = /*#__PURE__*/function () {
 }();
 
 Comlink.expose(FaceDetectorWorker);
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../node_modules/@babel/runtime/helpers/createClass.js","face-api.js":"../node_modules/face-api.js/build/es6/index.js","comlink":"../node_modules/comlink/dist/esm/comlink.mjs"}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../node_modules/@babel/runtime/helpers/createClass.js","face-api.js":"../node_modules/face-api.js/build/es6/index.js","comlink":"../node_modules/comlink/dist/esm/comlink.mjs"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -34349,7 +34349,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49441" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60429" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -34525,5 +34525,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","faceDetect-worker.js"], null)
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","faceDetect-worker.js"], null)
 //# sourceMappingURL=/faceDetect-worker.f69cbf30.js.map

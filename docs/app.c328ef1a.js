@@ -998,9 +998,9 @@ var initCamera = /*#__PURE__*/function () {
 
 var _default = initCamera;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js"}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -1209,7 +1209,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -1363,7 +1363,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -1449,14 +1449,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -3249,7 +3249,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
+},{"base64-js":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var Buffer = require("buffer").Buffer;
@@ -21142,7 +21142,7 @@ wt.prototype.add = function (t) {
 }, wt.prototype.batchNorm = function (t, e, n, r, o) {
   return nc(this, t, e, n, r, o);
 }, xt = ff;
-},{"crypto":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js":[function(require,module,exports) {
+},{"crypto":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js":[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 "use strict";
 
@@ -26771,7 +26771,7 @@ function loadGraphModel(e, t) {
 
 var version = "1.7.4";
 exports.version_converter = version;
-},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js":[function(require,module,exports) {
+},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26881,38 +26881,41 @@ class HandDetector {
     });
   }
 
-  getBoundingBoxes(t) {
-    return (0, _tfjsCore.tidy)(() => {
-      const n = (0, _tfjsCore.mul)((0, _tfjsCore.sub)(t, .5), 2),
-            e = (0, _tfjsCore.env)().get("WEBGL_PACK_DEPTHWISECONV");
-      (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", !0);
-      const o = this.model.predict(n).squeeze();
-      (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", e);
-      const s = (0, _tfjsCore.sigmoid)((0, _tfjsCore.slice)(o, [0, 0], [-1, 1])).squeeze(),
-            i = (0, _tfjsCore.slice)(o, [0, 1], [-1, 4]),
-            r = this.normalizeBoxes(i),
-            a = console.warn;
+  async getBoundingBoxes(t) {
+    const n = (0, _tfjsCore.tidy)(() => (0, _tfjsCore.mul)((0, _tfjsCore.sub)(t, .5), 2)),
+          e = (0, _tfjsCore.env)().get("WEBGL_PACK_DEPTHWISECONV");
+    (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", !0);
+    const o = this.model.predict(n);
+    (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", e);
+    const s = o.squeeze(),
+          i = (0, _tfjsCore.tidy)(() => (0, _tfjsCore.sigmoid)((0, _tfjsCore.slice)(s, [0, 0], [-1, 1])).squeeze()),
+          r = (0, _tfjsCore.slice)(s, [0, 1], [-1, 4]),
+          a = this.normalizeBoxes(r),
+          d = console.warn;
 
-      console.warn = () => {};
+    console.warn = () => {};
 
-      const d = _tfjsCore.image.nonMaxSuppression(r, s, 1, this.iouThreshold, this.scoreThreshold).arraySync();
+    const c = _tfjsCore.image.nonMaxSuppression(a, i, 1, this.iouThreshold, this.scoreThreshold);
 
-      if (console.warn = a, 0 === d.length) return null;
-      const u = d[0],
-            c = (0, _tfjsCore.slice)(r, [u, 0], [1, -1]),
-            h = (0, _tfjsCore.slice)(o, [u, 5], [1, 14]);
-      return {
-        boxes: c,
-        palmLandmarks: this.normalizeLandmarks(h, u).reshape([-1, 2])
-      };
-    });
+    console.warn = d;
+    const h = await c.array(),
+          u = [n, o, c, s, a, r, i];
+    if (0 === h.length) return u.forEach(t => t.dispose()), null;
+    const l = h[0],
+          m = (0, _tfjsCore.slice)(a, [l, 0], [1, -1]),
+          p = (0, _tfjsCore.slice)(s, [l, 5], [1, 14]),
+          f = (0, _tfjsCore.tidy)(() => this.normalizeLandmarks(p, l).reshape([-1, 2]));
+    return u.push(p), u.forEach(t => t.dispose()), {
+      boxes: m,
+      palmLandmarks: f
+    };
   }
 
-  estimateHandBounds(t) {
+  async estimateHandBounds(t) {
     const n = t.shape[1],
           e = t.shape[2],
           o = (0, _tfjsCore.tidy)(() => t.resizeBilinear([this.width, this.height]).div(255)),
-          s = this.getBoundingBoxes(o);
+          s = await this.getBoundingBoxes(o);
     if (null === s) return o.dispose(), null;
     const i = s.boxes.arraySync(),
           r = i[0].slice(0, 2),
@@ -26939,28 +26942,28 @@ const MESH_ANNOTATIONS = {
 function rotate(t, n, e, o) {
   const s = (0, _tfjsCore.backend)(),
         i = (0, _tfjsCore.buffer)(t.shape, t.dtype),
-        [r, a, d, u] = t.shape,
-        c = d * ("number" == typeof o ? o : o[0]),
-        h = a * ("number" == typeof o ? o : o[1]),
-        l = Math.sin(-n),
-        m = Math.cos(-n),
+        [r, a, d, c] = t.shape,
+        h = d * ("number" == typeof o ? o : o[0]),
+        u = a * ("number" == typeof o ? o : o[1]),
+        l = Math.sin(n),
+        m = Math.cos(n),
         p = s.readSync(t.dataId);
 
-  for (let t = 0; t < r; t++) for (let n = 0; n < a; n++) for (let o = 0; o < d; o++) for (let s = 0; s < u; s++) {
+  for (let t = 0; t < r; t++) for (let n = 0; n < a; n++) for (let o = 0; o < d; o++) for (let s = 0; s < c; s++) {
     const f = [r, n, o, s],
           _ = f[2],
           P = f[1];
-    let g = (_ - c) * m - (P - h) * l,
-        M = (_ - c) * l + (P - h) * m;
-    g = Math.round(g + c), M = Math.round(M + h);
+    let g = (_ - h) * m - (P - u) * l,
+        M = (_ - h) * l + (P - u) * m;
+    g = Math.round(g + h), M = Math.round(M + u);
     let T = e;
 
     if ("number" != typeof e && (T = 3 === s ? 255 : e[s]), g >= 0 && g < d && M >= 0 && M < a) {
-      T = p[t * d * a * u + M * (d * u) + g * u + s];
+      T = p[t * d * a * c + M * (d * c) + g * c + s];
     }
 
-    const I = t * d * a * u + n * (d * u) + o * u + s;
-    i.values[I] = T;
+    const E = t * d * a * c + n * (d * c) + o * c + s;
+    i.values[E] = T;
   }
 
   return i.toTensor();
@@ -26972,13 +26975,13 @@ function rotate$1(t, n, e, o) {
         r = s[2],
         a = Math.sin(n),
         d = Math.cos(n),
-        u = Math.floor(r * ("number" == typeof o ? o : o[0])),
-        c = Math.floor(i * ("number" == typeof o ? o : o[1]));
-  let h = "";
+        c = Math.floor(r * ("number" == typeof o ? o : o[0])),
+        h = Math.floor(i * ("number" == typeof o ? o : o[1]));
+  let u = "";
   const l = {
     variableNames: ["Image"],
     outputShape: s,
-    userCode: `\n      void main() {\n        ivec4 coords = getOutputCoords();\n        int x = coords[2];\n        int y = coords[1];\n        int coordX = int(float(x - ${u}) * ${d} -\n          float(y - ${c}) * ${a});\n        int coordY = int(float(x - ${u}) * ${a} +\n          float(y - ${c}) * ${d});\n        coordX = int(coordX + ${u});\n        coordY = int(coordY + ${c});\n\n        ${h = "number" == typeof e ? `float outputValue = ${e.toFixed(2)};` : `\n      vec3 fill = vec3(${e.join(",")});\n      float outputValue = fill[coords[3]];`}\n\n        if(coordX > 0 && coordX < ${r} && coordY > 0 && coordY < ${i}) {\n          outputValue = getImage(coords[0], coordY, coordX, coords[3]);\n        }\n\n      setOutput(outputValue);\n    }`
+    userCode: `\n      void main() {\n        ivec4 coords = getOutputCoords();\n        int x = coords[2];\n        int y = coords[1];\n        int coordX = int(float(x - ${c}) * ${d} -\n          float(y - ${h}) * ${a});\n        int coordY = int(float(x - ${c}) * ${a} +\n          float(y - ${h}) * ${d});\n        coordX = int(coordX + ${c});\n        coordY = int(coordY + ${h});\n\n        ${u = "number" == typeof e ? `float outputValue = ${e.toFixed(2)};` : `\n      vec3 fill = vec3(${e.join(",")});\n      float outputValue = fill[coords[3]];`}\n\n        if(coordX > 0 && coordX < ${r} && coordY > 0 && coordY < ${i}) {\n          outputValue = getImage(coords[0], coordY, coordX, coords[3]);\n        }\n\n      setOutput(outputValue);\n    }`
   };
   return (0, _tfjsCore.backend)().compileAndRun(l, [t]);
 }
@@ -27078,17 +27081,17 @@ class HandPipeline {
           d = r.map(t => {
       return [...rotatePoint(t, a), t[2]];
     }),
-          u = invertTransformMatrix(o),
-          c = [...getBoxCenter(n), 1],
-          h = [dot(c, u[0]), dot(c, u[1])];
-    return d.map(t => [t[0] + h[0], t[1] + h[1], t[2]]);
+          c = invertTransformMatrix(o),
+          h = [...getBoxCenter(n), 1],
+          u = [dot(h, c[0]), dot(h, c[1])];
+    return d.map(t => [t[0] + u[0], t[1] + u[1], t[2]]);
   }
 
   async estimateHand(t) {
     const n = this.shouldUpdateRegionsOfInterest();
 
     if (!0 === n) {
-      const n = this.boundingBoxDetector.estimateHandBounds(t);
+      const n = await this.boundingBoxDetector.estimateHandBounds(t);
       if (null === n) return t.dispose(), this.regionsOfInterest = [], null;
       this.updateRegionsOfInterest(n, !0), this.runsWithoutHandDetector = 0;
     } else this.runsWithoutHandDetector++;
@@ -27099,19 +27102,19 @@ class HandPipeline {
           i = [s[0] / t.shape[2], s[1] / t.shape[1]];
     let r;
     const a = (0, _tfjsCore.getBackend)();
-    if ("webgl" === a) r = rotate$1(t, o, 0, i);else {
-      if ("cpu" !== a) throw new Error(`Handpose is not yet supported by the ${a} ` + "backend - rotation kernel is not defined.");
+    if (a.match("webgl")) r = rotate$1(t, o, 0, i);else {
+      if ("cpu" !== a && "tensorflow" !== a) throw new Error(`Handpose is not yet supported by the ${a} ` + "backend - rotation kernel is not defined.");
       r = rotate(t, o, 0, i);
     }
     const d = buildRotationMatrix(-o, s);
-    let u;
-    const c = cutBoxFromImageAndResize(u = !0 === n ? this.getBoxForPalmLandmarks(e.palmLandmarks, d) : e, r, [this.meshWidth, this.meshHeight]),
-          h = c.div(255);
-    c.dispose(), r.dispose();
+    let c;
+    const h = cutBoxFromImageAndResize(c = !0 === n ? this.getBoxForPalmLandmarks(e.palmLandmarks, d) : e, r, [this.meshWidth, this.meshHeight]),
+          u = h.div(255);
+    h.dispose(), r.dispose();
     const l = (0, _tfjsCore.env)().get("WEBGL_PACK_DEPTHWISECONV");
     (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", !0);
-    const [m, p] = this.meshDetector.predict(h);
-    (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", l), h.dispose();
+    const [m, p] = this.meshDetector.predict(u);
+    (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", l), u.dispose();
     const f = m.dataSync()[0];
     if (m.dispose(), f < this.detectionConfidence) return p.dispose(), this.regionsOfInterest = [], null;
 
@@ -27119,7 +27122,7 @@ class HandPipeline {
           P = _.arraySync();
 
     p.dispose(), _.dispose();
-    const g = this.transformRawCoords(P, u, o, d),
+    const g = this.transformRawCoords(P, c, o, d),
           M = this.getBoxForHandLandmarks(g);
     return this.updateRegionsOfInterest(M, !1), {
       landmarks: g,
@@ -27149,11 +27152,11 @@ class HandPipeline {
         const [o, s] = t.startPoint,
               [i, r] = t.endPoint,
               [a, d] = n.startPoint,
-              [u, c] = n.endPoint,
-              h = Math.max(o, a),
+              [c, h] = n.endPoint,
+              u = Math.max(o, a),
               l = Math.max(s, d),
-              m = (Math.min(i, u) - h) * (Math.min(r, c) - l);
-        e = m / ((i - o) * (r - s) + (u - a) * (c - s) - m);
+              m = (Math.min(i, c) - u) * (Math.min(r, h) - l);
+        e = m / ((i - o) * (r - s) + (c - a) * (h - s) - m);
       }
 
       this.regionsOfInterest[0] = e > UPDATE_REGION_OF_INTEREST_IOU_THRESHOLD ? n : t;
@@ -27698,7 +27701,7 @@ var hands = [];
 exports.hands = hands;
 var isHandPresent = false;
 exports.isHandPresent = isHandPresent;
-var handChangedThreshold = 200;
+var handChangedThreshold = 10;
 var handAbsentCount = 0;
 var handChanged = true;
 var newHandAppeared = false;
@@ -27848,6 +27851,7 @@ var processHandStatus = function processHandStatus() {
       handChanged = false;
       handAbsentCount = 0;
       exports.newHandAppeared = newHandAppeared = true;
+      console.log("new hand appeared");
     }
   }
 };
@@ -84168,7 +84172,7 @@ function Td() {
 wt.prototype.squaredDifference = function (t) {
   return nu(this, t);
 }, xt = Gh;
-},{"crypto":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/face-api.js/build/es6/draw/drawContour.js":[function(require,module,exports) {
+},{"crypto":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/face-api.js/build/es6/draw/drawContour.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86423,7 +86427,7 @@ function createFileSystem(fs) {
     readFile: readFile
   };
 }
-},{"fs":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js"}],"../node_modules/face-api.js/build/es6/env/createNodejsEnv.js":[function(require,module,exports) {
+},{"fs":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js"}],"../node_modules/face-api.js/build/es6/env/createNodejsEnv.js":[function(require,module,exports) {
 var global = arguments[3];
 "use strict";
 
@@ -86528,7 +86532,7 @@ function isNodejs() {
   // && !!module.exports
   && typeof process !== 'undefined' && !!process.version;
 }
-},{"process":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/face-api.js/build/es6/env/index.js":[function(require,module,exports) {
+},{"process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/face-api.js/build/es6/env/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -97216,7 +97220,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.estimatedGender = exports.estimatedAge = exports.initFaceDetect = void 0;
+exports.runFaceDetection = exports.resetFaceDetection = exports.estimatedGender = exports.estimatedAge = exports.initFaceDetect = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -97232,20 +97236,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function setIntervalCount(callback, delay, stopCondition) {
-  var count = 0;
-  var intervalID = window.setInterval(function () {
-    count++;
-    callback();
-
-    if (stopCondition(count) == true) {
-      window.clearInterval(intervalID);
-    }
-  }, delay);
-} // haven't figured a way for webworkers to work with faceAPI
+// haven't figured a way for webworkers to work with faceAPI
 // do to issues discussed here: https://github.com/justadudewhohacks/face-api.js/issues/47
-
-
 var isDetectionUsingWebWorker = false;
 var estimatedGender = "none";
 exports.estimatedGender = estimatedGender;
@@ -97378,99 +97370,42 @@ var runDetectionWorker = /*#__PURE__*/function () {
   };
 }();
 
+var totalGender = 0;
+var totalAge = 0;
+var successfulDetections = 0;
+
 var initFaceDetect = /*#__PURE__*/function () {
-  var _ref5 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
-    var totalGender, totalAge, successfulDetections, runDetection;
-    return _regenerator.default.wrap(function _callee6$(_context6) {
+  var _ref5 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
+    return _regenerator.default.wrap(function _callee5$(_context5) {
       while (1) {
-        switch (_context6.prev = _context6.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
             if (!isDetectionUsingWebWorker) {
-              _context6.next = 5;
+              _context5.next = 5;
               break;
             }
 
-            _context6.next = 3;
+            _context5.next = 3;
             return startFaceDetectWorker();
 
           case 3:
-            _context6.next = 7;
+            _context5.next = 7;
             break;
 
           case 5:
-            _context6.next = 7;
+            _context5.next = 7;
             return startFaceDetectNormal();
 
           case 7:
-            totalGender = 0;
-            totalAge = 0;
-            successfulDetections = 0;
+            _context5.next = 9;
+            return runFaceDetection();
 
-            runDetection = /*#__PURE__*/function () {
-              var _ref6 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
-                var result;
-                return _regenerator.default.wrap(function _callee5$(_context5) {
-                  while (1) {
-                    switch (_context5.prev = _context5.next) {
-                      case 0:
-                        if (!isDetectionUsingWebWorker) {
-                          _context5.next = 6;
-                          break;
-                        }
-
-                        _context5.next = 3;
-                        return runDetectionWorker();
-
-                      case 3:
-                        result = _context5.sent;
-                        _context5.next = 9;
-                        break;
-
-                      case 6:
-                        _context5.next = 8;
-                        return runDetectionNormal();
-
-                      case 8:
-                        result = _context5.sent;
-
-                      case 9:
-                        if (result) {
-                          successfulDetections++;
-
-                          if (result.gender === "female") {
-                            totalGender += result.genderProbability;
-                          } else {
-                            totalGender -= result.genderProbability;
-                          }
-
-                          totalAge += result.age;
-                          exports.estimatedAge = estimatedAge = totalAge / successfulDetections;
-                          exports.estimatedGender = estimatedGender = totalGender == 0 ? "none" : totalGender > 0 ? "female" : "male";
-                        }
-
-                      case 10:
-                      case "end":
-                        return _context5.stop();
-                    }
-                  }
-                }, _callee5);
-              }));
-
-              return function runDetection() {
-                return _ref6.apply(this, arguments);
-              };
-            }();
-
-            setIntervalCount(runDetection, 1, function () {
-              return successfulDetections > 10;
-            });
-
-          case 12:
+          case 9:
           case "end":
-            return _context6.stop();
+            return _context5.stop();
         }
       }
-    }, _callee6);
+    }, _callee5);
   }));
 
   return function initFaceDetect() {
@@ -97479,6 +97414,109 @@ var initFaceDetect = /*#__PURE__*/function () {
 }();
 
 exports.initFaceDetect = initFaceDetect;
+
+var runDetectionOnce = /*#__PURE__*/function () {
+  var _ref6 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
+    var result;
+    return _regenerator.default.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            if (!isDetectionUsingWebWorker) {
+              _context6.next = 6;
+              break;
+            }
+
+            _context6.next = 3;
+            return runDetectionWorker();
+
+          case 3:
+            result = _context6.sent;
+            _context6.next = 9;
+            break;
+
+          case 6:
+            _context6.next = 8;
+            return runDetectionNormal();
+
+          case 8:
+            result = _context6.sent;
+
+          case 9:
+            if (result) {
+              successfulDetections++;
+
+              if (result.gender === "female") {
+                totalGender += result.genderProbability;
+              } else {
+                totalGender -= result.genderProbability;
+              }
+
+              totalAge += result.age;
+              exports.estimatedAge = estimatedAge = totalAge / successfulDetections;
+              exports.estimatedGender = estimatedGender = totalGender == 0 ? "none" : totalGender > 0 ? "female" : "male";
+            }
+
+          case 10:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function runDetectionOnce() {
+    return _ref6.apply(this, arguments);
+  };
+}();
+
+var runFaceDetection = /*#__PURE__*/function () {
+  var _ref7 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee7() {
+    var numDetectionsToAverage, i;
+    return _regenerator.default.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            numDetectionsToAverage = 5;
+            i = 0;
+
+          case 2:
+            if (!(i < numDetectionsToAverage)) {
+              _context7.next = 8;
+              break;
+            }
+
+            _context7.next = 5;
+            return runDetectionOnce();
+
+          case 5:
+            i++;
+            _context7.next = 2;
+            break;
+
+          case 8:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function runFaceDetection() {
+    return _ref7.apply(this, arguments);
+  };
+}();
+
+exports.runFaceDetection = runFaceDetection;
+
+var resetFaceDetection = function resetFaceDetection() {
+  console.log("reset face detect");
+  totalGender = 0;
+  totalAge = 0;
+  successfulDetections = 0;
+};
+
+exports.resetFaceDetection = resetFaceDetection;
 },{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","face-api.js":"../node_modules/face-api.js/build/es6/index.js","comlink":"../node_modules/comlink/dist/esm/comlink.mjs","./faceDetect-worker.js":[["faceDetect-worker.f69cbf30.js","faceDetect-worker.js"],"faceDetect-worker.f69cbf30.js.map","faceDetect-worker.js"]}],"elements.json":[function(require,module,exports) {
 module.exports = {
   "fire": "You have fire hands.\nYou are known to be passionate, confident, and industrious.\nYou are driven by your desires and on a bad day they may lack tactfulness and empathy.",
@@ -100913,9 +100951,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.hideLoadingScreen = void 0;
 var loadingScreen = document.getElementById("loadingScreen");
+var loadingButton = document.getElementById("loadingButton");
 
 var hideLoadingScreen = function hideLoadingScreen() {
-  loadingScreen.classList.add("hidden");
+  loadingButton.addEventListener("click", function () {
+    loadingScreen.classList.add("hidden");
+  });
+  loadingButton.classList.remove("hidden");
+  loadingButton.innerHTML = "Enter artwork";
 };
 
 exports.hideLoadingScreen = hideLoadingScreen;
@@ -101857,6 +101900,8 @@ var _loadingScreen = require("./loadingScreen");
 
 var _util = require("@tensorflow/tfjs-core/dist/util");
 
+var _faceDetect = require("./faceDetect");
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -102152,20 +102197,20 @@ var updateHandUI = /*#__PURE__*/function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            if (!isLoaded) {
-              (0, _loadingScreen.hideLoadingScreen)();
-              isLoaded = true;
-            }
-
             if (!_handPose.newHandAppeared) {
-              _context3.next = 4;
+              _context3.next = 6;
               break;
             }
 
+            (0, _faceDetect.resetFaceDetection)();
             _context3.next = 4;
-            return getAgeGender3dContent();
+            return (0, _faceDetect.runFaceDetection)();
 
           case 4:
+            _context3.next = 6;
+            return getAgeGender3dContent();
+
+          case 6:
             if (_handPose.isHandPresent) {
               anyHandSeenYet = true;
               waitingHandText.updateText("");
@@ -102179,13 +102224,18 @@ var updateHandUI = /*#__PURE__*/function () {
               if (anyHandSeenYet) {
                 waitingHandText.updateText("Looking for hand...");
               } else {
-                waitingHandText.updateText("Looking for hand. Please wait...");
+                waitingHandText.updateText("Hold your hand up to the camera. Please wait for detection.");
               }
 
               waitingHandObj.position.set(0, 0, 0);
             }
 
-          case 5:
+            if (!isLoaded) {
+              (0, _loadingScreen.hideLoadingScreen)();
+              isLoaded = true;
+            }
+
+          case 8:
           case "end":
             return _context3.stop();
         }
@@ -102199,7 +102249,7 @@ var updateHandUI = /*#__PURE__*/function () {
 }();
 
 exports.updateHandUI = updateHandUI;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/asyncIterator":"../node_modules/@babel/runtime/helpers/asyncIterator.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js","./threeTextUtil":"threeTextUtil.js","three":"../node_modules/three/build/three.module.js","./threeImageUtil":"threeImageUtil.js","./loadingScreen":"loadingScreen.js","@tensorflow/tfjs-core/dist/util":"../node_modules/@tensorflow/tfjs-core/dist/util.js"}],"../node_modules/postprocessing/build/postprocessing.esm.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/asyncIterator":"../node_modules/@babel/runtime/helpers/asyncIterator.js","./handPose":"handPose.js","./analyseUser":"analyseUser.js","./threeTextUtil":"threeTextUtil.js","three":"../node_modules/three/build/three.module.js","./threeImageUtil":"threeImageUtil.js","./loadingScreen":"loadingScreen.js","@tensorflow/tfjs-core/dist/util":"../node_modules/@tensorflow/tfjs-core/dist/util.js","./faceDetect":"faceDetect.js"}],"../node_modules/postprocessing/build/postprocessing.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -113423,7 +113473,7 @@ var initThreeCanvas = /*#__PURE__*/function () {
 
 var _default = initThreeCanvas;
 exports.default = _default;
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./threeHands":"threeHands.js","postprocessing":"../node_modules/postprocessing/build/postprocessing.esm.js"}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","three":"../node_modules/three/build/three.module.js","three/examples/jsm/loaders/GLTFLoader":"../node_modules/three/examples/jsm/loaders/GLTFLoader.js","three/examples/jsm/loaders/RGBELoader.js":"../node_modules/three/examples/jsm/loaders/RGBELoader.js","./threeHands":"threeHands.js","postprocessing":"../node_modules/postprocessing/build/postprocessing.esm.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -113455,7 +113505,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -113490,12 +113540,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"app.scss":[function(require,module,exports) {
+},{"./bundle-url":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"app.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./img\\c1.svg":[["c1.301b5e86.svg","img/c1.svg"],"img/c1.svg"],"./img\\c2.svg":[["c2.96e01056.svg","img/c2.svg"],"img/c2.svg"],"./img\\c3.svg":[["c3.4892b254.svg","img/c3.svg"],"img/c3.svg"],"./img\\c4.svg":[["c4.8079e299.svg","img/c4.svg"],"img/c4.svg"],"./img\\c5.svg":[["c5.29978d72.svg","img/c5.svg"],"img/c5.svg"],"./img\\c6.svg":[["c6.d0c2f27e.svg","img/c6.svg"],"img/c6.svg"],"_css_loader":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"app.js":[function(require,module,exports) {
+},{"./img\\c1.svg":[["c1.301b5e86.svg","img/c1.svg"],"img/c1.svg"],"./img\\c2.svg":[["c2.96e01056.svg","img/c2.svg"],"img/c2.svg"],"./img\\c3.svg":[["c3.4892b254.svg","img/c3.svg"],"img/c3.svg"],"./img\\c4.svg":[["c4.8079e299.svg","img/c4.svg"],"img/c4.svg"],"./img\\c5.svg":[["c5.29978d72.svg","img/c5.svg"],"img/c5.svg"],"./img\\c6.svg":[["c6.d0c2f27e.svg","img/c6.svg"],"img/c6.svg"],"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
@@ -113549,7 +113599,7 @@ var initAll = /*#__PURE__*/function () {
 }();
 
 initAll();
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","./webcam":"webcam.js","./handPose":"handPose.js","./mainCanvas":"mainCanvas.js","./faceDetect":"faceDetect.js","./app.scss":"app.scss"}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","./webcam":"webcam.js","./handPose":"handPose.js","./mainCanvas":"mainCanvas.js","./faceDetect":"faceDetect.js","./app.scss":"app.scss"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -113577,7 +113627,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49441" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60429" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -113753,5 +113803,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","app.js"], null)
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","app.js"], null)
 //# sourceMappingURL=/app.c328ef1a.js.map

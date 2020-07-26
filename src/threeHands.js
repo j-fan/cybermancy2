@@ -220,11 +220,6 @@ const hideHandLandmarks = () => {
 };
 
 const updateHandUI = async () => {
-  if (!isLoaded) {
-    hideLoadingScreen();
-    isLoaded = true;
-  }
-
   if (newHandAppeared) {
     resetFaceDetection();
     await runFaceDetection();
@@ -246,6 +241,11 @@ const updateHandUI = async () => {
       waitingHandText.updateText("Hold your hand up to the camera. Please wait for detection.");
     }
     waitingHandObj.position.set(0, 0, 0);
+  }
+
+  if (!isLoaded) {
+    hideLoadingScreen();
+    isLoaded = true;
   }
 };
 

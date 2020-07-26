@@ -915,9 +915,9 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -1126,7 +1126,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js":[function(require,module,exports) {
 'use strict'
 
 exports.byteLength = byteLength
@@ -1280,7 +1280,7 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js":[function(require,module,exports) {
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -1366,14 +1366,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js":[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js":[function(require,module,exports) {
 
 var global = arguments[3];
 /*!
@@ -3166,7 +3166,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
+},{"base64-js":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/base64-js/index.js","ieee754":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/ieee754/index.js","isarray":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/isarray/index.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var Buffer = require("buffer").Buffer;
@@ -21059,7 +21059,7 @@ wt.prototype.add = function (t) {
 }, wt.prototype.batchNorm = function (t, e, n, r, o) {
   return nc(this, t, e, n, r, o);
 }, xt = ff;
-},{"crypto":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js":[function(require,module,exports) {
+},{"crypto":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","node-fetch":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","util":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/_empty.js","process":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow/tfjs-converter/dist/tf-converter.esm.js":[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 "use strict";
 
@@ -26688,7 +26688,7 @@ function loadGraphModel(e, t) {
 
 var version = "1.7.4";
 exports.version_converter = version;
-},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js":[function(require,module,exports) {
+},{"@tensorflow/tfjs-core":"../node_modules/@tensorflow/tfjs-core/dist/tf-core.esm.js","buffer":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/buffer/index.js"}],"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26798,38 +26798,41 @@ class HandDetector {
     });
   }
 
-  getBoundingBoxes(t) {
-    return (0, _tfjsCore.tidy)(() => {
-      const n = (0, _tfjsCore.mul)((0, _tfjsCore.sub)(t, .5), 2),
-            e = (0, _tfjsCore.env)().get("WEBGL_PACK_DEPTHWISECONV");
-      (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", !0);
-      const o = this.model.predict(n).squeeze();
-      (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", e);
-      const s = (0, _tfjsCore.sigmoid)((0, _tfjsCore.slice)(o, [0, 0], [-1, 1])).squeeze(),
-            i = (0, _tfjsCore.slice)(o, [0, 1], [-1, 4]),
-            r = this.normalizeBoxes(i),
-            a = console.warn;
+  async getBoundingBoxes(t) {
+    const n = (0, _tfjsCore.tidy)(() => (0, _tfjsCore.mul)((0, _tfjsCore.sub)(t, .5), 2)),
+          e = (0, _tfjsCore.env)().get("WEBGL_PACK_DEPTHWISECONV");
+    (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", !0);
+    const o = this.model.predict(n);
+    (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", e);
+    const s = o.squeeze(),
+          i = (0, _tfjsCore.tidy)(() => (0, _tfjsCore.sigmoid)((0, _tfjsCore.slice)(s, [0, 0], [-1, 1])).squeeze()),
+          r = (0, _tfjsCore.slice)(s, [0, 1], [-1, 4]),
+          a = this.normalizeBoxes(r),
+          d = console.warn;
 
-      console.warn = () => {};
+    console.warn = () => {};
 
-      const d = _tfjsCore.image.nonMaxSuppression(r, s, 1, this.iouThreshold, this.scoreThreshold).arraySync();
+    const c = _tfjsCore.image.nonMaxSuppression(a, i, 1, this.iouThreshold, this.scoreThreshold);
 
-      if (console.warn = a, 0 === d.length) return null;
-      const u = d[0],
-            c = (0, _tfjsCore.slice)(r, [u, 0], [1, -1]),
-            h = (0, _tfjsCore.slice)(o, [u, 5], [1, 14]);
-      return {
-        boxes: c,
-        palmLandmarks: this.normalizeLandmarks(h, u).reshape([-1, 2])
-      };
-    });
+    console.warn = d;
+    const h = await c.array(),
+          u = [n, o, c, s, a, r, i];
+    if (0 === h.length) return u.forEach(t => t.dispose()), null;
+    const l = h[0],
+          m = (0, _tfjsCore.slice)(a, [l, 0], [1, -1]),
+          p = (0, _tfjsCore.slice)(s, [l, 5], [1, 14]),
+          f = (0, _tfjsCore.tidy)(() => this.normalizeLandmarks(p, l).reshape([-1, 2]));
+    return u.push(p), u.forEach(t => t.dispose()), {
+      boxes: m,
+      palmLandmarks: f
+    };
   }
 
-  estimateHandBounds(t) {
+  async estimateHandBounds(t) {
     const n = t.shape[1],
           e = t.shape[2],
           o = (0, _tfjsCore.tidy)(() => t.resizeBilinear([this.width, this.height]).div(255)),
-          s = this.getBoundingBoxes(o);
+          s = await this.getBoundingBoxes(o);
     if (null === s) return o.dispose(), null;
     const i = s.boxes.arraySync(),
           r = i[0].slice(0, 2),
@@ -26856,28 +26859,28 @@ const MESH_ANNOTATIONS = {
 function rotate(t, n, e, o) {
   const s = (0, _tfjsCore.backend)(),
         i = (0, _tfjsCore.buffer)(t.shape, t.dtype),
-        [r, a, d, u] = t.shape,
-        c = d * ("number" == typeof o ? o : o[0]),
-        h = a * ("number" == typeof o ? o : o[1]),
-        l = Math.sin(-n),
-        m = Math.cos(-n),
+        [r, a, d, c] = t.shape,
+        h = d * ("number" == typeof o ? o : o[0]),
+        u = a * ("number" == typeof o ? o : o[1]),
+        l = Math.sin(n),
+        m = Math.cos(n),
         p = s.readSync(t.dataId);
 
-  for (let t = 0; t < r; t++) for (let n = 0; n < a; n++) for (let o = 0; o < d; o++) for (let s = 0; s < u; s++) {
+  for (let t = 0; t < r; t++) for (let n = 0; n < a; n++) for (let o = 0; o < d; o++) for (let s = 0; s < c; s++) {
     const f = [r, n, o, s],
           _ = f[2],
           P = f[1];
-    let g = (_ - c) * m - (P - h) * l,
-        M = (_ - c) * l + (P - h) * m;
-    g = Math.round(g + c), M = Math.round(M + h);
+    let g = (_ - h) * m - (P - u) * l,
+        M = (_ - h) * l + (P - u) * m;
+    g = Math.round(g + h), M = Math.round(M + u);
     let T = e;
 
     if ("number" != typeof e && (T = 3 === s ? 255 : e[s]), g >= 0 && g < d && M >= 0 && M < a) {
-      T = p[t * d * a * u + M * (d * u) + g * u + s];
+      T = p[t * d * a * c + M * (d * c) + g * c + s];
     }
 
-    const I = t * d * a * u + n * (d * u) + o * u + s;
-    i.values[I] = T;
+    const E = t * d * a * c + n * (d * c) + o * c + s;
+    i.values[E] = T;
   }
 
   return i.toTensor();
@@ -26889,13 +26892,13 @@ function rotate$1(t, n, e, o) {
         r = s[2],
         a = Math.sin(n),
         d = Math.cos(n),
-        u = Math.floor(r * ("number" == typeof o ? o : o[0])),
-        c = Math.floor(i * ("number" == typeof o ? o : o[1]));
-  let h = "";
+        c = Math.floor(r * ("number" == typeof o ? o : o[0])),
+        h = Math.floor(i * ("number" == typeof o ? o : o[1]));
+  let u = "";
   const l = {
     variableNames: ["Image"],
     outputShape: s,
-    userCode: `\n      void main() {\n        ivec4 coords = getOutputCoords();\n        int x = coords[2];\n        int y = coords[1];\n        int coordX = int(float(x - ${u}) * ${d} -\n          float(y - ${c}) * ${a});\n        int coordY = int(float(x - ${u}) * ${a} +\n          float(y - ${c}) * ${d});\n        coordX = int(coordX + ${u});\n        coordY = int(coordY + ${c});\n\n        ${h = "number" == typeof e ? `float outputValue = ${e.toFixed(2)};` : `\n      vec3 fill = vec3(${e.join(",")});\n      float outputValue = fill[coords[3]];`}\n\n        if(coordX > 0 && coordX < ${r} && coordY > 0 && coordY < ${i}) {\n          outputValue = getImage(coords[0], coordY, coordX, coords[3]);\n        }\n\n      setOutput(outputValue);\n    }`
+    userCode: `\n      void main() {\n        ivec4 coords = getOutputCoords();\n        int x = coords[2];\n        int y = coords[1];\n        int coordX = int(float(x - ${c}) * ${d} -\n          float(y - ${h}) * ${a});\n        int coordY = int(float(x - ${c}) * ${a} +\n          float(y - ${h}) * ${d});\n        coordX = int(coordX + ${c});\n        coordY = int(coordY + ${h});\n\n        ${u = "number" == typeof e ? `float outputValue = ${e.toFixed(2)};` : `\n      vec3 fill = vec3(${e.join(",")});\n      float outputValue = fill[coords[3]];`}\n\n        if(coordX > 0 && coordX < ${r} && coordY > 0 && coordY < ${i}) {\n          outputValue = getImage(coords[0], coordY, coordX, coords[3]);\n        }\n\n      setOutput(outputValue);\n    }`
   };
   return (0, _tfjsCore.backend)().compileAndRun(l, [t]);
 }
@@ -26995,17 +26998,17 @@ class HandPipeline {
           d = r.map(t => {
       return [...rotatePoint(t, a), t[2]];
     }),
-          u = invertTransformMatrix(o),
-          c = [...getBoxCenter(n), 1],
-          h = [dot(c, u[0]), dot(c, u[1])];
-    return d.map(t => [t[0] + h[0], t[1] + h[1], t[2]]);
+          c = invertTransformMatrix(o),
+          h = [...getBoxCenter(n), 1],
+          u = [dot(h, c[0]), dot(h, c[1])];
+    return d.map(t => [t[0] + u[0], t[1] + u[1], t[2]]);
   }
 
   async estimateHand(t) {
     const n = this.shouldUpdateRegionsOfInterest();
 
     if (!0 === n) {
-      const n = this.boundingBoxDetector.estimateHandBounds(t);
+      const n = await this.boundingBoxDetector.estimateHandBounds(t);
       if (null === n) return t.dispose(), this.regionsOfInterest = [], null;
       this.updateRegionsOfInterest(n, !0), this.runsWithoutHandDetector = 0;
     } else this.runsWithoutHandDetector++;
@@ -27016,19 +27019,19 @@ class HandPipeline {
           i = [s[0] / t.shape[2], s[1] / t.shape[1]];
     let r;
     const a = (0, _tfjsCore.getBackend)();
-    if ("webgl" === a) r = rotate$1(t, o, 0, i);else {
-      if ("cpu" !== a) throw new Error(`Handpose is not yet supported by the ${a} ` + "backend - rotation kernel is not defined.");
+    if (a.match("webgl")) r = rotate$1(t, o, 0, i);else {
+      if ("cpu" !== a && "tensorflow" !== a) throw new Error(`Handpose is not yet supported by the ${a} ` + "backend - rotation kernel is not defined.");
       r = rotate(t, o, 0, i);
     }
     const d = buildRotationMatrix(-o, s);
-    let u;
-    const c = cutBoxFromImageAndResize(u = !0 === n ? this.getBoxForPalmLandmarks(e.palmLandmarks, d) : e, r, [this.meshWidth, this.meshHeight]),
-          h = c.div(255);
-    c.dispose(), r.dispose();
+    let c;
+    const h = cutBoxFromImageAndResize(c = !0 === n ? this.getBoxForPalmLandmarks(e.palmLandmarks, d) : e, r, [this.meshWidth, this.meshHeight]),
+          u = h.div(255);
+    h.dispose(), r.dispose();
     const l = (0, _tfjsCore.env)().get("WEBGL_PACK_DEPTHWISECONV");
     (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", !0);
-    const [m, p] = this.meshDetector.predict(h);
-    (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", l), h.dispose();
+    const [m, p] = this.meshDetector.predict(u);
+    (0, _tfjsCore.env)().set("WEBGL_PACK_DEPTHWISECONV", l), u.dispose();
     const f = m.dataSync()[0];
     if (m.dispose(), f < this.detectionConfidence) return p.dispose(), this.regionsOfInterest = [], null;
 
@@ -27036,7 +27039,7 @@ class HandPipeline {
           P = _.arraySync();
 
     p.dispose(), _.dispose();
-    const g = this.transformRawCoords(P, u, o, d),
+    const g = this.transformRawCoords(P, c, o, d),
           M = this.getBoxForHandLandmarks(g);
     return this.updateRegionsOfInterest(M, !1), {
       landmarks: g,
@@ -27066,11 +27069,11 @@ class HandPipeline {
         const [o, s] = t.startPoint,
               [i, r] = t.endPoint,
               [a, d] = n.startPoint,
-              [u, c] = n.endPoint,
-              h = Math.max(o, a),
+              [c, h] = n.endPoint,
+              u = Math.max(o, a),
               l = Math.max(s, d),
-              m = (Math.min(i, u) - h) * (Math.min(r, c) - l);
-        e = m / ((i - o) * (r - s) + (u - a) * (c - s) - m);
+              m = (Math.min(i, c) - u) * (Math.min(r, h) - l);
+        e = m / ((i - o) * (r - s) + (c - a) * (h - s) - m);
       }
 
       this.regionsOfInterest[0] = e > UPDATE_REGION_OF_INTEREST_IOU_THRESHOLD ? n : t;
@@ -27658,7 +27661,7 @@ var HandDetectorWorker = /*#__PURE__*/function () {
 }();
 
 Comlink.expose(HandDetectorWorker);
-},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../node_modules/@babel/runtime/helpers/createClass.js","@tensorflow-models/handpose":"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js","comlink":"../node_modules/comlink/dist/esm/comlink.mjs"}],"C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/classCallCheck":"../node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"../node_modules/@babel/runtime/helpers/createClass.js","@tensorflow-models/handpose":"../node_modules/@tensorflow-models/handpose/dist/handpose.esm.js","comlink":"../node_modules/comlink/dist/esm/comlink.mjs"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -27686,7 +27689,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49441" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60429" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -27862,5 +27865,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["C:/Users/adelruna/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","handpose-worker.js"], null)
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","handpose-worker.js"], null)
 //# sourceMappingURL=/handpose-worker.c7936954.js.map

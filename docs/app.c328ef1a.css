@@ -110,6 +110,29 @@ p {
     transform: translate(0px, 0);
   }
 }
+.centredContent {
+  display: flex;
+  justify-content: center;
+}
+
+#loadingButton {
+  pointer-events: all;
+  background-color: #000;
+  border: 1px solid white;
+  color: white;
+  padding: 8px;
+  border-radius: 2px;
+  font-size: larger;
+  cursor: pointer;
+}
+#loadingButton.hidden {
+  pointer-events: none;
+}
+#loadingButton:hover {
+  color: #0ff;
+  border-color: #0ff;
+}
+
 #loadingScreen {
   color: #fff;
   width: 100vw;
@@ -135,26 +158,8 @@ p {
   margin: 10px 40px;
 }
 #loadingScreen .loadingText span {
-  color: #ffbb00;
+  color: #0ff;
   font-weight: bold;
-}
-#loadingScreen .loadingText .loading {
-  display: flex;
-  justify-content: center;
-  background-color: #0a0a0a;
-}
-#loadingScreen .loadingText .loading p {
-  margin: 0;
-  position: relative;
-  text-align: center;
-  text-transform: uppercase;
-  font-style: italic;
-  font-weight: bold;
-  padding-right: 0;
-}
-#loadingScreen .loadingText .loading img {
-  width: 16px;
-  height: 16px;
 }
 #loadingScreen .circle1,
 #loadingScreen .circle2,

@@ -1,16 +1,7 @@
 import * as faceApi from "face-api.js";
 import * as Comlink from "comlink";
 
-function setIntervalCount(callback, delay, stopCondition) {
-  let count = 0;
-  const intervalID = window.setInterval(function () {
-    count++;
-    callback();
-    if (stopCondition(count) == true) {
-      window.clearInterval(intervalID);
-    }
-  }, delay);
-}
+
 // haven't figured a way for webworkers to work with faceAPI
 // do to issues discussed here: https://github.com/justadudewhohacks/face-api.js/issues/47
 let isDetectionUsingWebWorker = false;
