@@ -17,6 +17,7 @@ import { loadImageSvg, loadImage } from "./threeImageUtil";
 import { hideLoadingScreen } from "./loadingScreen";
 import { Vector3 } from "three";
 import { shuffle } from "@tensorflow/tfjs-core/dist/util";
+import { resetFaceDetection, runFaceDetection } from "./faceDetect";
 
 const textColors = [0xff66ff, 0x00ffff, 0xac66ff, 0x00b8ff, 0x5468ff];
 let shuffledHandOrder = [];
@@ -225,6 +226,8 @@ const updateHandUI = async () => {
   }
 
   if (newHandAppeared) {
+    resetFaceDetection();
+    await runFaceDetection();
     await getAgeGender3dContent();
   }
 
@@ -240,7 +243,7 @@ const updateHandUI = async () => {
     if (anyHandSeenYet) {
       waitingHandText.updateText("Looking for hand...");
     } else {
-      waitingHandText.updateText("Looking for hand. Please wait...");
+      waitingHandText.updateText("Hold your hand up to the camera. Please wait for detection.");
     }
     waitingHandObj.position.set(0, 0, 0);
   }

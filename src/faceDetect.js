@@ -60,39 +60,57 @@ const runDetectionWorker = async () => {
   return result;
 };
 
+let totalGender = 0;
+let totalAge = 0;
+let successfulDetections = 0;
+
 const initFaceDetect = async () => {
   if (isDetectionUsingWebWorker) {
     await startFaceDetectWorker();
   } else {
     await startFaceDetectNormal();
   }
-
-  let totalGender = 0;
-  let totalAge = 0;
-  let successfulDetections = 0;
-
-  const runDetection = async () => {
-    let result;
-    if (isDetectionUsingWebWorker) {
-      result = await runDetectionWorker();
-    } else {
-      result = await runDetectionNormal();
-    }
-    if (result) {
-      successfulDetections++;
-      if (result.gender === "female") {
-        totalGender += result.genderProbability;
-      } else {
-        totalGender -= result.genderProbability;
-      }
-      totalAge += result.age;
-      estimatedAge = totalAge / successfulDetections;
-      estimatedGender =
-        totalGender == 0 ? "none" : totalGender > 0 ? "female" : "male";
-    }
-  };
-
-  setIntervalCount(runDetection, 1, () => successfulDetections > 10);
+  await runFaceDetection();
 };
 
-export { initFaceDetect, estimatedAge, estimatedGender };
+const runDetectionOnce = async () => {
+  let result;
+  if (isDetectionUsingWebWorker) {
+    result = await runDetectionWorker();
+  } else {
+    result = await runDetectionNormal();
+  }
+  if (result) {
+    successfulDetections++;
+    if (result.gender === "female") {
+      totalGender += result.genderProbability;
+    } else {
+      totalGender -= result.genderProbability;
+    }
+    totalAge += result.age;
+    estimatedAge = totalAge / successfulDetections;
+    estimatedGender =
+      totalGender == 0 ? "none" : totalGender > 0 ? "female" : "male";
+  }
+};
+const runFaceDetection = async () => {
+  const numDetectionsToAverage = 5;
+  for (let i = 0; i < numDetectionsToAverage; i++) {
+    await runDetectionOnce();
+  }
+};
+
+const resetFaceDetection = () => {
+  console.log("reset face detect");
+  totalGender = 0;
+  totalAge = 0;
+  successfulDetections = 0;
+};
+
+export {
+  initFaceDetect,
+  estimatedAge,
+  estimatedGender,
+  resetFaceDetection,
+  runFaceDetection,
+};

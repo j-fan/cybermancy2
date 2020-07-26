@@ -12,7 +12,7 @@ const canvasElement = document.getElementById("webcam-canvas");
 
 let hands = [];
 let isHandPresent = false;
-const handChangedThreshold = 200;
+const handChangedThreshold = 10;
 let handAbsentCount = 0;
 let handChanged = true;
 let newHandAppeared = false;
@@ -76,6 +76,7 @@ const processHandStatus = () => {
       handChanged = false;
       handAbsentCount = 0;
       newHandAppeared = true;
+      console.log("new hand appeared");
     }
   }
 };
