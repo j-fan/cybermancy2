@@ -6,7 +6,7 @@ const hideLoadingScreen = () => {
 
   setInterval(function () {
     location.reload();
-  }, 1800000);
+  }, 900000);
 };
 
 export { hideLoadingScreen };
