@@ -100954,11 +100954,12 @@ var loadingScreen = document.getElementById("loadingScreen");
 var loadingButton = document.getElementById("loadingButton");
 
 var hideLoadingScreen = function hideLoadingScreen() {
-  loadingButton.addEventListener("click", function () {
-    loadingScreen.classList.add("hidden");
-  });
-  loadingButton.classList.remove("hidden");
-  loadingButton.innerHTML = "Enter artwork";
+  // loadingButton.addEventListener("click", () => {
+  //   loadingScreen.classList.add("hidden");
+  // })
+  // loadingButton.classList.remove("hidden");
+  // loadingButton.innerHTML = "Enter artwork";
+  loadingScreen.classList.add("hidden");
 };
 
 exports.hideLoadingScreen = hideLoadingScreen;
@@ -113627,7 +113628,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60429" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52880" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
