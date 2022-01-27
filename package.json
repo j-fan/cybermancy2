@@ -23,7 +23,7 @@
     "postprocessing": "^6.14.0",
     "regenerator-runtime": "^0.13.5",
     "stats.js": "^0.17.0",
-    "three": "^0.116.1",
+    "three": "^0.137.0",
     "three-text2d": "^0.6.0",
     "uuid": "^8.1.0"
   },
